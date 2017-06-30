@@ -1,5 +1,8 @@
 # Yarn tools
 
+Collection of tools to work with yarn repositories
+
+--- 
 ## list-dupes
 
 ### Descirption
@@ -20,6 +23,7 @@ Package "supports-color" wants ^3.1.1 and could get 3.2.3, but got 3.1.2
 Package "supports-color" wants ^3.1.2 and could get 3.2.3, but got 3.1.2
 ```
 
+--- 
 
 ## fix-dupes
 
