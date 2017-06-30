@@ -1,0 +1,13 @@
+{
+  "name": "yarn-tools",
+  "version": "0.0.1",
+  "description": "Tools for yarn",
+  "main": "index.js",
+  "author": "Sergio Cinos <scinos@atlassian.com>",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.10.0",
+    "semver": "^5.3.0",
+    "yarn-lockfile": "^1.0.0"
+  }
+}
