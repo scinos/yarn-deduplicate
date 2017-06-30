@@ -1,13 +1,20 @@
 {
   "name": "yarn-tools",
   "version": "0.0.1",
-  "description": "Collection of tools to work with yarn.lock files",
-  "main": "index.js",
-  "author": "Sergio Cinos <scinos@atlassian.com>",
+  "description": "Tools for yarn",
+  "keywords": ["yarn", "yarn.lock", "lockfile", "duplicated", "package manager"],
+  "bugs": "https://bitbucket.org/atlassian/yarn-tools/issues",
   "license": "Apache 2.0",
+  "author": "Sergio Cinos <scinos@atlassian.com>",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/atlassian/yarn-tools.git"
+  },
   "dependencies": {
     "commander": "^2.10.0",
     "semver": "^5.3.0",
     "yarn-lockfile": "^1.0.0"
-  }
+  },
+  "preferGlobal": true
 }
