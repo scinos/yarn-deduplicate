@@ -1,6 +1,6 @@
 # Yarn tools
 
-## `list-dupes`
+## list-dupes
 
 ### Descirption
 Inspect a `yarn.lock` file looking for modules that can be de-duplicated. See `fix-dupes` to automatically fix those duplicated packages.
@@ -21,7 +21,7 @@ Package "supports-color" wants ^3.1.2 and could get 3.2.3, but got 3.1.2
 ```
 
 
-## `fix-dupes`
+## fix-dupes
 
 ### Descirption
 Fixes duplicates packages in a `yarn.lock` file.
