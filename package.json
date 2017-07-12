@@ -4,7 +4,7 @@
   "description": "Tools for yarn",
   "keywords": ["yarn", "yarn.lock", "lockfile", "duplicated", "package manager"],
   "bugs": "https://bitbucket.org/atlassian/yarn-tools/issues",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "author": "Sergio Cinos <scinos@atlassian.com>",
   "main": "index.js",
   "repository": {
