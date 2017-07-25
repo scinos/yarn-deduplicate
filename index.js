@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const commander = require('commander')
 const fs = require('fs')
 const promisify = require('util').promisify;

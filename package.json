@@ -1,6 +1,7 @@
 {
   "name": "yarn-tools",
   "version": "0.1.0",
+  "bin": "./index.js",
   "description": "Assorted tools for yarn projects",
   "keywords": [
     "yarn",
