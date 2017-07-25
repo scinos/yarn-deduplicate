@@ -10,12 +10,15 @@
     "package manager"
   ],
   "bugs": "https://bitbucket.org/atlassian/yarn-tools/issues",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "author": "Sergio Cinos <scinos@atlassian.com>",
   "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@bitbucket.org/atlassian/yarn-tools.git"
+  },
+  "engines":{
+    "node" : ">=8"
   },
   "dependencies": {
     "commander": "^2.10.0",
