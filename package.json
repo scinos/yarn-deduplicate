@@ -1,7 +1,7 @@
 {
   "name": "yarn-tools",
-  "version": "0.0.1",
-  "description": "Tools for yarn",
+  "version": "0.1.0",
+  "description": "Assorted tools for yarn projects",
   "keywords": ["yarn", "yarn.lock", "lockfile", "duplicated", "package manager"],
   "bugs": "https://bitbucket.org/atlassian/yarn-tools/issues",
   "license": "Apache 2.0",

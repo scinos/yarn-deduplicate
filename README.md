@@ -2,7 +2,7 @@
 
 Collection of tools to work with yarn-based repositories.
 
-## Installation
+# Installation
 
 Install the package globally:
 
@@ -11,22 +11,22 @@ yarn global add yarn-tools
 ```
 
 
-## Usage
+# Usage
 ---
-### list-dupes
+## list-duplicates
 
-#### Descirption
-Inspect a `yarn.lock` file looking for modules that can be de-duplicated. See `fix-dupes` to automatically fix those duplicated packages.
+### Descirption
+Inspect a `yarn.lock` file looking for modules that can be de-duplicated. See `fix-duplicates` to automatically fix those duplicated packages.
 
-#### Command
-`list-dupes <yarn.lock file>`
+### Command
+`list-duplicates <yarn.lock file>`
 
 * `<yarn.lock file>`: path to yarn.lock file, relative to index.js
 
-#### Example
+### Example
 
 ```
- └▸ yarn-tools list-dupes my-project/yarn.lock
+ └▸ yarn-tools list-duplicates my-project/yarn.lock
 
 Package "supports-color" wants ^3.1.0 and could get 3.2.3, but got 3.1.2
 Package "supports-color" wants ^3.1.1 and could get 3.2.3, but got 3.1.2
@@ -35,24 +35,24 @@ Package "supports-color" wants ^3.1.2 and could get 3.2.3, but got 3.1.2
 
 ---
 
-### fix-dupes
+## fix-duplicates
 
-#### Descirption
+### Descirption
 Fixes duplicates packages in a `yarn.lock` file.
 
-#### Command
-`fix-dupes <yarn.lock file>`
+### Command
+`fix-duplicates <yarn.lock file>`
 
 * `<yarn.lock file>`: path to yarn.lock file, relative to index.js
 
-#### Example
+### Example
 
 ```
- └▸ yarn-tools fix-dupes my-project/yarn.lock > fixed-yarn.lock
+ └▸ yarn-tools fix-duplicates my-project/yarn.lock > fixed-yarn.lock
 ```
 
 
-## Contributors
+# Contributors
 
 Pull requests, issues and comments welcome. For pull requests:
 
@@ -79,7 +79,7 @@ those contributing as an individual.
 * [CLA for corporate contributors](https://na2.docusign.net/Member/PowerFormSigning.aspx?PowerFormId=e1c17c66-ca4d-4aab-a953-2c231af4a20b)
 * [CLA for individuals](https://na2.docusign.net/Member/PowerFormSigning.aspx?PowerFormId=3f94fbdc-2fbe-46ac-b14c-5d152700ae5d)
 
-## License
+# License
 
 Copyright (c) 2017 Atlassian and others.
 Apache 2.0 licensed, see [LICENSE.txt](LICENSE.txt) file.
