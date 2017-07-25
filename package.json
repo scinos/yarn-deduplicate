@@ -1,6 +1,6 @@
 {
   "name": "yarn-tools",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "bin": "./index.js",
   "description": "Assorted tools for yarn projects",
   "keywords": [
@@ -18,8 +18,8 @@
     "type": "git",
     "url": "git+ssh://git@bitbucket.org/atlassian/yarn-tools.git"
   },
-  "engines":{
-    "node" : ">=8"
+  "engines": {
+    "node": ">=8"
   },
   "dependencies": {
     "commander": "^2.10.0",
