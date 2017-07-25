@@ -7,6 +7,12 @@ Collection of tools to work with yarn-based repositories.
 Install the package globally:
 
 ```
+npm install -g yarn-tools
+```
+
+or
+
+```
 yarn global add yarn-tools
 ```
 
