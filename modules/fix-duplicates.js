@@ -4,8 +4,8 @@ const semver = require('semver');
 
 const FILE = '../jira-frontend/yarn.lock';
 
-module.exports = (file) => {
-    const json = lockfile.parse(fs.readFileSync(file, 'utf8'))
+module.exports = (data) => {
+    const json = lockfile.parse(data)
 
     const packages={};
     const result = [];
@@ -28,12 +28,14 @@ module.exports = (file) => {
 
         packages.forEach(p => {
             const targetVersion = semver.maxSatisfying(versions, p.requestedVersion);
+            if (targetVersion === null) return;
             if (targetVersion !== p.package.version) {
-                result.push(`Package "${name}" wants ${p.requestedVersion} and could get ${targetVersion}, but got ${p.package.version}`);
+                const dedupedPackage = packages.find( p => p.package.version === targetVersion);
+                json[`${name}@${p.requestedVersion}`] = dedupedPackage.package;
             }
         })
     });
 
-    return result;
+    return lockfile.stringify(json);
 }
 

@@ -1,27 +1,47 @@
 const commander = require('commander')
+const fs = require('fs')
+const promisify = require('util').promisify;
 
-const listDupes = require('./modules/list-dupes');
-const fixDupes = require('./modules/fix-dupes');
+const listDuplicates = require('./modules/list-duplicates');
+const fixDuplicates = require('./modules/fix-duplicates');
+const readFile = promisify(fs.readFile);
 
 commander
-    .command('list-dupes <file>')
+    .command('list-duplicates <file>')
     .description('List duplicated packages in a yarn.lock file')
     .action(async (file) => {
-        const lines = await listDupes(file);
-        lines.forEach(line => {
-            console.log(line);
-        });
-        process.exit(0);
+        try {
+            const data = await readFile(file, 'utf8');
+            const lines = await listDuplicates(data);
+            lines.forEach(line => console.log(line));
+            process.exit(0);
+        } catch(e) {
+            console.error(e);
+            process.exit(1);
+        }
     });
 
 commander
-    .command('fix-dupes <file>')
+    .command('fix-duplicates <file>')
     .description('Fix duplicated packages in a yarn.lock file')
     .action(async (file) => {
-        const fixedFile = await fixDupes(file);
-        console.log(fixedFile);
-        process.exit(0);
+        try {
+            const data = await readFile(file, 'utf8');
+            const fixedFile = await fixDuplicates(data);
+            console.log(fixedFile);
+            process.exit(0);
+        } catch(e) {
+            console.error(e);
+            process.exit(1);
+        }
+    });
+
+commander
+    .command('*', '', {noHelp: true, isDefault: true})
+    .action(function(env){
+        commander.help();
     });
 
 commander.parse(process.argv);
+if (!commander.args.length) commander.help();
 
