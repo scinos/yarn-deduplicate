@@ -22,10 +22,10 @@
     "node": ">=8"
   },
   "dependencies": {
+    "@yarnpkg/lockfile": "^1.0.0",
     "commander": "^2.10.0",
     "semver": "^5.3.0",
-    "yarn": "0.27.5",
-    "yarn-lockfile": "^1.0.0"
+    "yarn": "0.27.5"
   },
   "preferGlobal": true
 }

@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@yarnpkg/lockfile@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@yarnpkg/lockfile/-/lockfile-1.0.0.tgz#33d1dbb659a23b81f87f048762b35a446172add3"
+
 ajv@^4.9.1:
   version "4.11.8"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-4.11.8.tgz#82ffb02b29e662ae53bdc20af15947706739c536"
@@ -1126,13 +1130,7 @@ xtend@^4.0.0, xtend@~4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.1.tgz#a5c6d532be656e23db820efb943a1f04998d63af"
 
-yarn-lockfile@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/yarn-lockfile/-/yarn-lockfile-1.0.0.tgz#5ed25dbee6614ac269a2d3520ce77f821a1aef27"
-  dependencies:
-    yarn "*"
-
-yarn@*, yarn@0.27.5:
+yarn@0.27.5:
   version "0.27.5"
   resolved "https://registry.yarnpkg.com/yarn/-/yarn-0.27.5.tgz#06fe67d8040802993f9f1e1923d671cbf9ead5d1"
   dependencies:
