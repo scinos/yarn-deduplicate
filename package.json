@@ -1,6 +1,6 @@
 {
   "name": "yarn-tools",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "bin": "./index.js",
   "description": "Assorted tools for yarn projects",
   "keywords": [
@@ -11,7 +11,7 @@
     "package manager"
   ],
   "scripts": {
-      "test": "jest"
+    "test": "jest"
   },
   "bugs": "https://bitbucket.org/atlassian/yarn-tools/issues",
   "license": "Apache-2.0",
