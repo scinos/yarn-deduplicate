@@ -24,12 +24,12 @@ commander
     });
 
 commander
-    .command('fix-duplicates <file>')
+    .command('fix-duplicates <file> [packages...]')
     .description('Fix duplicated packages in a yarn.lock file')
-    .action(async (file) => {
+    .action(async (file, packages) => {
         try {
             const data = await readFile(file, 'utf8');
-            const fixedFile = await fixDuplicates(data);
+            const fixedFile = await fixDuplicates(data, packages);
             console.log(fixedFile);
             process.exit(0);
         } catch(e) {
