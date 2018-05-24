@@ -32,7 +32,6 @@
     "commander": "^2.10.0",
     "semver": "^5.3.0"
   },
-  "preferGlobal": true,
   "devDependencies": {
     "jest": "^21.2.1"
   }
