@@ -24,13 +24,14 @@
   "engines": {
     "node": ">=8"
   },
+  "peerDependencies": {
+    "yarn": "^1.0.0"
+  },
   "dependencies": {
     "@yarnpkg/lockfile": "^1.0.0",
     "commander": "^2.10.0",
-    "semver": "^5.3.0",
-    "yarn": "0.27.5"
+    "semver": "^5.3.0"
   },
-  "preferGlobal": true,
   "devDependencies": {
     "jest": "^21.2.1"
   }
