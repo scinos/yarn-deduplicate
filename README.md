@@ -50,6 +50,9 @@ Package "supports-color" wants ^3.1.2 and could get 3.2.3, but got 3.1.2
 
 Fixes duplicates packages in a `yarn.lock` file.
 
+After running this command, you should run `yarn` again. This will cleanup orphan packages in your
+`yarn.lock` file.
+
 #### Command
 
 `fix-duplicates <yarn.lock file> [packages]`
