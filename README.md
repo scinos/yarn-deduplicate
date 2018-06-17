@@ -7,13 +7,13 @@ Collection of tools to work with yarn-based repositories.
 Install the package globally:
 
 ```bash
-npm install -g yarn-tools
+npm install -g yarn-dedupe
 ```
 
 or
 
 ```bash
-yarn global add yarn-tools
+yarn global add yarn-dedupe
 ```
 
 ---
@@ -63,10 +63,10 @@ After running this command, you should run `yarn` again. This will cleanup orpha
 
 ```bash
 # De-duplicate all packages
-$ yarn-tools fix-duplicates my-project/yarn.lock > fixed-yarn.lock
+$ yarn-dedupe fix-duplicates my-project/yarn.lock > fixed-yarn.lock
 
 # Only de-duplicate lodash and babel
-$ yarn-tools fix-duplicates my-project/yarn.lock lodash babel > fixed-yarn.lock
+$ yarn-dedupe fix-duplicates my-project/yarn.lock lodash babel > fixed-yarn.lock
 ```
 
 ## Contributors
