@@ -7,6 +7,7 @@ const promisify = require('util').promisify;
 const listDuplicates = require('./modules/list-duplicates');
 const fixDuplicates = require('./modules/fix-duplicates');
 const readFile = promisify(fs.readFile);
+const writeFile = promisify(fs.writeFile);
 
 commander
     .command('list-duplicates <file>')
@@ -26,11 +27,16 @@ commander
 commander
     .command('fix-duplicates <file> [packages...]')
     .description('Fix duplicated packages in a yarn.lock file')
-    .action(async (file, packages) => {
+    .option('-i, --in-place', 'Edit file in place')
+    .action(async (file, packages, cmd) => {
         try {
             const data = await readFile(file, 'utf8');
-            const fixedFile = await fixDuplicates(data, packages);
-            console.log(fixedFile);
+            const fixedFile = await fixDuplicates(data, []);
+            if (cmd.inPlace) {
+              await writeFile(file, fixedFile, 'utf8');
+            } else {
+              console.log(fixedFile);
+            }
             process.exit(0);
         } catch(e) {
             console.error(e);
