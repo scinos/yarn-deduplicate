@@ -31,7 +31,7 @@ commander
     .action(async (file, packages, cmd) => {
         try {
             const data = await readFile(file, 'utf8');
-            const fixedFile = await fixDuplicates(data, []);
+            const fixedFile = await fixDuplicates(data, packages);
             if (cmd.inPlace) {
               await writeFile(file, fixedFile, 'utf8');
             } else {

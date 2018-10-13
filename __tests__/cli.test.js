@@ -27,6 +27,20 @@ test('prints fixed yarn.lock', async () => {
   expect(stderr).toBe('');
 });
 
+test('prints fixed yarn.lock when listing lodash package', async () => {
+  const { stdout, stderr } = await exec(`${cliFilePath} fix-duplicates ${yarnLockFilePath} lodash`);
+  expect(stdout).not.toContain('lodash@>=1.0.0:');
+  expect(stdout).toContain('lodash@>=1.0.0, lodash@>=2.0.0:');
+  expect(stderr).toBe('');
+});
+
+test('prints same yarn.lock when listing missing package', async () => {
+  const { stdout, stderr } = await exec(`${cliFilePath} fix-duplicates ${yarnLockFilePath} foo`);
+  expect(stdout).toContain('lodash@>=1.0.0:');
+  expect(stdout).not.toContain('lodash@>=1.0.0, lodash@>=2.0.0:');
+  expect(stderr).toBe('');
+});
+
 test('edits yarn.lock and replaces its content with the fixed version', async () => {
   const oldFileContent = await readFile(yarnLockFilePath, 'utf8');
   try {
