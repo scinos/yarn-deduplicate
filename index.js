@@ -60,11 +60,11 @@ const computePackageIntances = (packages, name, useMostCommon) => {
     Object.keys(versions).forEach(version => {
         const satisfies = versions[version].satisfies;
         packageInstances.forEach(packageInstance => {
-            if (!semver.valid(packageInstance.requestedVersion)) {
-                // The requested version is invalid form a semver point of view, eg: `sinon@next`
-                // We can assume that the installe version satisfies it, and nobody else.
-                packageInstance.satisfiedBy.add(version);
-            } else if (semver.satisfies(version, packageInstance.requestedVersion)) {
+            // We can assume that the installed version always satisfied the requested version.
+            packageInstance.satisfiedBy.add(packageInstance.installedVersion);
+            // In some cases th requested version is invalid form a semver point of view (for
+            // example `sinon@next`). Just ignore those cases, they won't get deduped.
+            if (semver.validRange(packageInstance.requestedVersion) && semver.satisfies(version, packageInstance.requestedVersion)) {
                 satisfies.add(packageInstance);
                 packageInstance.satisfiedBy.add(version);
             }
