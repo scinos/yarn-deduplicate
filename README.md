@@ -1,73 +1,123 @@
-# Yarn tools
+# Yarn dedupe
 
-Collection of tools to work with yarn-based repositories.
+Cleans up `yarn.lock` by removing duplicates.
+
+A duplicate package is when two dependencies are resolved to a different version, even when a single
+version will sufice to match the range specified in the dependencies. See the section 'Deduplication
+strategies' for a few examples.
 
 ## Installation
 
 Install the package globally:
 
 ```bash
-npm install -g yarn-tools
+npm install -g yarn-dedupe
 ```
 
 or
 
 ```bash
-yarn global add yarn-tools
+yarn global add yarn-dedupe
 ```
+
+This package also works wth [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b),
+so you don't need to install it.
 
 ---
 
 ## Usage
 
-### list-duplicates
-
-#### Description
-
-Inspect a `yarn.lock` file looking for modules that can be de-duplicated. See `fix-duplicates` to automatically fix those duplicated packages.
-
-#### Command
-
-`list-duplicates <yarn.lock file>`
-
-* `<yarn.lock file>`: path to yarn.lock file, relative to index.js
-
-#### Example
+The most common scenario is to run
 
 ```bash
-$ list-duplicates my-project/yarn.lock
+yarn-dedupe yarn.lock
+```
 
-Package "supports-color" wants ^3.1.0 and could get 3.2.3, but got 3.1.2
-Package "supports-color" wants ^3.1.1 and could get 3.2.3, but got 3.1.2
-Package "supports-color" wants ^3.1.2 and could get 3.2.3, but got 3.1.2
+This will use the default strategy to remove duplicated packages in `yarn.lock`.
+
+Check all available options with:
+
+```bash
+yarn-dedupe --help
 ```
 
 ---
 
-### fix-duplicates
+## Duplicated packages
 
-#### Description
+`yarn.lock` contains a list of all the dependencies required by your project (including transitive
+dependencies), and the actual package version installed to satistfy those dependencies.
 
-Fixes duplicates packages in a `yarn.lock` file.
+For the context of this project, a "duplicated package" is a package that appers on multiple nodes
+of the dependency tree with overlapping version ranges but resolved to different versions.
 
-After running this command, you should run `yarn` again. This will cleanup orphan packages in your
-`yarn.lock` file.
+For example, imagine that your project directly depends on `lodash` and `babel`, and `babel` depends
+on `lodash` as well. Specifically, your project depends on `lodash@^1.0.0` and `babel` depends on
+`lodash@^1.1.0`. Because how the resolution algorithm works in Yarn, you might end up with two
+different copies of `lodash` (for example, version `1.0.1` and `1.2.0`) in your project, even when
+`1.2.0` will sufice to satisfy both requirements for `lodash`. That's a "duplicated package".
 
-#### Command
+It is important to note that we do not consider duplicated packages when the version ranges don't
+overlap. For example, if your project depends on `underscore@^1.0.0` and `underscore@^2.0.0`. Your
+project will end up with two versions of `underscore`, and `yarn-tools` won't change that.
 
-`fix-duplicates <yarn.lock file> [packages]`
+When using `yarn-dedupe` remember that **it will change your dependency tree**. There are certain
+code paths that now will run with a different set of dependencies. It is highly recommended that you
+review each change to `yarn.lock`. If the change is too big, use the flag `--packages` to
+deduplicate them gradually.
 
-* `<yarn.lock file>`: path to yarn.lock file, relative to index.js
+### Deduplication strategies
 
-#### Example
+`highest`
+It will try to use the highest installed version. For example, with the following `yarn.lock`:
 
-```bash
-# De-duplicate all packages
-$ yarn-tools fix-duplicates my-project/yarn.lock > fixed-yarn.lock
-
-# Only de-duplicate lodash and babel
-$ yarn-tools fix-duplicates my-project/yarn.lock lodash babel > fixed-yarn.lock
 ```
+library@^1.1.0:
+    version "1.2.0"
+
+library@^1.2.0:
+    version "1.2.0"
+
+library@^1.3.0:
+    version "1.3.0"
+```
+
+It will deduplicate `library@^1.1.0` and `library@^1.2.0` to `1.3.0`
+
+`fewer`
+It will try to minimize the number of installed versions by trying to deduplicate to the version
+that satisfies most of the ranges first. For example, with the following `yarn.lock`:
+
+```
+library@*:
+    version "2.0.0"
+
+library@>=1.1.0:
+    version "3.0.0"
+
+library@^1.2.0:
+    version "1.2.0"
+```
+
+It will deduplicate `library@*` and `library@>=1.1.0` to `1.2.0`.
+
+Note that this will cause some packages to **downgrade** it version. Be sure to check the changelogs
+between all versions and understand the consequences of that downgrade. If unsure, don't use this
+strategy.
+
+It is not recommended to use different strategies for different packages. There is no guarantee that
+the strategy will be honored in subsequent runs of `yarn-dedupe` unless the same set of flags is
+specified again.
+
+### Progressive deduplication
+
+`--packages <package1> <package2> <packageN>`
+
+Receives a list of packages to deduplicate. It will ignore any other duplicated package not in the
+list. This option is recommended when the number of duplicated packages in `yarn.lock` is too big
+to be easily reviewed by a human. This will allow for a more controlled and progressive
+deduplication of `yarn.lock`.
+
 
 ## Contributors
 

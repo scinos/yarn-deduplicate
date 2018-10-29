@@ -1,8 +1,8 @@
 {
-  "name": "yarn-tools",
+  "name": "yarn-dedupe",
   "version": "0.4.1",
-  "bin": "./index.js",
-  "description": "Assorted tools for yarn projects",
+  "bin": "./cli.js",
+  "description": "Deduplication tool for yarn.lock files",
   "keywords": [
     "yarn",
     "yarn.lock",
@@ -13,16 +13,16 @@
   "scripts": {
     "test": "jest"
   },
-  "bugs": "https://bitbucket.org/atlassian/yarn-tools/issues",
+  "bugs": "https://github.com/atlassian/yarn-dedupe/issues",
   "license": "Apache-2.0",
   "author": "Sergio Cinos <scinos@atlassian.com>",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/atlassian/yarn-tools.git"
+    "url": "git@github.com:atlassian/yarn-dedupe.git"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=6"
   },
   "peerDependencies": {
     "yarn": "^1.0.0"
@@ -33,6 +33,10 @@
     "semver": "^5.3.0"
   },
   "devDependencies": {
-    "jest": "^21.2.1"
+    "jest": "^21.2.1",
+    "outdent": "^0.5.0"
+  },
+  "jest": {
+    "testPathIgnorePatterns": ["<rootDir>/node_modules", "<rootDir>/.history"]
   }
 }
