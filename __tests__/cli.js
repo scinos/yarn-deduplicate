@@ -23,7 +23,7 @@ test('prints fixed yarn.lock', async () => {
 });
 
 test('prints fixed yarn.lock when listing lodash package', async () => {
-  const { stdout, stderr } = await exec(`${cliFilePath} --print ${yarnLockFilePath} lodash`);
+  const { stdout, stderr } = await exec(`${cliFilePath} --print --packages lodash ${yarnLockFilePath}`);
   expect(stdout).not.toContain('lodash@>=1.0.0:');
   expect(stdout).toContain('lodash@>=1.0.0, lodash@>=2.0.0:');
   expect(stderr).toBe('');
