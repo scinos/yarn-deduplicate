@@ -119,6 +119,55 @@ to be easily reviewed by a human. This will allow for a more controlled and prog
 deduplication of `yarn.lock`.
 
 
+## Migration guide
+
+### From 0.x to 1.x
+
+In this version we have renamed the project and refactored the CLI. These are the equivalent
+commands:
+
+#### Installation
+
+```bash
+# Old
+npm install -g yarn-tools
+
+# New
+npm install -g yarn-dedupe
+```
+
+#### List duplicates
+
+```bash
+# Old
+yarn-tools list-duplicates path/to/yarn.lock
+
+# New
+yarn-dedupe --list path/to/yarn.lock
+```
+
+### Deduplicate yarn.lock
+```bash
+# Old
+yarn-tools fix-duplicates path/to/yarn.lock > tmp
+mv tmp path/to/yarn.lock
+
+# New
+yarn-dedupe path/to/yarn.lock
+```
+
+
+### Limit packages to deduplicate yarn.lock
+```bash
+# Old
+yarn-tools fix-duplicates path/to/yarn.lock package1 package2
+
+
+# New
+yarn-dedupe --packages package1,package2 path/to/yarn.lock
+```
+
+
 ## Contributors
 
 Pull requests, issues and comments welcome. For pull requests:
