@@ -1,4 +1,4 @@
-# Yarn dedupe
+# Yarn deduplicate
 
 Cleans up `yarn.lock` by removing duplicates.
 
@@ -11,13 +11,13 @@ strategies' for a few examples.
 Install the package globally:
 
 ```bash
-npm install -g yarn-dedupe
+npm install -g yarn-deduplicate
 ```
 
 or
 
 ```bash
-yarn global add yarn-dedupe
+yarn global add yarn-deduplicate
 ```
 
 This package also works wth [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b),
@@ -30,7 +30,7 @@ so you don't need to install it.
 The most common scenario is to run
 
 ```bash
-yarn-dedupe yarn.lock
+yarn-deduplicate yarn.lock
 ```
 
 This will use the default strategy to remove duplicated packages in `yarn.lock`.
@@ -38,7 +38,7 @@ This will use the default strategy to remove duplicated packages in `yarn.lock`.
 Check all available options with:
 
 ```bash
-yarn-dedupe --help
+yarn-deduplicate --help
 ```
 
 ---
@@ -61,9 +61,9 @@ It is important to note that we do not consider duplicated packages when the ver
 overlap. For example, if your project depends on `underscore@^1.0.0` and `underscore@^2.0.0`. Your
 project will end up with two versions of `underscore`, and `yarn-tools` won't change that.
 
-When using `yarn-dedupe` remember that **it will change your dependency tree**. There are certain
-code paths that now will run with a different set of dependencies. It is highly recommended that you
-review each change to `yarn.lock`. If the change is too big, use the flag `--packages` to
+When using `yarn-deduplicate` remember that **it will change your dependency tree**. There are
+certain code paths that now will run with a different set of dependencies. It is highly recommended
+that you review each change to `yarn.lock`. If the change is too big, use the flag `--packages` to
 deduplicate them gradually.
 
 ### Deduplication strategies
@@ -106,8 +106,8 @@ between all versions and understand the consequences of that downgrade. If unsur
 strategy.
 
 It is not recommended to use different strategies for different packages. There is no guarantee that
-the strategy will be honored in subsequent runs of `yarn-dedupe` unless the same set of flags is
-specified again.
+the strategy will be honored in subsequent runs of `yarn-deduplicate` unless the same set of flags
+is specified again.
 
 ### Progressive deduplication
 
@@ -133,7 +133,7 @@ commands:
 npm install -g yarn-tools
 
 # New
-npm install -g yarn-dedupe
+npm install -g yarn-deduplicate
 ```
 
 #### List duplicates
@@ -143,7 +143,7 @@ npm install -g yarn-dedupe
 yarn-tools list-duplicates path/to/yarn.lock
 
 # New
-yarn-dedupe --list path/to/yarn.lock
+yarn-deduplicate --list path/to/yarn.lock
 ```
 
 ### Deduplicate yarn.lock
@@ -153,7 +153,7 @@ yarn-tools fix-duplicates path/to/yarn.lock > tmp
 mv tmp path/to/yarn.lock
 
 # New
-yarn-dedupe path/to/yarn.lock
+yarn-deduplicate path/to/yarn.lock
 ```
 
 
@@ -164,7 +164,7 @@ yarn-tools fix-duplicates path/to/yarn.lock package1 package2
 
 
 # New
-yarn-dedupe --packages package1,package2 path/to/yarn.lock
+yarn-deduplicate --packages package1,package2 path/to/yarn.lock
 ```
 
 

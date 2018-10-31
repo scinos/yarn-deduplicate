@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Breaking
 
-- Renamed project from `yarn-tools` to `yarn-dedupe`
+- Renamed project from `yarn-tools` to `yarn-deduplicate`
+- Renamed package from `yarn-tools` to `yarn-deduplicate-packages`
 - CLI unification (see Migration to 1.0 guide)
 - Save changes back to `yarn.lock` by default (thanks to @felipemsantana)
 

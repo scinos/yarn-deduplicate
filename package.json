@@ -1,5 +1,5 @@
 {
-  "name": "yarn-dedupe",
+  "name": "yarn-deduplicate",
   "version": "0.4.1",
   "bin": "./cli.js",
   "description": "Deduplication tool for yarn.lock files",
@@ -9,12 +9,13 @@
     "lockfile",
     "duplicated",
     "package manager",
-    "dedupe"
+    "dedupe",
+    "deduplicate"
   ],
   "scripts": {
     "test": "jest"
   },
-  "bugs": "https://github.com/atlassian/yarn-dedupe/issues",
+  "bugs": "https://github.com/atlassian/yarn-deduplicate/issues",
   "license": "Apache-2.0",
   "author": "Sergio Cinos <scinos@atlassian.com>",
   "main": "index.js",
