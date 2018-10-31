@@ -21,7 +21,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:atlassian/yarn-dedupe.git"
+    "url": "git@github.com:atlassian/yarn-deduplicate.git"
   },
   "engines": {
     "node": ">=8"
