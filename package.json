@@ -1,6 +1,6 @@
 {
   "name": "yarn-deduplicate",
-  "version": "0.4.1",
+  "version": "1.0.0",
   "bin": "./cli.js",
   "description": "Deduplication tool for yarn.lock files",
   "keywords": [
@@ -39,6 +39,9 @@
     "outdent": "^0.5.0"
   },
   "jest": {
-    "testPathIgnorePatterns": ["<rootDir>/node_modules", "<rootDir>/.history"]
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules",
+      "<rootDir>/.history"
+    ]
   }
 }
