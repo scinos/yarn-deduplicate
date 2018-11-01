@@ -15,6 +15,7 @@
   "scripts": {
     "test": "jest"
   },
+  "homepage": "https://github.com/atlassian/yarn-deduplicate#readme",
   "bugs": "https://github.com/atlassian/yarn-deduplicate/issues",
   "license": "Apache-2.0",
   "author": "Sergio Cinos <scinos@atlassian.com>",
