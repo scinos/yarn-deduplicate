@@ -27,7 +27,7 @@ try {
             includePackages: commander.packages,
         }).forEach(logLine => console.log(logLine))
     }else {
-        const dedupedYarnLock = fixDuplicates(yarnLock,{
+        let dedupedYarnLock = fixDuplicates(yarnLock, {
             useMostCommon: commander.mostCommon,
             includePackages: commander.packages,
         });
@@ -35,6 +35,10 @@ try {
         if (commander.print) {
             console.log(dedupedYarnLock);
         } else {
+            const eolMatch = yarnLock.match(/(\r?\n)/);
+            if (eolMatch && eolMatch[0] === '\r\n') {
+                dedupedYarnLock = dedupedYarnLock.replace(/\n/g, '\r\n');
+            }
             fs.writeFileSync(file, dedupedYarnLock);
         }
     }
