@@ -5,19 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.0.3] - 2018-11-22
+
+### Changed
+
+- Retain Windows end-of-line (thanks to @Shingyx)
+
 ## [1.0.2] - 2018-11-02
 
 ### Chores
 
- - Added `homepage` to package.json
-
+- Added `homepage` to package.json
 
 ## [1.0.1] - 2018-11-02
 
 ### Chores
 
- - Removed unused files (tests, local `.history`) from the NPM package. Only `*.js` and
-   text files are included now.
+- Removed unused files (tests, local `.history`) from the NPM package. Only `*.js` and
+  text files are included now.
 
 ## [1.0.0] - 2018-10-31
 
@@ -43,7 +48,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Moved repo from BitBucket to GitHub
 - Bumped `@yarnpkg/lockfile` to 1.1.0 (thanks to @lukebatchelor)
 - Added 'dedupe' as package keyword (thanks to @gfx)
-
 
 ## [0.4.1] - 2018-06-05
 
