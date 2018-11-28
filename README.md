@@ -3,8 +3,8 @@
 Cleans up `yarn.lock` by removing duplicates.
 
 A duplicate package is when two dependencies are resolved to a different version, even when a single
-version will sufice to match the range specified in the dependencies. See the section 'Deduplication
-strategies' for a few examples.
+version matches the range specified in the dependencies. See the [Deduplication
+strategies](#deduplication-strategies) section for a few examples.
 
 ## Installation
 
