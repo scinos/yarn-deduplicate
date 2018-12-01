@@ -59,7 +59,7 @@ different copies of `lodash` (for example, version `1.0.1` and `1.2.0`) in your 
 
 It is important to note that we do not consider duplicated packages when the version ranges don't
 overlap. For example, if your project depends on `underscore@^1.0.0` and `underscore@^2.0.0`. Your
-project will end up with two versions of `underscore`, and `yarn-tools` won't change that.
+project will end up with two versions of `underscore`, and `yarn-deduplicate` won't change that.
 
 When using `yarn-deduplicate` remember that **it will change your dependency tree**. There are
 certain code paths that now will run with a different set of dependencies. It is highly recommended
