@@ -48,6 +48,7 @@ jobs:
       - run: node ./cli.js --help
       - run: node ./cli.js --list __fixtures__/yarn.lock
       - run: node ./cli.js --print __fixtures__/yarn.lock
+      - run: node ./cli.js -s fewer __fixtures__/yarn.lock
       - run: node ./cli.js __fixtures__/yarn.lock
 workflows:
   version: 2
