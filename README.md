@@ -1,3 +1,5 @@
+Builds: [![CircleCI](https://circleci.com/gh/atlassian/yarn-deduplicate.svg?style=svg)](https://circleci.com/gh/atlassian/yarn-deduplicate)
+
 # Yarn deduplicate
 
 Cleans up `yarn.lock` by removing duplicates.
