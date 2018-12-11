@@ -12,7 +12,6 @@ commander
     .option(
         '-s, --strategy <strategy>',
         'deduplication strategy. Valid values: fewer, highest. Default is "highest"',
-        /^(fewer|highest)$/i,
         'highest'
     )
     .option('-l, --list', 'do not change yarn.lock, just output the diagnosis')
@@ -24,20 +23,25 @@ commander
     .option('--print', 'instead of saving the deduplicated yarn.lock, print the result in stdout');
 commander.parse(process.argv);
 if (!commander.args.length) commander.help();
+if (commander.strategy !== 'highest' && commander.strategy !== 'fewer') {
+    console.error(`Invalid strategy ${commander.strategy}`);
+    commander.help();
+}
 
 const file = commander.args[0];
 
 try {
     const yarnLock = fs.readFileSync(file, 'utf8');
+    const useMostCommon = commander.strategy === 'fewer';
 
     if (commander.list) {
         listDuplicates(yarnLock, {
-            useMostCommon: commander.mostCommon,
+            useMostCommon,
             includePackages: commander.packages,
         }).forEach(logLine => console.log(logLine));
     } else {
         let dedupedYarnLock = fixDuplicates(yarnLock, {
-            useMostCommon: commander.mostCommon,
+            useMostCommon,
             includePackages: commander.packages,
         });
 

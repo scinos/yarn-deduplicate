@@ -92,3 +92,17 @@ test('line endings are retained', async () => {
         await writeFile(yarnLockFilePath, oldFileContent, 'utf8');
     }
 });
+
+test.only('uses fewer strategy', async () => {
+    const { stdout, stderr } = await execFile(process.execPath, [
+        cliFilePath,
+        '--print',
+        '-s',
+        'fewer',
+        yarnLockFilePath,
+    ]);
+    expect(stdout).not.toContain('library@>=1.0.0:');
+    expect(stdout).toContain('library@>=1.0.0, library@>=1.1.0, library@^2.0.0:');
+    expect(stdout).toContain('resolved "https://example.net/library@^2.1.0"');
+    expect(stderr).toBe('');
+});
