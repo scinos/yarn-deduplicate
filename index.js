@@ -1,14 +1,13 @@
-const lockfile = require('@yarnpkg/lockfile')
+const lockfile = require('@yarnpkg/lockfile');
 const semver = require('semver');
 
-const parseYarnLock = (file) => lockfile.parse(file).object;
+const parseYarnLock = file => lockfile.parse(file).object;
 
-const extractPackages = (json, includePackages=[]) => {
-    const packages={};
+const extractPackages = (json, includePackages = []) => {
+    const packages = {};
     const re = /^(.*)@([^@]*?)$/;
 
-
-    Object.keys(json).forEach((name) => {
+    Object.keys(json).forEach(name => {
         const pkg = json[name];
         const match = name.match(re);
 
@@ -19,12 +18,12 @@ const extractPackages = (json, includePackages=[]) => {
         //      tag
         //      path/path/path
         if (match) {
-            ([, packageName, requestedVersion] = match);
+            [, packageName, requestedVersion] = match;
         } else {
             // If there is no match, it means there is no version specified. According to the doc
             // this means "*" (https://docs.npmjs.com/files/package.json#dependencies)
             packageName = name;
-            requestedVersion = "*";
+            requestedVersion = '*';
         }
 
         // If there is a list of package names, only process those.
@@ -40,7 +39,7 @@ const extractPackages = (json, includePackages=[]) => {
         });
     });
     return packages;
-}
+};
 
 const computePackageIntances = (packages, name, useMostCommon) => {
     // Instances of this package in the tree
@@ -48,11 +47,11 @@ const computePackageIntances = (packages, name, useMostCommon) => {
 
     // Extract the list of unique versions for this package
     const versions = packageInstances.reduce((versions, packageInstance) => {
-        if ((packageInstance.installedVersion in versions)) return versions;
+        if (packageInstance.installedVersion in versions) return versions;
         versions[packageInstance.installedVersion] = {
             pkg: packageInstance.pkg,
             satisfies: new Set(),
-        }
+        };
         return versions;
     }, {});
 
@@ -64,12 +63,15 @@ const computePackageIntances = (packages, name, useMostCommon) => {
             packageInstance.satisfiedBy.add(packageInstance.installedVersion);
             // In some cases th requested version is invalid form a semver point of view (for
             // example `sinon@next`). Just ignore those cases, they won't get deduped.
-            if (semver.validRange(packageInstance.requestedVersion) && semver.satisfies(version, packageInstance.requestedVersion)) {
+            if (
+                semver.validRange(packageInstance.requestedVersion) &&
+                semver.satisfies(version, packageInstance.requestedVersion)
+            ) {
                 satisfies.add(packageInstance);
                 packageInstance.satisfiedBy.add(version);
             }
-        })
-    })
+        });
+    });
 
     // Sort the list of satisfied versions
     packageInstances.forEach(packageInstance => {
@@ -83,7 +85,8 @@ const computePackageIntances = (packages, name, useMostCommon) => {
                 // Sort verions based on how many packages it satisfies. In case of a tie, put the
                 // highest version first.
                 if (versions[versionB].satisfies.size > versions[versionA].satisfies.size) return 1;
-                if (versions[versionB].satisfies.size < versions[versionA].satisfies.size) return -1;
+                if (versions[versionB].satisfies.size < versions[versionA].satisfies.size)
+                    return -1;
             }
             return semver.rcompare(versionA, versionB);
         });
@@ -94,44 +97,44 @@ const computePackageIntances = (packages, name, useMostCommon) => {
     });
 
     return packageInstances;
-}
+};
 
-const getDuplicatedPackages = (json, {
-    includePackages,
-    useMostCommon,
-}) => {
+const getDuplicatedPackages = (json, { includePackages, useMostCommon }) => {
     const packages = extractPackages(json, includePackages);
     return Object.keys(packages)
-        .reduce((acc, name) => acc.concat(computePackageIntances(packages, name, useMostCommon)), [])
-        .filter(({bestVersion, installedVersion}) => bestVersion !== installedVersion)
-}
+        .reduce(
+            (acc, name) => acc.concat(computePackageIntances(packages, name, useMostCommon)),
+            []
+        )
+        .filter(({ bestVersion, installedVersion }) => bestVersion !== installedVersion);
+};
 
-module.exports.listDuplicates = (yarnLock, {
-    includePackages=[],
-    useMostCommon=false,
-}={}) => {
+module.exports.listDuplicates = (
+    yarnLock,
+    { includePackages = [], useMostCommon = false } = {}
+) => {
     const json = parseYarnLock(yarnLock);
     const result = [];
 
-    getDuplicatedPackages(json, {includePackages, useMostCommon})
-        .forEach(({bestVersion, name, installedVersion, requestedVersion}) => {
-            result.push(`Package "${name}" wants ${requestedVersion} and could get ${bestVersion}, but got ${installedVersion}`);
-        });
+    getDuplicatedPackages(json, { includePackages, useMostCommon }).forEach(
+        ({ bestVersion, name, installedVersion, requestedVersion }) => {
+            result.push(
+                `Package "${name}" wants ${requestedVersion} and could get ${bestVersion}, but got ${installedVersion}`
+            );
+        }
+    );
 
     return result;
-}
+};
 
-module.exports.fixDuplicates = (yarnLock, {
-    includePackages=[],
-    useMostCommon=false,
-}={}) => {
+module.exports.fixDuplicates = (yarnLock, { includePackages = [], useMostCommon = false } = {}) => {
     const json = parseYarnLock(yarnLock);
 
-    getDuplicatedPackages(json, {includePackages, useMostCommon})
-        .forEach(({bestVersion, name, versions, requestedVersion}) => {
+    getDuplicatedPackages(json, { includePackages, useMostCommon }).forEach(
+        ({ bestVersion, name, versions, requestedVersion }) => {
             json[`${name}@${requestedVersion}`] = versions[bestVersion].pkg;
-        });
+        }
+    );
 
     return lockfile.stringify(json);
-}
-
+};

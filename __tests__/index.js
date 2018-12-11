@@ -1,9 +1,9 @@
-const {fixDuplicates, listDuplicates} = require('../index.js');
-const lockfile = require('@yarnpkg/lockfile')
-const outdent = require('outdent')
+const { fixDuplicates, listDuplicates } = require('../index.js');
+const lockfile = require('@yarnpkg/lockfile');
+const outdent = require('outdent');
 
 test('dedupes lockfile to max compatible version', () => {
-  const yarn_lock = outdent`
+    const yarn_lock = outdent`
     library@^1.1.0:
       version "1.2.0"
       resolved "https://example.net/library@^1.1.0"
@@ -16,21 +16,21 @@ test('dedupes lockfile to max compatible version', () => {
       version "1.3.0"
       resolved "https://example.net/library@^1.3.0"
     `;
-  const deduped = fixDuplicates(yarn_lock);
-  const json = lockfile.parse(deduped).object;
+    const deduped = fixDuplicates(yarn_lock);
+    const json = lockfile.parse(deduped).object;
 
-  expect(json['library@^1.1.0']['version']).toEqual('1.3.0');
-  expect(json['library@^1.2.0']['version']).toEqual('1.3.0');
-  expect(json['library@^1.3.0']['version']).toEqual('1.3.0');
+    expect(json['library@^1.1.0']['version']).toEqual('1.3.0');
+    expect(json['library@^1.2.0']['version']).toEqual('1.3.0');
+    expect(json['library@^1.3.0']['version']).toEqual('1.3.0');
 
-  const list = listDuplicates(yarn_lock);
+    const list = listDuplicates(yarn_lock);
 
-  expect(list).toContain('Package "library" wants ^1.2.0 and could get 1.3.0, but got 1.2.0');
-  expect(list).toContain('Package "library" wants ^1.1.0 and could get 1.3.0, but got 1.2.0');
+    expect(list).toContain('Package "library" wants ^1.2.0 and could get 1.3.0, but got 1.2.0');
+    expect(list).toContain('Package "library" wants ^1.1.0 and could get 1.3.0, but got 1.2.0');
 });
 
 test('dedupes lockfile to most common compatible version', () => {
-  const yarn_lock = outdent`
+    const yarn_lock = outdent`
     library@>=1.0.0:
       version "3.0.0"
       resolved "https://example.net/library@^3.0.0"
@@ -43,25 +43,25 @@ test('dedupes lockfile to most common compatible version', () => {
       version "2.1.0"
       resolved "https://example.net/library@^2.1.0"
   `;
-  const deduped = fixDuplicates(yarn_lock, {
-    useMostCommon: true,
-  });
-  const json = lockfile.parse(deduped).object;
+    const deduped = fixDuplicates(yarn_lock, {
+        useMostCommon: true,
+    });
+    const json = lockfile.parse(deduped).object;
 
-  expect(json['library@>=1.0.0']['version']).toEqual('2.1.0');
-  expect(json['library@>=1.1.0']['version']).toEqual('2.1.0');
-  expect(json['library@^2.0.0']['version']).toEqual('2.1.0');
+    expect(json['library@>=1.0.0']['version']).toEqual('2.1.0');
+    expect(json['library@>=1.1.0']['version']).toEqual('2.1.0');
+    expect(json['library@^2.0.0']['version']).toEqual('2.1.0');
 
-  const list = listDuplicates(yarn_lock, {
-    useMostCommon: true,
-  });
+    const list = listDuplicates(yarn_lock, {
+        useMostCommon: true,
+    });
 
-  expect(list).toContain('Package "library" wants >=1.0.0 and could get 2.1.0, but got 3.0.0');
-  expect(list).toContain('Package "library" wants >=1.1.0 and could get 2.1.0, but got 3.0.0');
+    expect(list).toContain('Package "library" wants >=1.0.0 and could get 2.1.0, but got 3.0.0');
+    expect(list).toContain('Package "library" wants >=1.1.0 and could get 2.1.0, but got 3.0.0');
 });
 
 test('limits the packages to be de-duplicated', () => {
-  const yarn_lock = outdent`
+    const yarn_lock = outdent`
     a-package@^2.0.0:
       version "2.0.0"
       resolved "http://example.com/a-package/2.1.0"
@@ -79,26 +79,28 @@ test('limits the packages to be de-duplicated', () => {
       resolved "http://example.com/other-package/1.0.0"
   `;
 
-  const deduped = fixDuplicates(yarn_lock, {
-    includePackages: ["other-package"]
-  });
-  const json = lockfile.parse(deduped).object;
+    const deduped = fixDuplicates(yarn_lock, {
+        includePackages: ['other-package'],
+    });
+    const json = lockfile.parse(deduped).object;
 
-  expect(json['a-package@^2.0.0']['version']).toEqual('2.0.0');
-  expect(json['a-package@^2.0.1']['version']).toEqual('2.0.1');
-  expect(json['other-package@^1.0.0']['version']).toEqual('1.0.12');
-  expect(json['other-package@^1.0.1']['version']).toEqual('1.0.12');
+    expect(json['a-package@^2.0.0']['version']).toEqual('2.0.0');
+    expect(json['a-package@^2.0.1']['version']).toEqual('2.0.1');
+    expect(json['other-package@^1.0.0']['version']).toEqual('1.0.12');
+    expect(json['other-package@^1.0.1']['version']).toEqual('1.0.12');
 
-  const list = listDuplicates(yarn_lock, {
-    includePackages: ["other-package"]
-  });
+    const list = listDuplicates(yarn_lock, {
+        includePackages: ['other-package'],
+    });
 
-  expect(list).toHaveLength(1);
-  expect(list).toContain('Package "other-package" wants ^1.0.0 and could get 1.0.12, but got 1.0.11');
+    expect(list).toHaveLength(1);
+    expect(list).toContain(
+        'Package "other-package" wants ^1.0.0 and could get 1.0.12, but got 1.0.11'
+    );
 });
 
 test('should support the integrity field if present', () => {
-  const yarn_lock = outdent({trimTrailingNewline: false})`
+    const yarn_lock = outdent({ trimTrailingNewline: false })`
     # THIS IS AN AUTOGENERATED FILE. DO NOT EDIT THIS FILE DIRECTLY.
     # yarn lockfile v1
 
@@ -116,8 +118,8 @@ test('should support the integrity field if present', () => {
       integrity sha512-ptqFDzemkXGMf7ylch/bCV+XTDvVjD9dRymzcjOPIxg8Hqt/uesOye10GXItFbsxJx9VZeJBYrR8FFTauu+hHg==
   `;
 
-  const deduped = fixDuplicates(yarn_lock);
+    const deduped = fixDuplicates(yarn_lock);
 
-  // We should not have made any change to the order of outputted lines (@yarnpkg/lockfile 1.0.0 had this bug)
-  expect(yarn_lock).toBe(deduped);
+    // We should not have made any change to the order of outputted lines (@yarnpkg/lockfile 1.0.0 had this bug)
+    expect(yarn_lock).toBe(deduped);
 });

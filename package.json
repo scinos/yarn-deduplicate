@@ -13,7 +13,8 @@
     "deduplicate"
   ],
   "scripts": {
-    "test": "jest"
+    "test": "eslint . && jest",
+    "lint": "eslint ."
   },
   "homepage": "https://github.com/atlassian/yarn-deduplicate#readme",
   "bugs": "https://github.com/atlassian/yarn-deduplicate/issues",
@@ -33,6 +34,11 @@
   "dependencies": {
     "@yarnpkg/lockfile": "^1.1.0",
     "commander": "^2.10.0",
+    "eslint": "^5.10.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-jest": "^22.1.2",
+    "eslint-plugin-prettier": "^3.0.0",
+    "prettier": "^1.15.3",
     "semver": "^5.3.0"
   },
   "devDependencies": {

@@ -3,16 +3,25 @@
 const commander = require('commander');
 const fs = require('fs');
 
-const {fixDuplicates, listDuplicates} = require('./index');
+const { fixDuplicates, listDuplicates } = require('./index');
 const version = require('./package.json').version;
 
 commander
     .version(version)
     .usage('[options] <yarn.lock path>')
-    .option('-s, --strategy <strategy>', 'deduplication strategy. Valid values: fewer, highest. Default is "highest"', /^(fewer|highest)$/i, 'highest')
+    .option(
+        '-s, --strategy <strategy>',
+        'deduplication strategy. Valid values: fewer, highest. Default is "highest"',
+        /^(fewer|highest)$/i,
+        'highest'
+    )
     .option('-l, --list', 'do not change yarn.lock, just output the diagnosis')
-    .option('--packages <packages>', 'a comma separated list of packages to deduplicate. Defaults to all packages.', val => val.split(',').map(v => v.trim()))
-    .option('--print', 'instead of saving the deduplicated yarn.lock, print the result in stdout')
+    .option(
+        '--packages <packages>',
+        'a comma separated list of packages to deduplicate. Defaults to all packages.',
+        val => val.split(',').map(v => v.trim())
+    )
+    .option('--print', 'instead of saving the deduplicated yarn.lock, print the result in stdout');
 commander.parse(process.argv);
 if (!commander.args.length) commander.help();
 
@@ -22,11 +31,11 @@ try {
     const yarnLock = fs.readFileSync(file, 'utf8');
 
     if (commander.list) {
-        listDuplicates(yarnLock,{
+        listDuplicates(yarnLock, {
             useMostCommon: commander.mostCommon,
             includePackages: commander.packages,
-        }).forEach(logLine => console.log(logLine))
-    }else {
+        }).forEach(logLine => console.log(logLine));
+    } else {
         let dedupedYarnLock = fixDuplicates(yarnLock, {
             useMostCommon: commander.mostCommon,
             includePackages: commander.packages,
@@ -44,7 +53,7 @@ try {
     }
 
     process.exit(0);
-} catch(e) {
+} catch (e) {
     console.error(e);
     process.exit(1);
 }
