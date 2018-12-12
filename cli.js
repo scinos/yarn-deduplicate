@@ -15,6 +15,7 @@ commander
         'highest'
     )
     .option('-l, --list', 'do not change yarn.lock, just output the diagnosis')
+    .option('-f, --fail', 'if there are deuplicates in yarn.lock, exit 1 for failure')
     .option(
         '--packages <packages>',
         'a comma separated list of packages to deduplicate. Defaults to all packages.',
@@ -35,10 +36,14 @@ try {
     const useMostCommon = commander.strategy === 'fewer';
 
     if (commander.list) {
-        listDuplicates(yarnLock, {
+        const duplicates = listDuplicates(yarnLock, {
             useMostCommon,
             includePackages: commander.packages,
-        }).forEach(logLine => console.log(logLine));
+        });
+        duplicates.forEach(logLine => console.log(logLine));
+        if (commander.fail && duplicates.length > 0) {
+            process.exit(1);
+        }
     } else {
         let dedupedYarnLock = fixDuplicates(yarnLock, {
             useMostCommon,
@@ -53,6 +58,10 @@ try {
                 dedupedYarnLock = dedupedYarnLock.replace(/\n/g, '\r\n');
             }
             fs.writeFileSync(file, dedupedYarnLock);
+        }
+
+        if (commander.fail && yarnLock !== dedupedYarnLock) {
+            process.exit(1);
         }
     }
 

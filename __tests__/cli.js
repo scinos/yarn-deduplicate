@@ -20,6 +20,48 @@ test('prints duplicates', async () => {
     expect(stderr).toBe('');
 });
 
+test('fails if given the fail option', async () => {
+    const listProc = await childProcess.spawn(process.execPath, [
+        cliFilePath,
+        '--list',
+        '--fail',
+        yarnLockFilePath,
+    ]);
+    listProc.on('close', code => {
+        expect(code).toBe(1);
+    });
+
+    const execProc = await childProcess.spawn(process.execPath, [
+        cliFilePath,
+        '--print',
+        '--fail',
+        yarnLockFilePath,
+    ]);
+    execProc.on('close', code => {
+        expect(code).toBe(1);
+    });
+});
+
+test('does not fail without the fail option', async () => {
+    const listProc = await childProcess.spawn(process.execPath, [
+        cliFilePath,
+        '--list',
+        yarnLockFilePath,
+    ]);
+    listProc.on('close', code => {
+        expect(code).toBe(0);
+    });
+
+    const execProc = await childProcess.spawn(process.execPath, [
+        cliFilePath,
+        '--print',
+        yarnLockFilePath,
+    ]);
+    execProc.on('close', code => {
+        expect(code).toBe(0);
+    });
+});
+
 test('prints fixed yarn.lock', async () => {
     const { stdout, stderr } = await execFile(process.execPath, [
         cliFilePath,
