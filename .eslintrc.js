@@ -10,5 +10,8 @@ module.exports = {
     plugins: [
         'jest'
     ],
-    extends: ['plugin:prettier/recommended']
+    extends: [
+        'plugin:prettier/recommended',
+        'plugin:jest/recommended'
+    ]
 };
