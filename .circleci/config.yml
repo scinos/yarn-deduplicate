@@ -1,24 +1,52 @@
-version: 2
-jobs:
-  build:
-    docker:
-      - image: circleci/node:8
-    working_directory: ~/repo
+version: 2.1
 
+commands:
+  checkout_and_install:
+    description: "Checkout code and install yarn"
     steps:
+      # Checking out the code
       - checkout
-
+      # Restoring node_modules
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
+            - v1-{{ .Environment.CIRCLE_JOB }}-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-{{ .Environment.CIRCLE_JOB }}-dependencies-
+      # Installing dependencies
       - run: yarn install
-
+      # Upload dependencies to cache
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-{{ .Environment.CIRCLE_JOB }}-dependencies-{{ checksum "package.json" }}
+
+jobs:
+  node8:
+    docker:
+      - image: circleci/node:8
+    working_directory: ~/repo
+    steps:
+      - checkout_and_install
 
       - run: yarn test
+
+  node6:
+    docker:
+      - image: circleci/node:6
+    working_directory: ~/repo
+    steps:
+      - checkout_and_install
+
+      - run: node ./cli.js --version
+      - run: node ./cli.js --help
+      - run: node ./cli.js --list __fixtures__/yarn.lock
+      - run: node ./cli.js --print __fixtures__/yarn.lock
+      - run: node ./cli.js -s fewer __fixtures__/yarn.lock
+      - run: git checkout -- __fixtures__/yarn.lock
+      - run: node ./cli.js __fixtures__/yarn.lock
+workflows:
+  version: 2
+  test:
+    jobs:
+      - node6
+      - node8
