@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.0.5] - 2018-12-15
+
+### Changed
+
+- Support for Node 6 (thanks @leipert)
+
+### Chores
+
+ - Moved eslint and stricter to devDependencies (thanks @hawkrives)
+ - Re-enabled disabled tests (thanks @amark)
+
 ## [1.0.4] - 2018-12-12
 
 ### Changed
