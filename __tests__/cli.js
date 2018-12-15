@@ -93,7 +93,7 @@ test('line endings are retained', async () => {
     }
 });
 
-test.only('uses fewer strategy', async () => {
+test('uses fewer strategy', async () => {
     const { stdout, stderr } = await execFile(process.execPath, [
         cliFilePath,
         '--print',
