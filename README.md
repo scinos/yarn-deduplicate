@@ -37,6 +37,8 @@ yarn-deduplicate yarn.lock
 
 This will use the default strategy to remove duplicated packages in `yarn.lock`.
 
+If you do not specify the yarn.lock path, it defaults to `yarn.lock`.
+
 Check all available options with:
 
 ```bash

@@ -8,7 +8,8 @@ const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 
 const cliFilePath = path.join(__dirname, '../cli.js');
-const yarnLockFilePath = path.join(__dirname, '../__fixtures__/yarn.lock');
+const fixturesPath = path.join(__dirname, '../__fixtures__');
+const yarnLockFilePath = path.join(fixturesPath, 'yarn.lock');
 
 test('prints duplicates', async () => {
     const { stdout, stderr } = await execFile(process.execPath, [
@@ -64,6 +65,25 @@ test('edits yarn.lock and replaces its content with the fixed version', async ()
             cliFilePath,
             yarnLockFilePath,
         ]);
+        const newFileContent = await readFile(yarnLockFilePath, 'utf8');
+        expect(oldFileContent).not.toBe(newFileContent);
+        expect(oldFileContent).toContain('lodash@>=1.0.0:');
+        expect(oldFileContent).not.toContain('lodash@>=1.0.0, lodash@>=2.0.0:');
+        expect(newFileContent).not.toContain('lodash@>=1.0.0:');
+        expect(newFileContent).toContain('lodash@>=1.0.0, lodash@>=2.0.0:');
+        expect(stdout).toBe('');
+        expect(stderr).toBe('');
+    } finally {
+        await writeFile(yarnLockFilePath, oldFileContent, 'utf8');
+    }
+});
+
+test('edits yarn.lock and replaces its content with the fixed version without specifying yarn.lock path', async () => {
+    const oldFileContent = await readFile(yarnLockFilePath, 'utf8');
+    try {
+        const { stdout, stderr } = await execFile(process.execPath, [cliFilePath], {
+            cwd: fixturesPath,
+        });
         const newFileContent = await readFile(yarnLockFilePath, 'utf8');
         expect(oldFileContent).not.toBe(newFileContent);
         expect(oldFileContent).toContain('lodash@>=1.0.0:');
