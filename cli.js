@@ -8,7 +8,7 @@ const version = require('./package.json').version;
 
 commander
     .version(version)
-    .usage('[options] <yarn.lock path>')
+    .usage('[options] [yarn.lock path (default: yarn.lock)]')
     .option(
         '-s, --strategy <strategy>',
         'deduplication strategy. Valid values: fewer, highest. Default is "highest"',
@@ -22,14 +22,15 @@ commander
         val => val.split(',').map(v => v.trim())
     )
     .option('--print', 'instead of saving the deduplicated yarn.lock, print the result in stdout');
+
 commander.parse(process.argv);
-if (!commander.args.length) commander.help();
+
 if (commander.strategy !== 'highest' && commander.strategy !== 'fewer') {
     console.error(`Invalid strategy ${commander.strategy}`);
     commander.help();
 }
 
-const file = commander.args[0];
+const file = commander.args.length ? commander.args[0] : 'yarn.lock';
 
 try {
     const yarnLock = fs.readFileSync(file, 'utf8');
