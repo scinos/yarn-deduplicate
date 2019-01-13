@@ -15,7 +15,7 @@ commander
         'highest'
     )
     .option('-l, --list', 'do not change yarn.lock, just output the diagnosis')
-    .option('-f, --fail', 'if there are deuplicates in yarn.lock, exit 1 for failure')
+    .option('-f, --fail', 'if there are duplicates in yarn.lock, exit 1 for failure')
     .option(
         '--packages <packages>',
         'a comma separated list of packages to deduplicate. Defaults to all packages.',
