@@ -59,7 +59,7 @@ For example, imagine that your project directly depends on `lodash` and `babel`,
 on `lodash` as well. Specifically, your project depends on `lodash@^1.0.0` and `babel` depends on
 `lodash@^1.1.0`. Because how the resolution algorithm works in Yarn, you might end up with two
 different copies of `lodash` (for example, version `1.0.1` and `1.2.0`) in your project, even when
-`1.2.0` will sufice to satisfy both requirements for `lodash`. That's a "duplicated package".
+`1.2.0` will suffice to satisfy both requirements for `lodash`. That's a "duplicated package".
 
 It is important to note that we do not consider duplicated packages when the version ranges don't
 overlap. For example, if your project depends on `underscore@^1.0.0` and `underscore@^2.0.0`. Your
