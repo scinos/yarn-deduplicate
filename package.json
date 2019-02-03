@@ -26,9 +26,7 @@
     "url": "git@github.com:atlassian/yarn-deduplicate.git"
   },
   "engines": {
-    "node": ">=6"
-  },
-  "peerDependencies": {
+    "node": ">=6",
     "yarn": "^1.0.0"
   },
   "dependencies": {
