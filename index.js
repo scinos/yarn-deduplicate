@@ -41,7 +41,7 @@ const extractPackages = (json, includePackages = []) => {
     return packages;
 };
 
-const computePackageIntances = (packages, name, useMostCommon) => {
+const computePackageInstances = (packages, name, useMostCommon) => {
     // Instances of this package in the tree
     const packageInstances = packages[name];
 
@@ -61,7 +61,7 @@ const computePackageIntances = (packages, name, useMostCommon) => {
         packageInstances.forEach(packageInstance => {
             // We can assume that the installed version always satisfied the requested version.
             packageInstance.satisfiedBy.add(packageInstance.installedVersion);
-            // In some cases th requested version is invalid form a semver point of view (for
+            // In some cases the requested version is invalid form a semver point of view (for
             // example `sinon@next`). Just ignore those cases, they won't get deduped.
             if (
                 semver.validRange(packageInstance.requestedVersion) &&
@@ -103,7 +103,7 @@ const getDuplicatedPackages = (json, { includePackages, useMostCommon }) => {
     const packages = extractPackages(json, includePackages);
     return Object.keys(packages)
         .reduce(
-            (acc, name) => acc.concat(computePackageIntances(packages, name, useMostCommon)),
+            (acc, name) => acc.concat(computePackageInstances(packages, name, useMostCommon)),
             []
         )
         .filter(({ bestVersion, installedVersion }) => bestVersion !== installedVersion);

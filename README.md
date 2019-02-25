@@ -50,9 +50,9 @@ yarn-deduplicate --help
 ## Duplicated packages
 
 `yarn.lock` contains a list of all the dependencies required by your project (including transitive
-dependencies), and the actual package version installed to satistfy those dependencies.
+dependencies), and the actual package version installed to satisfy those dependencies.
 
-For the context of this project, a "duplicated package" is a package that appers on multiple nodes
+For the context of this project, a "duplicated package" is a package that appears on multiple nodes
 of the dependency tree with overlapping version ranges but resolved to different versions.
 
 For example, imagine that your project directly depends on `lodash` and `babel`, and `babel` depends
