@@ -109,14 +109,14 @@ const getDuplicatedPackages = (json, { includePackages, useMostCommon }) => {
         .filter(({ bestVersion, installedVersion }) => bestVersion !== installedVersion);
 };
 
+const getAllDependencies = pkg => Object.assign({}, pkg.optionalDependencies, pkg.dependencies);
+
 const getDirectPackages = (json, names) => {
     const dependencies = names.reduce((acc, name) => {
-        const pkg = json[name];
-        if (pkg.dependencies) {
-            Object.keys(pkg.dependencies).forEach(packageName => {
-                acc[`${packageName}@${pkg.dependencies[packageName]}`] = true;
-            });
-        }
+        const allDependencies = getAllDependencies(json[name]);
+        Object.keys(allDependencies).forEach(packageName => {
+            acc[`${packageName}@${allDependencies[packageName]}`] = true;
+        });
         return acc;
     }, {});
 
@@ -127,11 +127,9 @@ const updateConnectedMap = (connected, json, name) => {
     if (connected[name]) return; // Handle circular dependencies
     connected[name] = true;
 
-    const dependencies = json[name].dependencies;
-    if (!dependencies) return;
-
-    Object.keys(dependencies).forEach(packageName => {
-        const requestedVersion = dependencies[packageName];
+    const allDependencies = getAllDependencies(json[name]);
+    Object.keys(allDependencies).forEach(packageName => {
+        const requestedVersion = allDependencies[packageName];
         updateConnectedMap(connected, json, `${packageName}@${requestedVersion}`);
     });
 };
