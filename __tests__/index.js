@@ -164,3 +164,31 @@ test('should support the integrity field if present', () => {
     // We should not have made any change to the order of outputted lines (@yarnpkg/lockfile 1.0.0 had this bug)
     expect(yarn_lock).toBe(deduped);
 });
+
+test('should support circular dependencies', () => {
+    const yarn_lock = outdent`
+    library@^1.0.0:
+      version "1.0.0"
+      resolved "https://example.net/library@^1.0.0"
+      dependencies:
+        sublibrary1 "^1.0.0"
+
+    sublibrary1@^1.0.0:
+      version "1.0.0"
+      resolved "https://example.net/sublibrary1@^1.0.0"
+      dependencies:
+        sublibrary2 "^1.0.0"
+
+    sublibrary2@^1.0.0:
+      version "1.0.0"
+      resolved "https://example.net/sublibrary2@^1.0.0"
+      dependencies:
+        sublibrary1 "^1.0.0"
+    `;
+    const deduped = fixDuplicates(yarn_lock);
+    const json = lockfile.parse(deduped).object;
+
+    expect(json['library@^1.0.0']['version']).toEqual('1.0.0');
+    expect(json['sublibrary1@^1.0.0']['version']).toEqual('1.0.0');
+    expect(json['sublibrary2@^1.0.0']['version']).toEqual('1.0.0');
+});

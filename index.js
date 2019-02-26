@@ -124,6 +124,7 @@ const getDirectPackages = (json, names) => {
 };
 
 const updateConnectedMap = (connected, json, name) => {
+    if (connected[name]) return; // Handle circular dependencies
     connected[name] = true;
 
     const dependencies = json[name].dependencies;
