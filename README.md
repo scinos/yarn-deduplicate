@@ -70,6 +70,29 @@ certain code paths that now will run with a different set of dependencies. It is
 that you review each change to `yarn.lock`. If the change is too big, use the flag `--packages` to
 deduplicate them gradually.
 
+### Why is this necessary?
+
+Yarn documentation seems to suggest this package shouldn't be necessary. For example, in
+https://classic.yarnpkg.com/en/docs/cli/dedupe/, it says
+
+> The dedupe command isn’t necessary. `yarn install` will already dedupe.
+
+This is, however, not exactly true. There are cases where yarn will *not* deduplicate existing
+packages. For example, this scenario:
+
+- Install `libA`. It depends on `libB ^1.1.0`. At this point, the latest version of `libB` is
+  `1.1.2`, so it gets installed as a transitive dependency in your repo
+
+- After a few days, install `libC`. It also depends on `libB ^1.1.0`. But this time, the latest
+  `libB` version is `1.1.3`.
+
+In the above scenario, you'll end up with `libB@1.1.2` and `libB@1.1.3` in your repo.
+
+Find more examples in:
+- [yarn-deduplicate — The Hero We Need](https://medium.com/@bnaya/yarn-deduplicate-the-hero-we-need-f4497a362128)
+- [De-duplicating yarn.lock](https://medium.com/@scinos/de-duplicating-yarn-lock-ae30be4aa41a)
+- https://github.com/yarnpkg/yarn/issues/3778
+
 ### Deduplication strategies
 
 `highest`
@@ -123,31 +146,6 @@ to be easily reviewed by a human. This will allow for a more controlled and prog
 deduplication of `yarn.lock`.
 
 ---
-
-## Why is this necessary?
-
-Yarn documentation seems to suggest this package shouldn't be necessary. For example, in
-https://classic.yarnpkg.com/en/docs/cli/dedupe/, it says
-
-> The dedupe command isn’t necessary. `yarn install` will already dedupe.
-
-This is, however, not exactly true. There are cases where yarn will *not* deduplicate existing
-packages. For example, this scenario:
-
-- Install `libA`. It depends on `libB ^1.1.0`. At this point, the latest version of `libB` is
-  `1.1.2`, so it gets installed as a transitive dependency in your repo
-
-- After a few days, install `libC`. It also depends on `libB ^1.1.0`. But this time, the latest
-  `libB` version is `1.1.3`.
-
-In the above scenario, you'll end up with `libB@1.1.2` and `libB@1.1.3` in your repo.
-
-Find more examples in:
-- [yarn-deduplicate — The Hero We Need](https://medium.com/@bnaya/yarn-deduplicate-the-hero-we-need-f4497a362128)
-- [De-duplicating yarn.lock](https://medium.com/@scinos/de-duplicating-yarn-lock-ae30be4aa41a)
-- https://github.com/yarnpkg/yarn/issues/3778
-
-
 
 ## Migration guide
 
