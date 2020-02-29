@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Typescript definitions (thanks to @bluelovers)
 - Info about the source of duplication to README
 - CLI option to exclude packages (thanks to @JacobBlomgren)
+- Updated a bunch of dependencies
 
 ## [1.1.1] - 2019-02-03
 
