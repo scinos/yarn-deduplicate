@@ -21,6 +21,9 @@ commander
         'a comma separated list of packages to deduplicate. Defaults to all packages.',
         val => val.split(',').map(v => v.trim())
     )
+    .option('--exclude <exclude>', 'a comma separated list of packages not to deduplicate.', val =>
+        val.split(',').map(v => v.trim())
+    )
     .option('--print', 'instead of saving the deduplicated yarn.lock, print the result in stdout');
 
 commander.parse(process.argv);
@@ -40,6 +43,7 @@ try {
         const duplicates = listDuplicates(yarnLock, {
             useMostCommon,
             includePackages: commander.packages,
+            excludePackages: commander.exclude,
         });
         duplicates.forEach(logLine => console.log(logLine));
         if (commander.fail && duplicates.length > 0) {
@@ -49,6 +53,7 @@ try {
         let dedupedYarnLock = fixDuplicates(yarnLock, {
             useMostCommon,
             includePackages: commander.packages,
+            excludePackages: commander.exclude,
         });
 
         if (commander.print) {

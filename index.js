@@ -3,7 +3,7 @@ const semver = require('semver');
 
 const parseYarnLock = file => lockfile.parse(file).object;
 
-const extractPackages = (json, includePackages = []) => {
+const extractPackages = (json, includePackages = [], excludePackages = []) => {
     const packages = {};
     const re = /^(.*)@([^@]*?)$/;
 
@@ -28,6 +28,8 @@ const extractPackages = (json, includePackages = []) => {
 
         // If there is a list of package names, only process those.
         if (includePackages.length > 0 && !includePackages.includes(packageName)) return;
+
+        if (excludePackages.length > 0 && excludePackages.includes(packageName)) return;
 
         packages[packageName] = packages[packageName] || [];
         packages[packageName].push({
@@ -99,8 +101,8 @@ const computePackageInstances = (packages, name, useMostCommon) => {
     return packageInstances;
 };
 
-const getDuplicatedPackages = (json, { includePackages, useMostCommon }) => {
-    const packages = extractPackages(json, includePackages);
+const getDuplicatedPackages = (json, { includePackages, excludePackages, useMostCommon }) => {
+    const packages = extractPackages(json, includePackages, excludePackages);
     return Object.keys(packages)
         .reduce(
             (acc, name) => acc.concat(computePackageInstances(packages, name, useMostCommon)),
@@ -111,12 +113,12 @@ const getDuplicatedPackages = (json, { includePackages, useMostCommon }) => {
 
 module.exports.listDuplicates = (
     yarnLock,
-    { includePackages = [], useMostCommon = false } = {}
+    { includePackages = [], excludePackages = [], useMostCommon = false } = {}
 ) => {
     const json = parseYarnLock(yarnLock);
     const result = [];
 
-    getDuplicatedPackages(json, { includePackages, useMostCommon }).forEach(
+    getDuplicatedPackages(json, { includePackages, excludePackages, useMostCommon }).forEach(
         ({ bestVersion, name, installedVersion, requestedVersion }) => {
             result.push(
                 `Package "${name}" wants ${requestedVersion} and could get ${bestVersion}, but got ${installedVersion}`
@@ -127,10 +129,13 @@ module.exports.listDuplicates = (
     return result;
 };
 
-module.exports.fixDuplicates = (yarnLock, { includePackages = [], useMostCommon = false } = {}) => {
+module.exports.fixDuplicates = (
+    yarnLock,
+    { includePackages = [], excludePackages = [], useMostCommon = false } = {}
+) => {
     const json = parseYarnLock(yarnLock);
 
-    getDuplicatedPackages(json, { includePackages, useMostCommon }).forEach(
+    getDuplicatedPackages(json, { includePackages, excludePackages, useMostCommon }).forEach(
         ({ bestVersion, name, versions, requestedVersion }) => {
             json[`${name}@${requestedVersion}`] = versions[bestVersion].pkg;
         }
