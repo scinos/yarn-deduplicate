@@ -43,5 +43,5 @@ workflows:
   version: 2
   test:
     jobs:
-      - node6
-      - node8
+      - node10
+      - node12
