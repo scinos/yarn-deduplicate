@@ -95,6 +95,8 @@ Find more examples in:
 
 ### Deduplication strategies
 
+`--strategy <strategy>`
+
 `highest`
 It will try to use the highest installed version. For example, with the following `yarn.lock`:
 
