@@ -60,6 +60,45 @@ test('dedupes lockfile to most common compatible version', () => {
     expect(list).toContain('Package "library" wants >=1.1.0 and could get 2.1.0, but got 3.0.0');
 });
 
+test('limits the scopes to be de-duplicated', () => {
+    const yarn_lock = outdent`
+    "@a-scope/a-package@^2.0.0":
+      version "2.0.0"
+      resolved "http://example.com/a-scope/a-package/2.1.0"
+
+    "@a-scope/a-package@^2.0.1":
+      version "2.0.1"
+      resolved "http://example.com/a-scope/a-package/2.2.0"
+
+    "@another-scope/a-package@^1.0.0":
+      version "1.0.11"
+      resolved "http://example.com/another-scope/a-package/1.0.0"
+
+    "@another-scope/a-package@^1.0.1":
+      version "1.0.12"
+      resolved "http://example.com/another-scope/a-package/1.0.0"
+  `;
+
+    const deduped = fixDuplicates(yarn_lock, {
+        includeScopes: ['@another-scope'],
+    });
+    const json = lockfile.parse(deduped).object;
+
+    expect(json['@a-scope/a-package@^2.0.0']['version']).toEqual('2.0.0');
+    expect(json['@a-scope/a-package@^2.0.1']['version']).toEqual('2.0.1');
+    expect(json['@another-scope/a-package@^1.0.0']['version']).toEqual('1.0.12');
+    expect(json['@another-scope/a-package@^1.0.1']['version']).toEqual('1.0.12');
+
+    const list = listDuplicates(yarn_lock, {
+        includeScopes: ['@another-scope'],
+    });
+
+    expect(list).toHaveLength(1);
+    expect(list).toContain(
+        'Package "@another-scope/a-package" wants ^1.0.0 and could get 1.0.12, but got 1.0.11'
+    );
+});
+
 test('limits the packages to be de-duplicated', () => {
     const yarn_lock = outdent`
     a-package@^2.0.0:

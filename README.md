@@ -138,12 +138,19 @@ is specified again.
 
 ### Progressive deduplication
 
-`--packages <package1> <package2> <packageN>`
+`--packages <package1>,<package2>,<packageN>`
 
 Receives a list of packages to deduplicate. It will ignore any other duplicated package not in the
 list. This option is recommended when the number of duplicated packages in `yarn.lock` is too big
 to be easily reviewed by a human. This will allow for a more controlled and progressive
 deduplication of `yarn.lock`.
+
+`--scopes <scope1>,<scope2>,<scopeN>`
+
+Receives a list of scopes to deduplicate. It will ignore any other duplicated package not in the
+list. This option is recommended when deduplicating a large number of inter-dependent packages
+from a single scope, such as @babel. This will allow for a more controlled and progressive
+deduplication of `yarn.lock` without specifying each package individually.
 
 ---
 

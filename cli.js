@@ -17,6 +17,11 @@ commander
     .option('-l, --list', 'do not change yarn.lock, just output the diagnosis')
     .option('-f, --fail', 'if there are duplicates in yarn.lock, exit 1 for failure')
     .option(
+        '--scopes <scopes>',
+        'a comma separated list of scopes to deduplicate. Defaults to all packages.',
+        val => val.split(',').map(v => v.trim())
+    )
+    .option(
         '--packages <packages>',
         'a comma separated list of packages to deduplicate. Defaults to all packages.',
         val => val.split(',').map(v => v.trim())
@@ -27,6 +32,11 @@ commander
     .option('--print', 'instead of saving the deduplicated yarn.lock, print the result in stdout');
 
 commander.parse(process.argv);
+
+if (commander.scopes && commander.packages) {
+    console.error('Please specify either scopes or packages, not both.');
+    commander.help();
+}
 
 if (commander.strategy !== 'highest' && commander.strategy !== 'fewer') {
     console.error(`Invalid strategy ${commander.strategy}`);
@@ -42,6 +52,7 @@ try {
     if (commander.list) {
         const duplicates = listDuplicates(yarnLock, {
             useMostCommon,
+            includeScopes: commander.scopes,
             includePackages: commander.packages,
             excludePackages: commander.exclude,
         });
@@ -52,6 +63,7 @@ try {
     } else {
         let dedupedYarnLock = fixDuplicates(yarnLock, {
             useMostCommon,
+            includeScopes: commander.scopes,
             includePackages: commander.packages,
             excludePackages: commander.exclude,
         });
