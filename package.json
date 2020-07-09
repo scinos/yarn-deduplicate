@@ -19,7 +19,7 @@
   "homepage": "https://github.com/atlassian/yarn-deduplicate#readme",
   "bugs": "https://github.com/atlassian/yarn-deduplicate/issues",
   "license": "Apache-2.0",
-  "author": "Sergio Cinos <scinos@atlassian.com>",
+  "author": "Sergio Cinos <sergio.cinos@gmail.com>",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -45,8 +45,7 @@
   },
   "jest": {
     "testPathIgnorePatterns": [
-      "<rootDir>/node_modules",
-      "<rootDir>/.history"
+      "<rootDir>/node_modules"
     ]
   }
 }
