@@ -1,13 +1,13 @@
 const lockfile = require('@yarnpkg/lockfile');
 const semver = require('semver');
 
-const parseYarnLock = file => lockfile.parse(file).object;
+const parseYarnLock = (file) => lockfile.parse(file).object;
 
 const extractPackages = (json, includeScopes = [], includePackages = [], excludePackages = []) => {
     const packages = {};
     const re = /^(.*)@([^@]*?)$/;
 
-    Object.keys(json).forEach(name => {
+    Object.keys(json).forEach((name) => {
         const pkg = json[name];
         const match = name.match(re);
 
@@ -29,7 +29,7 @@ const extractPackages = (json, includeScopes = [], includePackages = [], exclude
         // If there is a list of scopes, only process those.
         if (
             includeScopes.length > 0 &&
-            !includeScopes.find(scope => packageName.startsWith(`${scope}/`))
+            !includeScopes.find((scope) => packageName.startsWith(`${scope}/`))
         ) {
             return;
         }
@@ -66,9 +66,9 @@ const computePackageInstances = (packages, name, useMostCommon) => {
     }, {});
 
     // Link each package instance with all the versions it could satisfy.
-    Object.keys(versions).forEach(version => {
+    Object.keys(versions).forEach((version) => {
         const satisfies = versions[version].satisfies;
-        packageInstances.forEach(packageInstance => {
+        packageInstances.forEach((packageInstance) => {
             // We can assume that the installed version always satisfied the requested version.
             packageInstance.satisfiedBy.add(packageInstance.installedVersion);
             // In some cases the requested version is invalid form a semver point of view (for
@@ -84,7 +84,7 @@ const computePackageInstances = (packages, name, useMostCommon) => {
     });
 
     // Sort the list of satisfied versions
-    packageInstances.forEach(packageInstance => {
+    packageInstances.forEach((packageInstance) => {
         // Save all versions for future reference
         packageInstance.versions = versions;
 
