@@ -13,13 +13,13 @@
     "deduplicate"
   ],
   "scripts": {
-    "test": "eslint . && jest",
+    "test": "jest",
     "lint": "eslint ."
   },
   "homepage": "https://github.com/atlassian/yarn-deduplicate#readme",
   "bugs": "https://github.com/atlassian/yarn-deduplicate/issues",
   "license": "Apache-2.0",
-  "author": "Sergio Cinos <scinos@atlassian.com>",
+  "author": "Sergio Cinos <sergio.cinos@gmail.com>",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -27,7 +27,7 @@
   },
   "engines": {
     "node": ">=10",
-    "yarn": "^1.0.0"
+    "yarn": "^1.22.4"
   },
   "dependencies": {
     "@yarnpkg/lockfile": "^1.1.0",
@@ -36,17 +36,16 @@
   },
   "devDependencies": {
     "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-jest": "^23.8.0",
-    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-jest": "^23.18.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "jest": "^25.1.0",
     "outdent": "0.7.0",
     "prettier": "^1.15.3"
   },
   "jest": {
     "testPathIgnorePatterns": [
-      "<rootDir>/node_modules",
-      "<rootDir>/.history"
+      "<rootDir>/node_modules"
     ]
   }
 }

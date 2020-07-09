@@ -1,4 +1,5 @@
-Builds: [![CircleCI](https://circleci.com/gh/atlassian/yarn-deduplicate.svg?style=svg)](https://circleci.com/gh/atlassian/yarn-deduplicate)
+Builds: ![Node.js CI](https://github.com/atlassian/yarn-deduplicate/workflows/Node.js%20CI/badge.svg)
+
 
 # Yarn deduplicate
 
@@ -95,6 +96,8 @@ Find more examples in:
 
 ### Deduplication strategies
 
+`--strategy <strategy>`
+
 `highest`
 It will try to use the highest installed version. For example, with the following `yarn.lock`:
 
@@ -152,6 +155,19 @@ list. This option is recommended when deduplicating a large number of inter-depe
 from a single scope, such as @babel. This will allow for a more controlled and progressive
 deduplication of `yarn.lock` without specifying each package individually.
 
+### Usage in CI
+
+This tool can be used as part of a CI workflow. Adding the flag `--fail` will force the process to
+exit with status 1 if there are duplicated packages. Example:
+
+```bash
+# Print the list of duplicated packages and exit with status 1
+yarn-deduplicate --list --fail
+
+# Deduplicate yarn.lock and exit with status 1 if changes were required
+yarn-deduplicate --fail
+```
+
 ---
 
 ## Migration guide
@@ -191,7 +207,6 @@ mv tmp path/to/yarn.lock
 yarn-deduplicate path/to/yarn.lock
 ```
 
-
 ### Limit packages to deduplicate yarn.lock
 ```bash
 # Old
@@ -201,7 +216,6 @@ yarn-tools fix-duplicates path/to/yarn.lock package1 package2
 # New
 yarn-deduplicate --packages package1,package2 path/to/yarn.lock
 ```
-
 
 ## Contributors
 
@@ -227,8 +241,8 @@ link below to digitally sign the CLA. The Corporate CLA is for those who are
 contributing as a member of an organization and the individual CLA is for
 those contributing as an individual.
 
-* [CLA for corporate contributors](https://na2.docusign.net/Member/PowerFormSigning.aspx?PowerFormId=e1c17c66-ca4d-4aab-a953-2c231af4a20b)
-* [CLA for individuals](https://na2.docusign.net/Member/PowerFormSigning.aspx?PowerFormId=3f94fbdc-2fbe-46ac-b14c-5d152700ae5d)
+* [CLA for corporate contributors](https://opensource.atlassian.com/corporate)
+* [CLA for individuals](https://opensource.atlassian.com/individual)
 
 ## License
 

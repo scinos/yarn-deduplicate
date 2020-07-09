@@ -15,7 +15,10 @@ commander
         'highest'
     )
     .option('-l, --list', 'do not change yarn.lock, just output the diagnosis')
-    .option('-f, --fail', 'if there are duplicates in yarn.lock, exit 1 for failure')
+    .option(
+        '-f, --fail',
+        'if there are duplicates in yarn.lock, terminate the script wuth exit status 1'
+    )
     .option(
         '--scopes <scopes>',
         'a comma separated list of scopes to deduplicate. Defaults to all packages.',
