@@ -32,7 +32,7 @@
   "dependencies": {
     "@yarnpkg/lockfile": "^1.1.0",
     "commander": "^5.1.0",
-    "semver": "7.3.2"
+    "semver": "^7.3.2"
   },
   "devDependencies": {
     "eslint": "^7.4.0",
@@ -40,7 +40,7 @@
     "eslint-plugin-jest": "^23.18.0",
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.1.0",
-    "outdent": "0.7.1",
+    "outdent": "^0.7.1",
     "prettier": "^2.0.5"
   },
   "jest": {
