@@ -25,5 +25,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: yarn --frozen-lockfile
+    - run: node ./cli.js --list --fail
     - run: yarn lint
     - run: yarn test
