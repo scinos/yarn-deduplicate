@@ -1,4 +1,5 @@
-Builds: [![CircleCI](https://circleci.com/gh/atlassian/yarn-deduplicate.svg?style=svg)](https://circleci.com/gh/atlassian/yarn-deduplicate)
+Builds: ![Node.js CI](https://github.com/atlassian/yarn-deduplicate/workflows/Node.js%20CI/badge.svg)
+
 
 # Yarn deduplicate
 
