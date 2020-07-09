@@ -7,11 +7,6 @@ module.exports = {
         es6: true,
         node: true,
     },
-    plugins: [
-        'jest'
-    ],
-    extends: [
-        'plugin:prettier/recommended',
-        'plugin:jest/recommended'
-    ]
+    plugins: ['jest'],
+    extends: ['plugin:prettier/recommended', 'plugin:jest/recommended'],
 };
