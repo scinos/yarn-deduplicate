@@ -3,7 +3,7 @@ const semver = require('semver');
 
 const parseYarnLock = file => lockfile.parse(file).object;
 
-const extractPackages = (json, includePackages = [], excludePackages = []) => {
+const extractPackages = (json, includeScopes = [], includePackages = [], excludePackages = []) => {
     const packages = {};
     const re = /^(.*)@([^@]*?)$/;
 
@@ -24,6 +24,14 @@ const extractPackages = (json, includePackages = [], excludePackages = []) => {
             // this means "*" (https://docs.npmjs.com/files/package.json#dependencies)
             packageName = name;
             requestedVersion = '*';
+        }
+
+        // If there is a list of scopes, only process those.
+        if (
+            includeScopes.length > 0 &&
+            !includeScopes.find(scope => packageName.startsWith(`${scope}/`))
+        ) {
+            return;
         }
 
         // If there is a list of package names, only process those.
@@ -101,8 +109,11 @@ const computePackageInstances = (packages, name, useMostCommon) => {
     return packageInstances;
 };
 
-const getDuplicatedPackages = (json, { includePackages, excludePackages, useMostCommon }) => {
-    const packages = extractPackages(json, includePackages, excludePackages);
+const getDuplicatedPackages = (
+    json,
+    { includeScopes, includePackages, excludePackages, useMostCommon }
+) => {
+    const packages = extractPackages(json, includeScopes, includePackages, excludePackages);
     return Object.keys(packages)
         .reduce(
             (acc, name) => acc.concat(computePackageInstances(packages, name, useMostCommon)),
@@ -113,33 +124,39 @@ const getDuplicatedPackages = (json, { includePackages, excludePackages, useMost
 
 module.exports.listDuplicates = (
     yarnLock,
-    { includePackages = [], excludePackages = [], useMostCommon = false } = {}
+    { includeScopes = [], includePackages = [], excludePackages = [], useMostCommon = false } = {}
 ) => {
     const json = parseYarnLock(yarnLock);
     const result = [];
 
-    getDuplicatedPackages(json, { includePackages, excludePackages, useMostCommon }).forEach(
-        ({ bestVersion, name, installedVersion, requestedVersion }) => {
-            result.push(
-                `Package "${name}" wants ${requestedVersion} and could get ${bestVersion}, but got ${installedVersion}`
-            );
-        }
-    );
+    getDuplicatedPackages(json, {
+        includeScopes,
+        includePackages,
+        excludePackages,
+        useMostCommon,
+    }).forEach(({ bestVersion, name, installedVersion, requestedVersion }) => {
+        result.push(
+            `Package "${name}" wants ${requestedVersion} and could get ${bestVersion}, but got ${installedVersion}`
+        );
+    });
 
     return result;
 };
 
 module.exports.fixDuplicates = (
     yarnLock,
-    { includePackages = [], excludePackages = [], useMostCommon = false } = {}
+    { includeScopes = [], includePackages = [], excludePackages = [], useMostCommon = false } = {}
 ) => {
     const json = parseYarnLock(yarnLock);
 
-    getDuplicatedPackages(json, { includePackages, excludePackages, useMostCommon }).forEach(
-        ({ bestVersion, name, versions, requestedVersion }) => {
-            json[`${name}@${requestedVersion}`] = versions[bestVersion].pkg;
-        }
-    );
+    getDuplicatedPackages(json, {
+        includeScopes,
+        includePackages,
+        excludePackages,
+        useMostCommon,
+    }).forEach(({ bestVersion, name, versions, requestedVersion }) => {
+        json[`${name}@${requestedVersion}`] = versions[bestVersion].pkg;
+    });
 
     return lockfile.stringify(json);
 };

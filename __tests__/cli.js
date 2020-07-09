@@ -17,7 +17,7 @@ test('prints duplicates', async () => {
         '--list',
         yarnLockFilePath,
     ]);
-    expect(stdout).toMatch(/^.+\n$/);
+    expect(stdout).toMatch(/^.+\n.+\n$/);
     expect(stderr).toBe('');
 });
 
@@ -69,6 +69,8 @@ test('prints fixed yarn.lock', async () => {
         '--print',
         yarnLockFilePath,
     ]);
+    expect(stdout).not.toContain('"@scope/lib@>=1.0.0":');
+    expect(stdout).toContain('"@scope/lib@>=1.0.0", "@scope/lib@>=2.0.0":');
     expect(stdout).not.toContain('lodash@>=1.0.0:');
     expect(stdout).toContain('lodash@>=1.0.0, lodash@>=2.0.0:');
     expect(stderr).toBe('');
@@ -87,6 +89,19 @@ test('prints fixed yarn.lock when listing lodash package', async () => {
     expect(stderr).toBe('');
 });
 
+test('prints fixed yarn.lock when listing @scope scope', async () => {
+    const { stdout, stderr } = await execFile(process.execPath, [
+        cliFilePath,
+        '--print',
+        '--scopes',
+        '@scope',
+        yarnLockFilePath,
+    ]);
+    expect(stdout).not.toContain('"@scope/lib@>=1.0.0":');
+    expect(stdout).toContain('"@scope/lib@>=1.0.0", "@scope/lib@>=2.0.0":');
+    expect(stderr).toBe('');
+});
+
 test('prints same yarn.lock when listing missing package', async () => {
     const { stdout, stderr } = await execFile(process.execPath, [
         cliFilePath,
@@ -95,6 +110,8 @@ test('prints same yarn.lock when listing missing package', async () => {
         'foo',
         yarnLockFilePath,
     ]);
+    expect(stdout).toContain('"@scope/lib@>=1.0.0":');
+    expect(stdout).not.toContain('"@scope/lib@>=1.0.0", "@scope/lib@>=2.0.0":');
     expect(stdout).toContain('lodash@>=1.0.0:');
     expect(stdout).not.toContain('lodash@>=1.0.0, lodash@>=2.0.0:');
     expect(stderr).toBe('');
@@ -108,6 +125,8 @@ test('prints fixed yarn.lock when excluding lodash', async () => {
         'lodash',
         yarnLockFilePath,
     ]);
+    expect(stdout).not.toContain('"@scope/lib@>=1.0.0":');
+    expect(stdout).toContain('"@scope/lib@>=1.0.0", "@scope/lib@>=2.0.0":');
     expect(stdout).toContain('lodash@>=1.0.0:');
     expect(stdout).toContain('lodash@>=2.0.0:');
     expect(stdout).not.toContain('lodash@>=1.0.0, lodash@>=2.0.0:');
@@ -123,8 +142,13 @@ test('edits yarn.lock and replaces its content with the fixed version', async ()
         ]);
         const newFileContent = await readFile(yarnLockFilePath, 'utf8');
         expect(oldFileContent).not.toBe(newFileContent);
+        expect(oldFileContent).toContain('"@scope/lib@>=1.0.0":');
+        expect(oldFileContent).not.toContain('"@scope/lib@>=1.0.0", "@scope/lib@>=2.0.0":');
         expect(oldFileContent).toContain('lodash@>=1.0.0:');
         expect(oldFileContent).not.toContain('lodash@>=1.0.0, lodash@>=2.0.0:');
+
+        expect(newFileContent).not.toContain('"@scope/lib@>=1.0.0":');
+        expect(newFileContent).toContain('"@scope/lib@>=1.0.0", "@scope/lib@>=2.0.0":');
         expect(newFileContent).not.toContain('lodash@>=1.0.0:');
         expect(newFileContent).toContain('lodash@>=1.0.0, lodash@>=2.0.0:');
         expect(stdout).toBe('');
@@ -142,8 +166,13 @@ test('edits yarn.lock and replaces its content with the fixed version without sp
         });
         const newFileContent = await readFile(yarnLockFilePath, 'utf8');
         expect(oldFileContent).not.toBe(newFileContent);
+        expect(oldFileContent).toContain('"@scope/lib@>=1.0.0":');
+        expect(oldFileContent).not.toContain('"@scope/lib@>=1.0.0", "@scope/lib@>=2.0.0":');
         expect(oldFileContent).toContain('lodash@>=1.0.0:');
         expect(oldFileContent).not.toContain('lodash@>=1.0.0, lodash@>=2.0.0:');
+
+        expect(newFileContent).not.toContain('"@scope/lib@>=1.0.0":');
+        expect(newFileContent).toContain('"@scope/lib@>=1.0.0", "@scope/lib@>=2.0.0":');
         expect(newFileContent).not.toContain('lodash@>=1.0.0:');
         expect(newFileContent).toContain('lodash@>=1.0.0, lodash@>=2.0.0:');
         expect(stdout).toBe('');
