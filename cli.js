@@ -22,15 +22,17 @@ commander
     .option(
         '--scopes <scopes>',
         'a comma separated list of scopes to deduplicate. Defaults to all packages.',
-        val => val.split(',').map(v => v.trim())
+        (val) => val.split(',').map((v) => v.trim())
     )
     .option(
         '--packages <packages>',
         'a comma separated list of packages to deduplicate. Defaults to all packages.',
-        val => val.split(',').map(v => v.trim())
+        (val) => val.split(',').map((v) => v.trim())
     )
-    .option('--exclude <exclude>', 'a comma separated list of packages not to deduplicate.', val =>
-        val.split(',').map(v => v.trim())
+    .option(
+        '--exclude <exclude>',
+        'a comma separated list of packages not to deduplicate.',
+        (val) => val.split(',').map((v) => v.trim())
     )
     .option('--print', 'instead of saving the deduplicated yarn.lock, print the result in stdout');
 
@@ -59,7 +61,7 @@ try {
             includePackages: commander.packages,
             excludePackages: commander.exclude,
         });
-        duplicates.forEach(logLine => console.log(logLine));
+        duplicates.forEach((logLine) => console.log(logLine));
         if (commander.fail && duplicates.length > 0) {
             process.exit(1);
         }

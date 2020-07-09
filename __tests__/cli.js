@@ -28,7 +28,7 @@ test('fails if given the fail option', async () => {
         '--fail',
         yarnLockFilePath,
     ]);
-    listProc.on('close', code => {
+    listProc.on('close', (code) => {
         expect(code).toBe(1);
     });
 
@@ -38,7 +38,7 @@ test('fails if given the fail option', async () => {
         '--fail',
         yarnLockFilePath,
     ]);
-    execProc.on('close', code => {
+    execProc.on('close', (code) => {
         expect(code).toBe(1);
     });
 });
@@ -49,7 +49,7 @@ test('does not fail without the fail option', async () => {
         '--list',
         yarnLockFilePath,
     ]);
-    listProc.on('close', code => {
+    listProc.on('close', (code) => {
         expect(code).toBe(0);
     });
 
@@ -58,7 +58,7 @@ test('does not fail without the fail option', async () => {
         '--print',
         yarnLockFilePath,
     ]);
-    execProc.on('close', code => {
+    execProc.on('close', (code) => {
         expect(code).toBe(0);
     });
 });
