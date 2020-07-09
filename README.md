@@ -148,6 +148,19 @@ list. This option is recommended when the number of duplicated packages in `yarn
 to be easily reviewed by a human. This will allow for a more controlled and progressive
 deduplication of `yarn.lock`.
 
+### Usage in CI
+
+This tool can be used as part of a CI workflow. Adding the flag `--fail` will force the process to
+exit with status 1 if there are duplicated packages. Example:
+
+```bash
+# Print the list of duplicated packages and exit with status 1
+yarn-deduplicate --list --fail
+
+# Deduplicate yarn.lock and exit with status 1 if changes were required
+yarn-deduplicate --fail
+```
+
 ---
 
 ## Migration guide
