@@ -13,7 +13,7 @@
     "deduplicate"
   ],
   "scripts": {
-    "test": "eslint . && jest",
+    "test": "jest",
     "lint": "eslint ."
   },
   "homepage": "https://github.com/atlassian/yarn-deduplicate#readme",
