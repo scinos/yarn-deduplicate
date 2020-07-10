@@ -5,9 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## TBD
 
-- Option `--scopes` to limit changes to a list of scopes
+## [2.1.0] - 2020-07-10
+
+### Chores
+
+- Updated dependencies
+- Move from CircleCI to GitHub actions
+- Clean up and dedupe `yarn.lock`
+
+### Added
+
+- Option `--scopes` to limit changes to a list of scopes (thanks to @sgomes)
+- Improve documentation for `--strategy` (thanks to @KubaJastrz)
+- Clean up .npmignore (thanks to @bluelovers)
 
 ## [2.0.0] - 2020-02-29
 
