@@ -17,7 +17,7 @@ commander
     .option('-l, --list', 'do not change yarn.lock, just output the diagnosis')
     .option(
         '-f, --fail',
-        'if there are duplicates in yarn.lock, terminate the script wuth exit status 1'
+        'if there are duplicates in yarn.lock, terminate the script with exit status 1'
     )
     .option(
         '--scopes <scopes>',
