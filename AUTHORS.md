@@ -16,6 +16,7 @@ Luke Batchelor <lbatchelor@atlassian.com>
 Maciej Rzymski <mrzymski@atlassian.com>
 Matt Mulder <muldmatt@gmail.com>
 Mike Greiling <mike@pixelcog.com>
+Piotr Łukomiak <cieplak32@gmail.com>
 Richard Atkins <richatkins@atlassian.com>
 Sergio Cinos <sergio.cinos@gmail.com>
 Simon Knox <psimyn@users.noreply.github.com>
