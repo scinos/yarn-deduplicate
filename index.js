@@ -7,6 +7,13 @@ const extractPackages = (json, includeScopes = [], includePackages = [], exclude
     const packages = {};
     const re = /^(.*)@([^@]*?)$/;
 
+    let resolvable = null;
+    if (includeScopes.length) {
+        includeScopes = includeScopes.filter(
+            (v) => !['^', '~', '*'].includes(v) || !(resolvable = v)
+        );
+    }
+
     Object.keys(json).forEach((name) => {
         const pkg = json[name];
         const match = name.match(re);
@@ -19,6 +26,17 @@ const extractPackages = (json, includeScopes = [], includePackages = [], exclude
         //      path/path/path
         if (match) {
             [, packageName, requestedVersion] = match;
+
+            if (resolvable === '*') {
+                requestedVersion = '*';
+            } else if (resolvable === '^' && /(^|\s|\|)~\s*\d/.test(requestedVersion)) {
+                requestedVersion = requestedVersion.replace(/(^|\s|\|)~\s*(\d)/g, '$1^$2');
+            } else if (
+                resolvable &&
+                /^\d[\w.-]*$/.test((requestedVersion = semver.clean(requestedVersion)))
+            ) {
+                requestedVersion = resolvable + requestedVersion.replace(/^(0)\..*$/, '$1');
+            }
         } else {
             // If there is no match, it means there is no version specified. According to the doc
             // this means "*" (https://docs.npmjs.com/files/package.json#dependencies)
@@ -28,16 +46,16 @@ const extractPackages = (json, includeScopes = [], includePackages = [], exclude
 
         // If there is a list of scopes, only process those.
         if (
-            includeScopes.length > 0 &&
+            includeScopes.length &&
             !includeScopes.find((scope) => packageName.startsWith(`${scope}/`))
         ) {
             return;
         }
 
         // If there is a list of package names, only process those.
-        if (includePackages.length > 0 && !includePackages.includes(packageName)) return;
+        if (includePackages.length && !includePackages.includes(packageName)) return;
 
-        if (excludePackages.length > 0 && excludePackages.includes(packageName)) return;
+        if (excludePackages.length && excludePackages.includes(packageName)) return;
 
         packages[packageName] = packages[packageName] || [];
         packages[packageName].push({

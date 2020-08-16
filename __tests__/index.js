@@ -42,7 +42,7 @@ test('dedupes lockfile to most common compatible version', () => {
     library@^2.0.0:
       version "2.1.0"
       resolved "https://example.net/library@^2.1.0"
-  `;
+    `;
     const deduped = fixDuplicates(yarn_lock, {
         useMostCommon: true,
     });
@@ -77,7 +77,7 @@ test('limits the scopes to be de-duplicated', () => {
     "@another-scope/a-package@^1.0.1":
       version "1.0.12"
       resolved "http://example.com/another-scope/a-package/1.0.0"
-  `;
+    `;
 
     const deduped = fixDuplicates(yarn_lock, {
         includeScopes: ['@another-scope'],
@@ -116,7 +116,7 @@ test('limits the packages to be de-duplicated', () => {
     other-package@^1.0.1:
       version "1.0.12"
       resolved "http://example.com/other-package/1.0.0"
-  `;
+    `;
 
     const deduped = fixDuplicates(yarn_lock, {
         includePackages: ['other-package'],
@@ -155,7 +155,7 @@ test('excludes packages to be de-duplicated', () => {
     other-package@^1.0.1:
       version "1.0.12"
       resolved "http://example.com/other-package/1.0.0"
-  `;
+    `;
 
     const deduped = fixDuplicates(yarn_lock, {
         excludePackages: ['a-package'],
@@ -194,7 +194,7 @@ test('should support the integrity field if present', () => {
       version "2.0.1"
       resolved "http://example.com/a-second-package/2.0.1"
       integrity sha512-ptqFDzemkXGMf7ylch/bCV+XTDvVjD9dRymzcjOPIxg8Hqt/uesOye10GXItFbsxJx9VZeJBYrR8FFTauu+hHg==
-  `;
+    `;
 
     const deduped = fixDuplicates(yarn_lock);
 

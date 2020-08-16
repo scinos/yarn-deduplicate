@@ -62,7 +62,7 @@ try {
             excludePackages: commander.exclude,
         });
         duplicates.forEach((logLine) => console.log(logLine));
-        if (commander.fail && duplicates.length > 0) {
+        if (commander.fail && duplicates.length) {
             process.exit(1);
         }
     } else {

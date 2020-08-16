@@ -14,7 +14,8 @@
   ],
   "scripts": {
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build": "rimraf dist && webpack --progress"
   },
   "homepage": "https://github.com/atlassian/yarn-deduplicate#readme",
   "bugs": "https://github.com/atlassian/yarn-deduplicate/issues",
@@ -35,17 +36,43 @@
     "semver": "^7.3.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "babel-loader": "^8.0.6",
+    "copy-pkg-json-webpack-plugin": "^0.0.39",
+    "copy-webpack-plugin": "^5.1.0",
     "eslint": "^7.4.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-jest": "^23.18.0",
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.1.0",
     "outdent": "^0.7.1",
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "string-replace-loader": "^2.2.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
   },
   "jest": {
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules"
     ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:prettier/recommended",
+      "plugin:jest/recommended"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2017
+    },
+    "env": {
+      "es6": true,
+      "node": true
+    }
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "trailingComma": "es5"
   }
 }

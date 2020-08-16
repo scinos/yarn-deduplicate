@@ -59,8 +59,8 @@ Edit: *Do not use. It breaks Node 8 compatiblity. Use 2.0.0 instead*
 
 ### Chores
 
- - Moved eslint and stricter to devDependencies (thanks @hawkrives)
- - Re-enabled disabled tests (thanks @amark)
+- Moved eslint and stricter to devDependencies (thanks @hawkrives)
+- Re-enabled disabled tests (thanks @amark)
 
 ## [1.0.4] - 2018-12-12
 
