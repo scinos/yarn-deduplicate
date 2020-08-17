@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+## [2.2.0] - 2020-08-17
+
+### Changed
+
+- Guess duplicatable packages with `--scopes` option value: '^', '~', and '*'
+
+### Chores
+
+- Use `webpack`, `babel` to bundle CLI and library for Node 6 compatibility
+
 ## [2.1.0] - 2020-07-10
 
 ### Chores
@@ -28,7 +38,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [1.2.0] - 2020-02-29
 
-Edit: *Do not use. It breaks Node 8 compatiblity. Use 2.0.0 instead*
+Edit: *Do not use. It breaks Node 8 compatibility. Use 2.0.0 instead*
 
 ### Added
 

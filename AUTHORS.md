@@ -24,3 +24,4 @@ Su-Shing Chen <Shingyx@users.noreply.github.com>
 Sérgio Gomes <mail@sgomes.com>
 Xianming Zhong <chinesedfan@qq.com>
 Yann Pringault <yann.pringault@gmail.com>
+Thach Nguyen (https://github.com/nthachus)
