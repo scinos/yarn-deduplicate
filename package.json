@@ -1,6 +1,6 @@
 {
   "name": "yarn-deduplicate",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "bin": "./cli.js",
   "description": "Deduplication tool for yarn.lock files",
   "keywords": [
@@ -13,9 +13,10 @@
     "deduplicate"
   ],
   "scripts": {
-    "test": "jest",
-    "lint": "eslint .",
-    "build": "rimraf dist && webpack --progress"
+    "test": "jest --verbose",
+    "lint": "eslint --cache --cache-location node_modules/.cache/eslint .",
+    "build": "rimraf dist && webpack --progress --display-modules",
+    "clean": "rimraf dist node_modules/.cache"
   },
   "homepage": "https://github.com/atlassian/yarn-deduplicate#readme",
   "bugs": "https://github.com/atlassian/yarn-deduplicate/issues",
@@ -53,6 +54,7 @@
     "webpack-cli": "^3.3.12"
   },
   "jest": {
+    "cacheDirectory": "node_modules/.cache/jest",
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules"
     ]

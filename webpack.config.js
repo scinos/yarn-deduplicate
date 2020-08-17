@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const TerserPlugin = require('terser-webpack-plugin');
 const CopyPkgJsonPlugin = require('copy-pkg-json-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
@@ -20,7 +21,7 @@ module.exports = {
         __dirname: false,
     },
     externals: {
-        './index': 'require("./index")',
+        './index': 'commonjs ./index',
     },
     module: {
         rules: [
@@ -39,6 +40,11 @@ module.exports = {
                     presets: [['@babel/preset-env', { targets: { node: '6' } }]], // esmodules
                 },
             },
+            {
+                test: path.resolve(__dirname, 'package.json'),
+                loader: 'string-replace-loader',
+                options: { search: ',\\s*"bin":.*$', flags: 's', replace: '}' },
+            },
         ],
     },
     plugins: [
@@ -52,5 +58,15 @@ module.exports = {
     optimization: {
         nodeEnv: false,
         // minimize: false,
+        minimizer: [
+            new TerserPlugin({
+                cache: true,
+                parallel: true,
+                terserOptions: {
+                    mangle: false,
+                    output: { beautify: true },
+                },
+            }),
+        ],
     },
 };

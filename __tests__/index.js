@@ -201,3 +201,66 @@ test('should support the integrity field if present', () => {
     // We should not have made any change to the order of outputted lines (@yarnpkg/lockfile 1.0.0 had this bug)
     expect(yarn_lock).toBe(deduped);
 });
+
+test('guess duplicatable packages with "~" scopes', () => {
+    const yarn_lock = outdent`
+    library@1.1.0:
+      version "1.1.0"
+      resolved "https://example.net/library@1.1.0"
+
+    library@^1.1.2:
+      version "1.1.2"
+      resolved "https://example.net/library@^1.1.2"
+
+    library@=1.1.1:
+      version "1.1.1"
+      resolved "https://example.net/library@=1.1.1"
+    `;
+    const list = listDuplicates(yarn_lock, { includeScopes: ['~'] });
+
+    expect(list).toHaveLength(2);
+    expect(list).toContain('Package "library" wants ~1.1.0 and could get 1.1.2, but got 1.1.0');
+    expect(list).toContain('Package "library" wants ~1.1.1 and could get 1.1.2, but got 1.1.1');
+});
+
+test('guess duplicatable packages with "^" scopes', () => {
+    const yarn_lock = outdent`
+    library@1.0.0:
+      version "1.0.0"
+      resolved "https://example.net/library@1.0.0"
+
+    library@1.2.0:
+      version "1.2.0"
+      resolved "https://example.net/library@1.2.0"
+
+    library@~1.1.0:
+      version "1.1.0"
+      resolved "https://example.net/library@~1.1.0"
+    `;
+    const list = listDuplicates(yarn_lock, { includeScopes: ['^'] });
+
+    expect(list).toHaveLength(2);
+    expect(list).toContain('Package "library" wants ^1.0.0 and could get 1.2.0, but got 1.0.0');
+    expect(list).toContain('Package "library" wants ^1.1.0 and could get 1.2.0, but got 1.1.0');
+});
+
+test('list all duplicated packages with "*" scopes', () => {
+    const yarn_lock = outdent`
+    library@^1.0.0:
+      version "1.0.0"
+      resolved "https://example.net/library@^1.0.0"
+
+    library@^2.0.0:
+      version "2.0.0"
+      resolved "https://example.net/library@^2.0.0"
+
+    "library@>=1.1.0":
+      version "1.1.0"
+      resolved "https://example.net/library@>=1.1.0"
+    `;
+    const list = listDuplicates(yarn_lock, { includeScopes: ['*'] });
+
+    expect(list).toHaveLength(2);
+    expect(list).toContain('Package "library" wants * and could get 2.0.0, but got 1.0.0');
+    expect(list).toContain('Package "library" wants * and could get 2.0.0, but got 1.1.0');
+});
