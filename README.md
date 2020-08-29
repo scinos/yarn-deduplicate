@@ -1,5 +1,6 @@
 Builds: ![Node.js CI](https://github.com/atlassian/yarn-deduplicate/workflows/Node.js%20CI/badge.svg)
 
+This package only works with Yarn v1. Yarn v2 supports package deduplcatiion [natively](https://github.com/yarnpkg/berry/pull/1558)!
 
 # Yarn deduplicate
 
@@ -141,14 +142,14 @@ is specified again.
 
 ### Progressive deduplication
 
-`--packages <package1>,<package2>,<packageN>`
+`--packages <package1> <package2> <packageN>`
 
 Receives a list of packages to deduplicate. It will ignore any other duplicated package not in the
 list. This option is recommended when the number of duplicated packages in `yarn.lock` is too big
 to be easily reviewed by a human. This will allow for a more controlled and progressive
 deduplication of `yarn.lock`.
 
-`--scopes <scope1>,<scope2>,<scopeN>`
+`--scopes <scope1> <scope2> <scopeN>`
 
 Receives a list of scopes to deduplicate. It will ignore any other duplicated package not in the
 list. This option is recommended when deduplicating a large number of inter-dependent packages
@@ -171,6 +172,31 @@ yarn-deduplicate --fail
 ---
 
 ## Migration guide
+
+### From 2.x to 3.x
+
+In this version we have adopted variadic arguments from commander.js. These are the equivalent
+commands:
+
+```bash
+#Old
+yarn-deduplicate --packages libA,libB
+yarn-deduplicate --scopes @scopeA,@scopeB
+yarn-deduplicate --exclude libA,libB
+
+#New
+yarn-deduplicate --packages libA libB
+yarn-deduplicate --scopes @scopeA @scopeB
+yarn-deduplicate --exclude libA libB
+```
+
+A consequence of this change is that if you were using one or more of the affected options (
+`--packages`, `--scopes` or `--exclude`) __and__ a custom path for `yarn.lock`, you need to use `--`
+to "stop" package/scope/exclude parsing:
+
+```bash
+yarn-deduplicate --packages libA libB -- path/to/yarn.lock
+```
 
 ### From 0.x to 1.x
 

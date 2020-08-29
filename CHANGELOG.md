@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## master
 
+## [3.0.0] - 2020-10-29
+
 ### Breaking
 
 ### Variadic flags
@@ -22,6 +24,10 @@ If you use one of those flags _and_ you want to specify a custom `yarn.lock` fil
 
 - Updated Commander to 6.1.0
 - Updated eslint to 7.7.0
+- Updated yarn to 1.22.5
+- Updated prettier to 2.1.1
+- Updated jest to 26.4.2
+- Updated eslint-plugin-jest to 23.20.0
 
 ## [2.1.0] - 2020-07-10
 
