@@ -9,6 +9,14 @@
   version "4.17.15"
   resolved "https://example.net/@scope/lib@^4.7.15"
 
+"@another-scope/lib@>=1.0.0":
+  version "1.3.1"
+  resolved "https://example.net/@another-scope/lib@^1.3.1"
+
+"@another-scope/lib@>=2.0.0":
+  version "4.17.15"
+  resolved "https://example.net/@another-scope/lib@^4.7.15"
+
 library@>=1.0.0, library@>=1.1.0:
   version "3.0.0"
   resolved "https://example.net/library@^3.0.0"

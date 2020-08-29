@@ -19,21 +19,12 @@ commander
         '-f, --fail',
         'if there are duplicates in yarn.lock, terminate the script with exit status 1'
     )
+    .option('--scopes <scopes...>', 'a list of scopes to deduplicate. Defaults to all packages.')
     .option(
-        '--scopes <scopes>',
-        'a comma separated list of scopes to deduplicate. Defaults to all packages.',
-        (val) => val.split(',').map((v) => v.trim())
+        '--packages <packages...>',
+        'a list of packages to deduplicate. Defaults to all packages.'
     )
-    .option(
-        '--packages <packages>',
-        'a comma separated list of packages to deduplicate. Defaults to all packages.',
-        (val) => val.split(',').map((v) => v.trim())
-    )
-    .option(
-        '--exclude <exclude>',
-        'a comma separated list of packages not to deduplicate.',
-        (val) => val.split(',').map((v) => v.trim())
-    )
+    .option('--exclude <exclude...>', 'a list of packages not to deduplicate.')
     .option('--print', 'instead of saving the deduplicated yarn.lock, print the result in stdout');
 
 commander.parse(process.argv);

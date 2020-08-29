@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## master
+
+### Breaking
+
+### Variadic flags
+
+Flags `--packages`, `--scopes` and `--exclude` don't support comma-separated values anymore (eg:
+`--packages libA,libB`). Instead, you can pass multiple values per flag (eg: `--packages libA libB`)
+ or pass the flag multiple times (eg: `--packages libA --packages libB`).
+
+If you use one of those flags _and_ you want to specify a custom `yarn.lock` file, you need to use
+`--` to separate the arg. Example `--packages libA -- ../project/yarn.lock`
+
+### Chores
+
+- Updated Commander to 6.1.0
+- Updated eslint to 7.7.0
 
 ## [2.1.0] - 2020-07-10
 
