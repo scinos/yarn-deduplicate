@@ -55,7 +55,7 @@ Edit: *Do not use. It breaks Node 8 compatiblity. Use 2.0.0 instead*
 
 ### Added
 
-- Typescript definitions (thanks to @bluelovers)
+- TypeScript definitions (thanks to @bluelovers)
 - Info about the source of duplication to README
 - CLI option to exclude packages (thanks to @JacobBlomgren)
 - Updated a bunch of dependencies
@@ -111,7 +111,7 @@ Edit: *Do not use. It breaks Node 8 compatiblity. Use 2.0.0 instead*
 
 ### Chores
 
-- Removed unused files (tests, local `.history`) from the NPM package. Only `*.js` and
+- Removed unused files (tests, local `.history`) from the npm package. Only `*.js` and
   text files are included now.
 
 ## [1.0.0] - 2018-10-31
