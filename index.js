@@ -51,7 +51,7 @@ const extractPackages = (json, includeScopes = [], includePackages = [], exclude
     return packages;
 };
 
-const computePackageInstances = (packages, name, useMostCommon) => {
+const computePackageInstances = (packages, name, useMostCommon, includePrerelease = false) => {
     // Instances of this package in the tree
     const packageInstances = packages[name];
 
@@ -74,8 +74,8 @@ const computePackageInstances = (packages, name, useMostCommon) => {
             // In some cases the requested version is invalid form a semver point of view (for
             // example `sinon@next`). Just ignore those cases, they won't get deduped.
             if (
-                semver.validRange(packageInstance.requestedVersion) &&
-                semver.satisfies(version, packageInstance.requestedVersion)
+                semver.validRange(packageInstance.requestedVersion, { includePrerelease }) &&
+                semver.satisfies(version, packageInstance.requestedVersion, { includePrerelease })
             ) {
                 satisfies.add(packageInstance);
                 packageInstance.satisfiedBy.add(version);
@@ -98,7 +98,7 @@ const computePackageInstances = (packages, name, useMostCommon) => {
                 if (versions[versionB].satisfies.size < versions[versionA].satisfies.size)
                     return -1;
             }
-            return semver.rcompare(versionA, versionB);
+            return semver.rcompare(versionA, versionB, { includePrerelease });
         });
         packageInstance.satisfiedBy = candidateVersions;
 
@@ -111,12 +111,12 @@ const computePackageInstances = (packages, name, useMostCommon) => {
 
 const getDuplicatedPackages = (
     json,
-    { includeScopes, includePackages, excludePackages, useMostCommon }
+    { includeScopes, includePackages, excludePackages, useMostCommon, includePrerelease = false }
 ) => {
     const packages = extractPackages(json, includeScopes, includePackages, excludePackages);
     return Object.keys(packages)
         .reduce(
-            (acc, name) => acc.concat(computePackageInstances(packages, name, useMostCommon)),
+            (acc, name) => acc.concat(computePackageInstances(packages, name, useMostCommon, includePrerelease)),
             []
         )
         .filter(({ bestVersion, installedVersion }) => bestVersion !== installedVersion);
@@ -145,7 +145,7 @@ module.exports.listDuplicates = (
 
 module.exports.fixDuplicates = (
     yarnLock,
-    { includeScopes = [], includePackages = [], excludePackages = [], useMostCommon = false } = {}
+    { includeScopes = [], includePackages = [], excludePackages = [], useMostCommon = false, includePrerelease = false } = {}
 ) => {
     const json = parseYarnLock(yarnLock);
 
@@ -154,6 +154,7 @@ module.exports.fixDuplicates = (
         includePackages,
         excludePackages,
         useMostCommon,
+        includePrerelease,
     }).forEach(({ bestVersion, name, versions, requestedVersion }) => {
         json[`${name}@${requestedVersion}`] = versions[bestVersion].pkg;
     });

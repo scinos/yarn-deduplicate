@@ -25,7 +25,8 @@ commander
         'a list of packages to deduplicate. Defaults to all packages.'
     )
     .option('--exclude <exclude...>', 'a list of packages not to deduplicate.')
-    .option('--print', 'instead of saving the deduplicated yarn.lock, print the result in stdout');
+    .option('--print', 'instead of saving the deduplicated yarn.lock, print the result in stdout')
+    .option('--includePrerelease', 'Include prereleases in version comparisons, e.g. ^1.0.0 will be satisfied by 1.0.0-alpha');
 
 commander.parse(process.argv);
 
