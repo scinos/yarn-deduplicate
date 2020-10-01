@@ -127,7 +127,13 @@ const getDuplicatedPackages = (
 
 module.exports.listDuplicates = (
     yarnLock,
-    { includeScopes = [], includePackages = [], excludePackages = [], useMostCommon = false } = {}
+    {
+        includeScopes = [],
+        includePackages = [],
+        excludePackages = [],
+        useMostCommon = false,
+        includePrerelease = false,
+    } = {}
 ) => {
     const json = parseYarnLock(yarnLock);
     const result = [];
@@ -137,6 +143,7 @@ module.exports.listDuplicates = (
         includePackages,
         excludePackages,
         useMostCommon,
+        includePrerelease,
     }).forEach(({ bestVersion, name, installedVersion, requestedVersion }) => {
         result.push(
             `Package "${name}" wants ${requestedVersion} and could get ${bestVersion}, but got ${installedVersion}`

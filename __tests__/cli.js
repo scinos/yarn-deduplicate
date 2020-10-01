@@ -267,3 +267,18 @@ test('uses fewer strategy', async () => {
     expect(stdout).toContain('resolved "https://example.net/library@^2.1.0"');
     expect(stderr).toBe('');
 });
+
+test('uses includePrerelease option', async () => {
+    const { stdout, stderr } = await execFile(process.execPath, [
+        cliFilePath,
+        '--print',
+        '--includePrerelease',
+        yarnLockFilePath,
+    ]);
+    expect(stdout).not.toContain('typescript@^4.0.3:');
+    expect(stdout).toContain('typescript@^4.0.3, typescript@^4.1.0-beta:');
+    expect(stdout).toContain(
+        'resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.1.0-beta.tgz#e4d054035d253b7a37bdc077dd71706508573e69"'
+    );
+    expect(stderr).toBe('');
+});

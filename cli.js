@@ -66,6 +66,7 @@ try {
             includeScopes: commander.scopes,
             includePackages: commander.packages,
             excludePackages: commander.exclude,
+            includePrerelease: commander.includePrerelease,
         });
 
         if (commander.print) {

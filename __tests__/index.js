@@ -99,6 +99,38 @@ test('limits the scopes to be de-duplicated', () => {
     );
 });
 
+test('includePrerelease options dedupes to the prerelease', () => {
+    const yarn_lock = outdent`
+  typescript@^4.1.0-beta:
+    version "4.1.0-beta"
+    resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.1.0-beta.tgz#e4d054035d253b7a37bdc077dd71706508573e69"
+    integrity sha512-b/LAttdVl3G6FEmnMkDsK0xvfvaftXpSKrjXn+OVCRqrwz5WD/6QJOiN+dTorqDY+hkaH+r2gP5wI1jBDmdQ7A==
+
+  typescript@^4.0.3:
+    version "4.0.3"
+    resolved "https://packages.atlassian.com/api/npm/npm-remote/typescript/-/typescript-4.0.3.tgz#153bbd468ef07725c1df9c77e8b453f8d36abba5"
+    integrity sha1-FTu9Ro7wdyXB35x36LRT+NNqu6U=
+
+`;
+
+    const deduped = fixDuplicates(yarn_lock, {
+        includePrerelease: true,
+    });
+    const json = lockfile.parse(deduped).object;
+
+    expect(json['typescript@^4.0.3']['version']).toEqual('4.1.0-beta');
+    expect(json['typescript@^4.1.0-beta']['version']).toEqual('4.1.0-beta');
+
+    const list = listDuplicates(yarn_lock, {
+        includePrerelease: true,
+    });
+
+    expect(list).toHaveLength(1);
+    expect(list).toContain(
+        'Package "typescript" wants ^4.0.3 and could get 4.1.0-beta, but got 4.0.3'
+    );
+});
+
 test('limits the packages to be de-duplicated', () => {
     const yarn_lock = outdent`
     a-package@^2.0.0:
