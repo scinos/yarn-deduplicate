@@ -28,7 +28,7 @@ commander
     .option('--print', 'instead of saving the deduplicated yarn.lock, print the result in stdout')
     .option(
         '--includePrerelease',
-        'Include prereleases in version comparisons, e.g. ^1.0.0 will be satisfied by 1.0.0-alpha'
+        'Include prereleases in version comparisons, e.g. ^1.0.0 will be satisfied by 1.0.1-alpha'
     );
 
 commander.parse(process.argv);
