@@ -116,7 +116,10 @@ const getDuplicatedPackages = (
     const packages = extractPackages(json, includeScopes, includePackages, excludePackages);
     return Object.keys(packages)
         .reduce(
-            (acc, name) => acc.concat(computePackageInstances(packages, name, useMostCommon, includePrerelease)),
+            (acc, name) =>
+                acc.concat(
+                    computePackageInstances(packages, name, useMostCommon, includePrerelease)
+                ),
             []
         )
         .filter(({ bestVersion, installedVersion }) => bestVersion !== installedVersion);
@@ -145,7 +148,13 @@ module.exports.listDuplicates = (
 
 module.exports.fixDuplicates = (
     yarnLock,
-    { includeScopes = [], includePackages = [], excludePackages = [], useMostCommon = false, includePrerelease = false } = {}
+    {
+        includeScopes = [],
+        includePackages = [],
+        excludePackages = [],
+        useMostCommon = false,
+        includePrerelease = false,
+    } = {}
 ) => {
     const json = parseYarnLock(yarnLock);
 
