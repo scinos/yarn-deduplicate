@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## master
 
+- Updated dependency `jest` to 26.6.1
+
 ## [3.0.0] - 2020-10-29
 
 ### Breaking
