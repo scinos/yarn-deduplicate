@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Updated dependency `jest` to 26.6.1
 - Updated `yarn` to 1.22.10 (via policy)
 - Updated `eslint-config-prettier` to 6.14.0
+- Updated `prettier` to 2.1.2
 
 ### Added
 
