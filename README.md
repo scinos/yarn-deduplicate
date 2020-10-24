@@ -1,8 +1,8 @@
+# yarn-deduplicate
+
 Builds: ![Node.js CI](https://github.com/atlassian/yarn-deduplicate/workflows/Node.js%20CI/badge.svg)
 
-This package only works with Yarn v1. Yarn v2 supports package deduplcatiion [natively](https://github.com/yarnpkg/berry/pull/1558)!
-
-# Yarn deduplicate
+This package only works with Yarn v1. Yarn v2 supports package deduplication [natively](https://github.com/yarnpkg/berry/pull/1558)!
 
 Cleans up `yarn.lock` by removing duplicates.
 
@@ -14,13 +14,13 @@ strategies](#deduplication-strategies) section for a few examples.
 
 Install the package globally:
 
-```bash
+```sh
 npm install -g yarn-deduplicate
 ```
 
 or
 
-```bash
+```sh
 yarn global add yarn-deduplicate
 ```
 
@@ -33,7 +33,7 @@ so you don't need to install it.
 
 The most common scenario is to run
 
-```bash
+```sh
 yarn-deduplicate yarn.lock
 ```
 
@@ -43,7 +43,7 @@ If you do not specify the yarn.lock path, it defaults to `yarn.lock`.
 
 Check all available options with:
 
-```bash
+```sh
 yarn-deduplicate --help
 ```
 
@@ -91,6 +91,7 @@ packages. For example, this scenario:
 In the above scenario, you'll end up with `libB@1.1.2` and `libB@1.1.3` in your repo.
 
 Find more examples in:
+
 - [yarn-deduplicate — The Hero We Need](https://medium.com/@bnaya/yarn-deduplicate-the-hero-we-need-f4497a362128)
 - [De-duplicating yarn.lock](https://medium.com/@scinos/de-duplicating-yarn-lock-ae30be4aa41a)
 - https://github.com/yarnpkg/yarn/issues/3778
@@ -102,15 +103,15 @@ Find more examples in:
 `highest`
 It will try to use the highest installed version. For example, with the following `yarn.lock`:
 
-```
+```text
 library@^1.1.0:
-    version "1.2.0"
+  version "1.2.0"
 
 library@^1.2.0:
-    version "1.2.0"
+  version "1.2.0"
 
 library@^1.3.0:
-    version "1.3.0"
+  version "1.3.0"
 ```
 
 It will deduplicate `library@^1.1.0` and `library@^1.2.0` to `1.3.0`
@@ -119,20 +120,20 @@ It will deduplicate `library@^1.1.0` and `library@^1.2.0` to `1.3.0`
 It will try to minimize the number of installed versions by trying to deduplicate to the version
 that satisfies most of the ranges first. For example, with the following `yarn.lock`:
 
-```
+```text
 library@*:
-    version "2.0.0"
+  version "2.0.0"
 
 library@>=1.1.0:
-    version "3.0.0"
+  version "3.0.0"
 
 library@^1.2.0:
-    version "1.2.0"
+  version "1.2.0"
 ```
 
 It will deduplicate `library@*` and `library@>=1.1.0` to `1.2.0`.
 
-Note that this will cause some packages to **downgrade** it version. Be sure to check the changelogs
+Note that this may cause some packages to be **downgraded**. Be sure to check the changelogs
 between all versions and understand the consequences of that downgrade. If unsure, don't use this
 strategy.
 
@@ -161,7 +162,7 @@ deduplication of `yarn.lock` without specifying each package individually.
 This tool can be used as part of a CI workflow. Adding the flag `--fail` will force the process to
 exit with status 1 if there are duplicated packages. Example:
 
-```bash
+```sh
 # Print the list of duplicated packages and exit with status 1
 yarn-deduplicate --list --fail
 
@@ -178,7 +179,7 @@ yarn-deduplicate --fail
 In this version we have adopted variadic arguments from commander.js. These are the equivalent
 commands:
 
-```bash
+```sh
 #Old
 yarn-deduplicate --packages libA,libB
 yarn-deduplicate --scopes @scopeA,@scopeB
@@ -194,7 +195,7 @@ A consequence of this change is that if you were using one or more of the affect
 `--packages`, `--scopes` or `--exclude`) __and__ a custom path for `yarn.lock`, you need to use `--`
 to "stop" package/scope/exclude parsing:
 
-```bash
+```sh
 yarn-deduplicate --packages libA libB -- path/to/yarn.lock
 ```
 
@@ -205,7 +206,7 @@ commands:
 
 #### Installation
 
-```bash
+```sh
 # Old
 npm install -g yarn-tools
 
@@ -215,7 +216,7 @@ npm install -g yarn-deduplicate
 
 #### List duplicates
 
-```bash
+```sh
 # Old
 yarn-tools list-duplicates path/to/yarn.lock
 
@@ -224,7 +225,8 @@ yarn-deduplicate --list path/to/yarn.lock
 ```
 
 ### Deduplicate yarn.lock
-```bash
+
+```sh
 # Old
 yarn-tools fix-duplicates path/to/yarn.lock > tmp
 mv tmp path/to/yarn.lock
@@ -234,7 +236,8 @@ yarn-deduplicate path/to/yarn.lock
 ```
 
 ### Limit packages to deduplicate yarn.lock
-```bash
+
+```sh
 # Old
 yarn-tools fix-duplicates path/to/yarn.lock package1 package2
 
@@ -247,9 +250,9 @@ yarn-deduplicate --packages package1,package2 path/to/yarn.lock
 
 Pull requests, issues and comments welcome. For pull requests:
 
-* Add tests for new features and bug fixes
-* Follow the existing style
-* Separate unrelated changes into multiple pull requests
+- Add tests for new features and bug fixes
+- Follow the existing style
+- Separate unrelated changes into multiple pull requests
 
 See the existing issues for things to start contributing.
 
@@ -267,8 +270,8 @@ link below to digitally sign the CLA. The Corporate CLA is for those who are
 contributing as a member of an organization and the individual CLA is for
 those contributing as an individual.
 
-* [CLA for corporate contributors](https://opensource.atlassian.com/corporate)
-* [CLA for individuals](https://opensource.atlassian.com/individual)
+- [CLA for corporate contributors](https://opensource.atlassian.com/corporate)
+- [CLA for individuals](https://opensource.atlassian.com/individual)
 
 ## License
 
