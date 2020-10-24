@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Chores
 
 - Updated dependency `jest` to 26.6.1
+- Updated `yarn` to 1.22.10 (via policy)
 
 ### Added
 
