@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Updated `eslint-config-prettier` to 6.14.0
 - Updated `prettier` to 2.1.2
 - Updated `eslint-plugin-jest` to 24.1.0
+- Updated `eslint` to 7.12.0
 - Prettify and fix typos in README.md (thanks to @friederbluemle)
 
 
