@@ -7,13 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## master
 
+### Chores
+
 - Updated dependency `jest` to 26.6.1
+
+### Added
+
+- Added flag to include pre-release versions in the deduplication process. (thanks to @marcodejongh)
 
 ## [3.0.0] - 2020-10-29
 
 ### Breaking
 
-### Variadic flags
+#### Variadic flags
 
 Flags `--packages`, `--scopes` and `--exclude` don't support comma-separated values anymore (eg:
 `--packages libA,libB`). Instead, you can pass multiple values per flag (eg: `--packages libA libB`)
