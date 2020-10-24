@@ -14,6 +14,7 @@ Joge <joge@application-studios.com>
 Lukas Eipert <git@leipert.io>
 Luke Batchelor <lbatchelor@atlassian.com>
 Maciej Rzymski <mrzymski@atlassian.com>
+Marco De Jongh <mdejongh@atlassian.com>
 Matt Mulder <muldmatt@gmail.com>
 Mike Greiling <mike@pixelcog.com>
 Piotr Łukomiak <cieplak32@gmail.com>
