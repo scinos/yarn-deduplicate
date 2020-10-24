@@ -1,14 +1,16 @@
 # yarn-deduplicate
 
-Builds: ![Node.js CI](https://github.com/atlassian/yarn-deduplicate/workflows/Node.js%20CI/badge.svg)
+Builds:
+![Node.js CI](https://github.com/atlassian/yarn-deduplicate/workflows/Node.js%20CI/badge.svg)
 
-This package only works with Yarn v1. Yarn v2 supports package deduplication [natively](https://github.com/yarnpkg/berry/pull/1558)!
+This package only works with Yarn v1. Yarn v2 supports package deduplication
+[natively](https://github.com/yarnpkg/berry/pull/1558)!
 
 Cleans up `yarn.lock` by removing duplicates.
 
 A duplicate package is when two dependencies are resolved to a different version, even when a single
-version matches the range specified in the dependencies. See the [Deduplication
-strategies](#deduplication-strategies) section for a few examples.
+version matches the range specified in the dependencies. See the
+[Deduplication strategies](#deduplication-strategies) section for a few examples.
 
 ## Installation
 
@@ -24,8 +26,9 @@ or
 yarn global add yarn-deduplicate
 ```
 
-This package also works wth [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b),
-so you don't need to install it.
+This package also works wth
+[npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b), so you
+don't need to install it.
 
 ---
 
@@ -79,7 +82,7 @@ https://classic.yarnpkg.com/en/docs/cli/dedupe/, it says
 
 > The dedupe command isn’t necessary. `yarn install` will already dedupe.
 
-This is, however, not exactly true. There are cases where yarn will *not* deduplicate existing
+This is, however, not exactly true. There are cases where yarn will _not_ deduplicate existing
 packages. For example, this scenario:
 
 - Install `libA`. It depends on `libB ^1.1.0`. At this point, the latest version of `libB` is
@@ -100,8 +103,8 @@ Find more examples in:
 
 `--strategy <strategy>`
 
-`highest`
-It will try to use the highest installed version. For example, with the following `yarn.lock`:
+`highest` will try to use the highest installed version. For example, with the following
+`yarn.lock`:
 
 ```text
 library@^1.1.0:
@@ -116,9 +119,8 @@ library@^1.3.0:
 
 It will deduplicate `library@^1.1.0` and `library@^1.2.0` to `1.3.0`
 
-`fewer`
-It will try to minimize the number of installed versions by trying to deduplicate to the version
-that satisfies most of the ranges first. For example, with the following `yarn.lock`:
+`fewer` will try to minimize the number of installed versions by trying to deduplicate to the
+version that satisfies most of the ranges first. For example, with the following `yarn.lock`:
 
 ```text
 library@*:
@@ -133,9 +135,8 @@ library@^1.2.0:
 
 It will deduplicate `library@*` and `library@>=1.1.0` to `1.2.0`.
 
-Note that this may cause some packages to be **downgraded**. Be sure to check the changelogs
-between all versions and understand the consequences of that downgrade. If unsure, don't use this
-strategy.
+Note that this may cause some packages to be **downgraded**. Be sure to check the changelogs between
+all versions and understand the consequences of that downgrade. If unsure, don't use this strategy.
 
 It is not recommended to use different strategies for different packages. There is no guarantee that
 the strategy will be honored in subsequent runs of `yarn-deduplicate` unless the same set of flags
@@ -146,16 +147,16 @@ is specified again.
 `--packages <package1> <package2> <packageN>`
 
 Receives a list of packages to deduplicate. It will ignore any other duplicated package not in the
-list. This option is recommended when the number of duplicated packages in `yarn.lock` is too big
-to be easily reviewed by a human. This will allow for a more controlled and progressive
-deduplication of `yarn.lock`.
+list. This option is recommended when the number of duplicated packages in `yarn.lock` is too big to
+be easily reviewed by a human. This will allow for a more controlled and progressive deduplication
+of `yarn.lock`.
 
 `--scopes <scope1> <scope2> <scopeN>`
 
 Receives a list of scopes to deduplicate. It will ignore any other duplicated package not in the
-list. This option is recommended when deduplicating a large number of inter-dependent packages
-from a single scope, such as @babel. This will allow for a more controlled and progressive
-deduplication of `yarn.lock` without specifying each package individually.
+list. This option is recommended when deduplicating a large number of inter-dependent packages from
+a single scope, such as @babel. This will allow for a more controlled and progressive deduplication
+of `yarn.lock` without specifying each package individually.
 
 ### Usage in CI
 
@@ -192,7 +193,7 @@ yarn-deduplicate --exclude libA libB
 ```
 
 A consequence of this change is that if you were using one or more of the affected options (
-`--packages`, `--scopes` or `--exclude`) __and__ a custom path for `yarn.lock`, you need to use `--`
+`--packages`, `--scopes` or `--exclude`) **and** a custom path for `yarn.lock`, you need to use `--`
 to "stop" package/scope/exclude parsing:
 
 ```sh
@@ -256,24 +257,21 @@ Pull requests, issues and comments welcome. For pull requests:
 
 See the existing issues for things to start contributing.
 
-For bigger changes, make sure you start a discussion first by creating
-an issue and explaining the intended change.
+For bigger changes, make sure you start a discussion first by creating an issue and explaining the
+intended change.
 
-Atlassian requires contributors to sign a Contributor License Agreement,
-known as a CLA. This serves as a record stating that the contributor is
-entitled to contribute the code/documentation/translation to the project
-and is willing to have it used in distributions and derivative works
-(or is willing to transfer ownership).
+Atlassian requires contributors to sign a Contributor License Agreement, known as a CLA. This serves
+as a record stating that the contributor is entitled to contribute the
+code/documentation/translation to the project and is willing to have it used in distributions and
+derivative works (or is willing to transfer ownership).
 
-Prior to accepting your contributions we ask that you please follow the appropriate
-link below to digitally sign the CLA. The Corporate CLA is for those who are
-contributing as a member of an organization and the individual CLA is for
-those contributing as an individual.
+Prior to accepting your contributions we ask that you please follow the appropriate link below to
+digitally sign the CLA. The Corporate CLA is for those who are contributing as a member of an
+organization and the individual CLA is for those contributing as an individual.
 
 - [CLA for corporate contributors](https://opensource.atlassian.com/corporate)
 - [CLA for individuals](https://opensource.atlassian.com/individual)
 
 ## License
 
-Copyright (c) 2017 Atlassian and others.
-Apache 2.0 licensed, see [LICENSE.txt](LICENSE.txt) file.
+Copyright (c) 2017 Atlassian and others. Apache 2.0 licensed, see [LICENSE.txt](LICENSE.txt) file.

@@ -1,27 +1,27 @@
-Ally Beaton <ally.beaton@lendi.com.au>
-Alon Bukai <alonzorz@gmail.com>
-amark <amark@palantir.com>
-bjorn <bjorn@binovi.se>
-Björn Lundgren <bjorn.erik.lundgren@gmail.com>
-bluelovers <codelovers@users.sourceforge.net>
-Felipe Matos Santana <felipems@yahoo.com.br>
-FUJI Goro <g.psy.va@gmail.com>
-Gora Kong <15333808+gorakong@users.noreply.github.com>
-Hawken Rives <hawkrives@gmail.com>
-Jacob Blomgren <blomgren@protonmail.com>
-Jakub Jastrzębski <kuba.jastrz@outlook.com>
-Joge <joge@application-studios.com>
-Lukas Eipert <git@leipert.io>
-Luke Batchelor <lbatchelor@atlassian.com>
-Maciej Rzymski <mrzymski@atlassian.com>
-Marco De Jongh <mdejongh@atlassian.com>
-Matt Mulder <muldmatt@gmail.com>
-Mike Greiling <mike@pixelcog.com>
-Piotr Łukomiak <cieplak32@gmail.com>
-Richard Atkins <richatkins@atlassian.com>
-Sergio Cinos <sergio.cinos@gmail.com>
-Simon Knox <psimyn@users.noreply.github.com>
-Su-Shing Chen <Shingyx@users.noreply.github.com>
-Sérgio Gomes <mail@sgomes.com>
-Xianming Zhong <chinesedfan@qq.com>
-Yann Pringault <yann.pringault@gmail.com>
+- Ally Beaton <mailto:ally.beaton@lendi.com.au>
+- Alon Bukai <mailto:alonzorz@gmail.com>
+- amark <mailto:amark@palantir.com>
+- bjorn <mailto:bjorn@binovi.se>
+- Björn Lundgren <mailto:bjorn.erik.lundgren@gmail.com>
+- bluelovers <mailto:codelovers@users.sourceforge.net>
+- Felipe Matos Santana <mailto:felipems@yahoo.com.br>
+- FUJI Goro <mailto:g.psy.va@gmail.com>
+- Gora Kong <mailto:15333808+gorakong@users.noreply.github.com>
+- Hawken Rives <mailto:hawkrives@gmail.com>
+- Jacob Blomgren <mailto:blomgren@protonmail.com>
+- Jakub Jastrzębski <mailto:kuba.jastrz@outlook.com>
+- Joge <mailto:joge@application-studios.com>
+- Lukas Eipert <mailto:git@leipert.io>
+- Luke Batchelor <mailto:lbatchelor@atlassian.com>
+- Maciej Rzymski <mailto:mrzymski@atlassian.com>
+- Marco De Jongh <mailto:mdejongh@atlassian.com>
+- Matt Mulder <mailto:muldmatt@gmail.com>
+- Mike Greiling <mailto:mike@pixelcog.com>
+- Piotr Łukomiak <mailto:cieplak32@gmail.com>
+- Richard Atkins <mailto:richatkins@atlassian.com>
+- Sergio Cinos <mailto:sergio.cinos@gmail.com>
+- Simon Knox <mailto:psimyn@users.noreply.github.com>
+- Su-Shing Chen <mailto:Shingyx@users.noreply.github.com>
+- Sérgio Gomes <mailto:mail@sgomes.com>
+- Xianming Zhong <mailto:chinesedfan@qq.com>
+- Yann Pringault <mailto:yann.pringault@gmail.com>

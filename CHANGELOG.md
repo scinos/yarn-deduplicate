@@ -2,8 +2,8 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
-and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project
+adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## master
 
@@ -17,12 +17,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Updated `eslint` to 7.12.0
 - Prettify and fix typos in README.md (thanks to @friederbluemle)
 
-
 ### Added
 
 - Added flag to include pre-release versions in the deduplication process. (thanks to @marcodejongh)
 
-## [3.0.0] - 2020-10-29
+## 3.0.0- 2020-10-29
 
 ### Breaking
 
@@ -30,7 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 Flags `--packages`, `--scopes` and `--exclude` don't support comma-separated values anymore (eg:
 `--packages libA,libB`). Instead, you can pass multiple values per flag (eg: `--packages libA libB`)
- or pass the flag multiple times (eg: `--packages libA --packages libB`).
+or pass the flag multiple times (eg: `--packages libA --packages libB`).
 
 If you use one of those flags _and_ you want to specify a custom `yarn.lock` file, you need to use
 `--` to separate the arg. Example `--packages libA -- ../project/yarn.lock`
@@ -44,7 +43,7 @@ If you use one of those flags _and_ you want to specify a custom `yarn.lock` fil
 - Updated jest to 26.4.2
 - Updated eslint-plugin-jest to 23.20.0
 
-## [2.1.0] - 2020-07-10
+## 2.1.0- 2020-07-10
 
 ### Chores
 
@@ -58,15 +57,15 @@ If you use one of those flags _and_ you want to specify a custom `yarn.lock` fil
 - Improve documentation for `--strategy` (thanks to @KubaJastrz)
 - Clean up .npmignore (thanks to @bluelovers)
 
-## [2.0.0] - 2020-02-29
+## 2.0.0- 2020-02-29
 
 ### Breaks
 
 - Drop support for Node < 10
 
-## [1.2.0] - 2020-02-29
+## 1.2.0- 2020-02-29
 
-Edit: *Do not use. It breaks Node 8 compatiblity. Use 2.0.0 instead*
+Edit: _Do not use. It breaks Node 8 compatiblity. Use 2.0.0 instead_
 
 ### Added
 
@@ -75,21 +74,22 @@ Edit: *Do not use. It breaks Node 8 compatiblity. Use 2.0.0 instead*
 - CLI option to exclude packages (thanks to @JacobBlomgren)
 - Updated a bunch of dependencies
 
-## [1.1.1] - 2019-02-03
+## 1.1.1- 2019-02-03
 
 ### Fixed
 
 - Fixed typos in doc and CLI (thanks to @ActuallyACat and @Alonski)
 - Moved yarn from `peerDependencies` to `engines`
 
-## [1.1.0] - 2018-12-22
+## 1.1.0- 2018-12-22
 
 ### Added
 
-- Option `--fail` to exit the process with an error if there are duplicated packages (thanks to @amark)
+- Option `--fail` to exit the process with an error if there are duplicated packages (thanks to
+  @amark)
 - If the path to `yarn.lock` is not specified, use `yarn.lock` as the default (thanks to @Joge97)
 
-## [1.0.5] - 2018-12-15
+## 1.0.5- 2018-12-15
 
 ### Changed
 
@@ -97,39 +97,40 @@ Edit: *Do not use. It breaks Node 8 compatiblity. Use 2.0.0 instead*
 
 ### Chores
 
- - Moved eslint and stricter to devDependencies (thanks @hawkrives)
- - Re-enabled disabled tests (thanks @amark)
+- Moved eslint and stricter to devDependencies (thanks @hawkrives)
+- Re-enabled disabled tests (thanks @amark)
 
-## [1.0.4] - 2018-12-12
+## 1.0.4- 2018-12-12
 
 ### Changed
 
-- Fixes parsing the strategy. Now specifying `-s fewer` actually does something! (thanks to @leipert)
+- Fixes parsing the strategy. Now specifying `-s fewer` actually does something! (thanks to
+  @leipert)
 
 ### Chores
 
 - Added eslint and prettier to keep the code consistent
 
-## [1.0.3] - 2018-11-22
+## 1.0.3- 2018-11-22
 
 ### Changed
 
 - Retain Windows end-of-line (thanks to @Shingyx)
 
-## [1.0.2] - 2018-11-02
+## 1.0.2- 2018-11-02
 
 ### Chores
 
 - Added `homepage` to package.json
 
-## [1.0.1] - 2018-11-02
+## 1.0.1- 2018-11-02
 
 ### Chores
 
-- Removed unused files (tests, local `.history`) from the npm package. Only `*.js` and
-  text files are included now.
+- Removed unused files (tests, local `.history`) from the npm package. Only `*.js` and text files
+  are included now.
 
-## [1.0.0] - 2018-10-31
+## 1.0.0- 2018-10-31
 
 ### Breaking
 
@@ -154,14 +155,14 @@ Edit: *Do not use. It breaks Node 8 compatiblity. Use 2.0.0 instead*
 - Bumped `@yarnpkg/lockfile` to 1.1.0 (thanks to @lukebatchelor)
 - Added 'dedupe' as package keyword (thanks to @gfx)
 
-## [0.4.1] - 2018-06-05
+## 0.4.1- 2018-06-05
 
 ### Changed
 
 - Use yarn ^1.0.0 and converted it to a peerDependency (thanks to @bj00rn)
 - Remove deprecated `preferGlobal` in package.json (thanks to bjorn@binovi.se)
 
-## [0.4.0] - 2018-01-18
+## 0.4.0- 2018-01-18
 
 ### Added
 
