@@ -158,6 +158,16 @@ list. This option is recommended when deduplicating a large number of inter-depe
 a single scope, such as @babel. This will allow for a more controlled and progressive deduplication
 of `yarn.lock` without specifying each package individually.
 
+### Pre-release versions
+
+By default, `yarn-deduplicate` will only match pre-release versions if they share they share the
+same `mayor`, `minor` and `patch` versions (example: `^1.2.3-alpha.1` and `1.2.3-alpha.2` can be
+deduplicated, but `^1.2.3` and `1.2.4-alpha.1` can't). This matches the behaviour of
+[semver](https://docs.npmjs.com/misc/semver#prerelease-tags).
+
+To change this behaviour you can use the flag `--includePrerelease`. This will treat all pre-release
+versionas as if they were normal versions (`^1.2.3` and `1.2.4-alpha.1` can be deduplicated).
+
 ### Usage in CI
 
 This tool can be used as part of a CI workflow. Adding the flag `--fail` will force the process to

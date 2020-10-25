@@ -7,6 +7,8 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## master
 
+## 3.1.0 - 2020-10-25
+
 ### Chores
 
 - Updated dependency `jest` to 26.6.1
