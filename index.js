@@ -3,7 +3,13 @@ const semver = require('semver');
 
 const parseYarnLock = (file) => lockfile.parse(file).object;
 
-const extractPackages = (json, includeScopes = [], includePackages = [], excludePackages = []) => {
+const extractPackages = (
+    json,
+    includeScopes = [],
+    includePackages = [],
+    excludePackages = [],
+    excludeScopes = []
+) => {
     const packages = {};
     const re = /^(.*)@([^@]*?)$/;
 
@@ -30,6 +36,13 @@ const extractPackages = (json, includeScopes = [], includePackages = [], exclude
         if (
             includeScopes.length > 0 &&
             !includeScopes.find((scope) => packageName.startsWith(`${scope}/`))
+        ) {
+            return;
+        }
+
+        if (
+            excludeScopes.length > 0 &&
+            excludeScopes.find((scope) => packageName.startsWith(`${scope}/`))
         ) {
             return;
         }
@@ -111,9 +124,22 @@ const computePackageInstances = (packages, name, useMostCommon, includePrereleas
 
 const getDuplicatedPackages = (
     json,
-    { includeScopes, includePackages, excludePackages, useMostCommon, includePrerelease = false }
+    {
+        includeScopes,
+        includePackages,
+        excludePackages,
+        excludeScopes,
+        useMostCommon,
+        includePrerelease = false,
+    }
 ) => {
-    const packages = extractPackages(json, includeScopes, includePackages, excludePackages);
+    const packages = extractPackages(
+        json,
+        includeScopes,
+        includePackages,
+        excludePackages,
+        excludeScopes
+    );
     return Object.keys(packages)
         .reduce(
             (acc, name) =>
@@ -131,6 +157,7 @@ module.exports.listDuplicates = (
         includeScopes = [],
         includePackages = [],
         excludePackages = [],
+        excludeScopes = [],
         useMostCommon = false,
         includePrerelease = false,
     } = {}
@@ -142,6 +169,7 @@ module.exports.listDuplicates = (
         includeScopes,
         includePackages,
         excludePackages,
+        excludeScopes,
         useMostCommon,
         includePrerelease,
     }).forEach(({ bestVersion, name, installedVersion, requestedVersion }) => {
@@ -159,6 +187,7 @@ module.exports.fixDuplicates = (
         includeScopes = [],
         includePackages = [],
         excludePackages = [],
+        excludeScopes = [],
         useMostCommon = false,
         includePrerelease = false,
     } = {}
@@ -169,6 +198,7 @@ module.exports.fixDuplicates = (
         includeScopes,
         includePackages,
         excludePackages,
+        excludeScopes,
         useMostCommon,
         includePrerelease,
     }).forEach(({ bestVersion, name, versions, requestedVersion }) => {

@@ -99,6 +99,45 @@ test('limits the scopes to be de-duplicated', () => {
     );
 });
 
+test('excludes scopes to be de-duplicated', () => {
+    const yarn_lock = outdent`
+    "@a-scope/package@^2.0.0":
+      version "2.0.0"
+      resolved "http://example.com/@a-scope/package/2.1.0"
+
+    "@a-scope/package@^2.0.1":
+      version "2.0.1"
+      resolved "http://example.com/@a-scope/package/2.2.0"
+
+    "@other-scope/package@^1.0.0":
+      version "1.0.11"
+      resolved "http://example.com/@other-scope/package/1.0.0"
+
+    "@other-scope/package@^1.0.1":
+      version "1.0.12"
+      resolved "http://example.com/@other-package/package/1.0.0"
+  `;
+
+    const deduped = fixDuplicates(yarn_lock, {
+        excludeScopes: ['@a-scope'],
+    });
+    const json = lockfile.parse(deduped).object;
+
+    expect(json).toHaveProperty(['@a-scope/package@^2.0.0', 'version'], '2.0.0');
+    expect(json).toHaveProperty(['@a-scope/package@^2.0.1', 'version'], '2.0.1');
+    expect(json).toHaveProperty(['@other-scope/package@^1.0.0', 'version'], '1.0.12');
+    expect(json).toHaveProperty(['@other-scope/package@^1.0.1', 'version'], '1.0.12');
+
+    const list = listDuplicates(yarn_lock, {
+        excludeScopes: ['@a-scope'],
+    });
+
+    expect(list).toHaveLength(1);
+    expect(list).toContain(
+        'Package "@other-scope/package" wants ^1.0.0 and could get 1.0.12, but got 1.0.11'
+    );
+});
+
 test('includePrerelease options dedupes to the prerelease', () => {
     const yarn_lock = outdent`
   typescript@^4.1.0-beta:
