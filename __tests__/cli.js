@@ -238,6 +238,38 @@ describe('Supports excluding packages', () => {
     test('does not break if scope is missing', () => testWithFlags(['--exclude', '@foo']));
 });
 
+describe('Supports excluding scopes', () => {
+    test('it accepts a single scope', async () => {
+        const stdout = await testWithFlags(['--exclude-scopes', '@scope']);
+        expect(stdout).toContain('"@scope/lib@>=1.0.0":');
+        expect(stdout).not.toContain('"@scope/lib@>=1.0.0", "@scope/lib@>=2.0.0":');
+    });
+
+    test('it accepts a multiple scopes in one flag', async () => {
+        const stdout = await testWithFlags(['--exclude-scopes', '@scope', '@another-scope']);
+        expect(stdout).toContain('"@scope/lib@>=1.0.0":');
+        expect(stdout).toContain('"@another-scope/lib@>=1.0.0":');
+        expect(stdout).not.toContain('"@scope/lib@>=1.0.0", "@scope/lib@>=2.0.0":');
+        expect(stdout).not.toContain('"@another-scope/lib@>=1.0.0", "@another-scope/lib@>=2.0.0":');
+    });
+
+    test('it accepts a multiple flags', async () => {
+        const stdout = await testWithFlags([
+            '--exclude-scopes',
+            '@scope',
+            '--exclude-scopes',
+            '@another-scope',
+        ]);
+        expect(stdout).toContain('"@scope/lib@>=1.0.0":');
+        expect(stdout).toContain('"@another-scope/lib@>=1.0.0":');
+        expect(stdout).not.toContain('"@scope/lib@>=1.0.0", "@scope/lib@>=2.0.0":');
+        expect(stdout).not.toContain('"@another-scope/lib@>=1.0.0", "@another-scope/lib@>=2.0.0":');
+    });
+
+    // eslint-disable-next-line jest/expect-expect
+    test('does not break if scope is missing', () => testWithFlags(['--scopes', '@foo']));
+});
+
 test('line endings are retained', async () => {
     const oldFileContent = await readFile(yarnLockFilePath, 'utf8');
     try {

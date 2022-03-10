@@ -25,6 +25,7 @@ commander
         'a list of packages to deduplicate. Defaults to all packages.'
     )
     .option('--exclude <exclude...>', 'a list of packages not to deduplicate.')
+    .option('--exclude-scopes <excluded scopes...>', 'a list of scopes not to deduplicate.')
     .option('--print', 'instead of saving the deduplicated yarn.lock, print the result in stdout')
     .option(
         '--includePrerelease',
@@ -55,6 +56,7 @@ try {
             includeScopes: commander.scopes,
             includePackages: commander.packages,
             excludePackages: commander.exclude,
+            excludeScopes: commander.excludeScopes,
         });
         duplicates.forEach((logLine) => console.log(logLine));
         if (commander.fail && duplicates.length > 0) {
@@ -66,6 +68,7 @@ try {
             includeScopes: commander.scopes,
             includePackages: commander.packages,
             excludePackages: commander.exclude,
+            excludeScopes: commander.excludeScopes,
             includePrerelease: commander.includePrerelease,
         });
 
