@@ -158,6 +158,15 @@ list. This option is recommended when deduplicating a large number of inter-depe
 a single scope, such as @babel. This will allow for a more controlled and progressive deduplication
 of `yarn.lock` without specifying each package individually.
 
+### Excluding packages
+
+`--exclude <package1> <package2> <packageN`
+
+`--exclude-scopes <scope1> <scope2> <scopeN>`
+
+With these commands you can exclude certain packages/scopes from the deduplication process. This is
+specially useful if you want to apply a different strategy for a scope, for example.
+
 ### Pre-release versions
 
 By default, `yarn-deduplicate` will only match pre-release versions if they share they share the
