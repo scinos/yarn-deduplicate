@@ -23,6 +23,15 @@ const testWithFlags = async (flags) => {
     return stdout;
 };
 
+const streamToString = (stream) => {
+    const chunks = [];
+    return new Promise((resolve, reject) => {
+        stream.on('data', (chunk) => chunks.push(Buffer.from(chunk)));
+        stream.on('error', (err) => reject(err));
+        stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
+    });
+};
+
 describe('Basic output', () => {
     test('prints duplicates', async () => {
         const { stdout, stderr } = await execFile(process.execPath, [
@@ -118,6 +127,10 @@ describe('Error control', () => {
         listProc.on('close', (code) => {
             expect(code).toBe(1);
         });
+        const listOut = await streamToString(listProc.stderr);
+        expect(listOut).toContain(
+            'Found duplicated entries. Run yarn-deduplicate to deduplicate them.'
+        );
 
         const execProc = await childProcess.spawn(process.execPath, [
             cliFilePath,
@@ -128,6 +141,10 @@ describe('Error control', () => {
         execProc.on('close', (code) => {
             expect(code).toBe(1);
         });
+        const execOut = await streamToString(execProc.stderr);
+        expect(execOut).toContain(
+            'Found duplicated entries. Run yarn-deduplicate to deduplicate them.'
+        );
     });
 
     test('does not fail without the fail option', async () => {

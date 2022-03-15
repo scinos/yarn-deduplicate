@@ -6,6 +6,8 @@ const fs = require('fs');
 const { fixDuplicates, listDuplicates } = require('./index');
 const version = require('../package.json').version;
 
+const FAIL_MESSAGE = '\nFound duplicated entries. Run yarn-deduplicate to deduplicate them.';
+
 commander
     .version(version)
     .usage('[options] [yarn.lock path (default: yarn.lock)]')
@@ -63,6 +65,7 @@ try {
         });
         duplicates.forEach((logLine) => console.log(logLine));
         if (fail && duplicates.length > 0) {
+            console.error(FAIL_MESSAGE);
             process.exit(1);
         }
     } else {
@@ -86,6 +89,7 @@ try {
         }
 
         if (fail && yarnLock !== dedupedYarnLock) {
+            console.error(FAIL_MESSAGE);
             process.exit(1);
         }
     }
