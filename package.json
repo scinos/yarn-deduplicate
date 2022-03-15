@@ -16,14 +16,14 @@
     "test": "jest",
     "lint": "eslint ."
   },
-  "homepage": "https://github.com/atlassian/yarn-deduplicate#readme",
-  "bugs": "https://github.com/atlassian/yarn-deduplicate/issues",
+  "homepage": "https://github.com/scinos/yarn-deduplicate#readme",
+  "bugs": "https://github.com/scinos/yarn-deduplicate/issues",
   "license": "Apache-2.0",
   "author": "Sergio Cinos <sergio.cinos@gmail.com>",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:atlassian/yarn-deduplicate.git"
+    "url": "git@github.com:scinos/yarn-deduplicate.git"
   },
   "engines": {
     "node": ">=10",
