@@ -4,7 +4,9 @@
 - bjorn <mailto:bjorn@binovi.se>
 - Björn Lundgren <mailto:bjorn.erik.lundgren@gmail.com>
 - bluelovers <mailto:codelovers@users.sourceforge.net>
+- Chetan Goti <mailto:chetan.goti7@gmail.com>
 - Felipe Matos Santana <mailto:felipems@yahoo.com.br>
+- Frieder Bluemle <mailto:frieder.bluemle@gmail.com>
 - FUJI Goro <mailto:g.psy.va@gmail.com>
 - Gora Kong <mailto:15333808+gorakong@users.noreply.github.com>
 - Hawken Rives <mailto:hawkrives@gmail.com>
@@ -14,7 +16,7 @@
 - Lukas Eipert <mailto:git@leipert.io>
 - Luke Batchelor <mailto:lbatchelor@atlassian.com>
 - Maciej Rzymski <mailto:mrzymski@atlassian.com>
-- Marco De Jongh <mailto:mdejongh@atlassian.com>
+- Marco de Jongh <mailto:m.jongh88@gmail.com>
 - Matt Mulder <mailto:muldmatt@gmail.com>
 - Mike Greiling <mailto:mike@pixelcog.com>
 - Piotr Łukomiak <mailto:cieplak32@gmail.com>
@@ -23,5 +25,6 @@
 - Simon Knox <mailto:psimyn@users.noreply.github.com>
 - Su-Shing Chen <mailto:Shingyx@users.noreply.github.com>
 - Sérgio Gomes <mailto:mail@sgomes.com>
+- Sven <mailto:sventschui@gmail.com>
 - Xianming Zhong <mailto:chinesedfan@qq.com>
 - Yann Pringault <mailto:yann.pringault@gmail.com>
