@@ -1,7 +1,7 @@
 {
   "name": "yarn-deduplicate",
   "version": "3.1.0",
-  "bin": "./cli.js",
+  "bin": "./src/cli.js",
   "description": "Deduplication tool for yarn.lock files",
   "keywords": [
     "yarn",
@@ -20,7 +20,9 @@
   "bugs": "https://github.com/scinos/yarn-deduplicate/issues",
   "license": "Apache-2.0",
   "author": "Sergio Cinos <sergio.cinos@gmail.com>",
-  "main": "index.js",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
+  "files": ["src"],
   "repository": {
     "type": "git",
     "url": "git@github.com:scinos/yarn-deduplicate.git"
@@ -45,8 +47,8 @@
     "prettier": "^2.1.2"
   },
   "jest": {
-    "testPathIgnorePatterns": [
-      "<rootDir>/node_modules"
+    "testMatch": [
+      "<rootDir>/tests/*.js"
     ]
   }
 }

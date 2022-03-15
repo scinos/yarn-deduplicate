@@ -7,8 +7,8 @@ const execFile = promisify(childProcess.execFile);
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 
-const cliFilePath = path.join(__dirname, '../cli.js');
-const fixturesPath = path.join(__dirname, '../__fixtures__');
+const cliFilePath = path.join(__dirname, '../src/cli.js');
+const fixturesPath = path.join(__dirname, './fixtures');
 const yarnLockFilePath = path.join(fixturesPath, 'yarn.lock');
 
 const testWithFlags = async (flags) => {

@@ -4,7 +4,7 @@ const commander = require('commander');
 const fs = require('fs');
 
 const { fixDuplicates, listDuplicates } = require('./index');
-const version = require('./package.json').version;
+const version = require('../package.json').version;
 
 commander
     .version(version)

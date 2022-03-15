@@ -1,4 +1,4 @@
-const { fixDuplicates, listDuplicates } = require('../index.js');
+const { fixDuplicates, listDuplicates } = require('../src/index.js');
 const lockfile = require('@yarnpkg/lockfile');
 const outdent = require('outdent');
 
