@@ -34,45 +34,48 @@ commander
 
 commander.parse(process.argv);
 
-if (commander.scopes && commander.packages) {
+const { strategy, scopes, packages, exclude, excludeScopes, list, fail, includePrerelease, print } =
+    commander.opts();
+
+const file = commander.args.length ? commander.args[0] : 'yarn.lock';
+
+if (scopes && packages) {
     console.error('Please specify either scopes or packages, not both.');
     commander.help();
 }
 
-if (commander.strategy !== 'highest' && commander.strategy !== 'fewer') {
-    console.error(`Invalid strategy ${commander.strategy}`);
+if (strategy !== 'highest' && strategy !== 'fewer') {
+    console.error(`Invalid strategy ${strategy}`);
     commander.help();
 }
 
-const file = commander.args.length ? commander.args[0] : 'yarn.lock';
-
 try {
     const yarnLock = fs.readFileSync(file, 'utf8');
-    const useMostCommon = commander.strategy === 'fewer';
+    const useMostCommon = strategy === 'fewer';
 
-    if (commander.list) {
+    if (list) {
         const duplicates = listDuplicates(yarnLock, {
             useMostCommon,
-            includeScopes: commander.scopes,
-            includePackages: commander.packages,
-            excludePackages: commander.exclude,
-            excludeScopes: commander.excludeScopes,
+            includeScopes: scopes,
+            includePackages: packages,
+            excludePackages: exclude,
+            excludeScopes: excludeScopes,
         });
         duplicates.forEach((logLine) => console.log(logLine));
-        if (commander.fail && duplicates.length > 0) {
+        if (fail && duplicates.length > 0) {
             process.exit(1);
         }
     } else {
         let dedupedYarnLock = fixDuplicates(yarnLock, {
             useMostCommon,
-            includeScopes: commander.scopes,
-            includePackages: commander.packages,
-            excludePackages: commander.exclude,
-            excludeScopes: commander.excludeScopes,
-            includePrerelease: commander.includePrerelease,
+            includeScopes: scopes,
+            includePackages: packages,
+            excludePackages: exclude,
+            excludeScopes: excludeScopes,
+            includePrerelease: includePrerelease,
         });
 
-        if (commander.print) {
+        if (print) {
             console.log(dedupedYarnLock);
         } else {
             const eolMatch = yarnLock.match(/(\r?\n)/);
@@ -82,7 +85,7 @@ try {
             fs.writeFileSync(file, dedupedYarnLock);
         }
 
-        if (commander.fail && yarnLock !== dedupedYarnLock) {
+        if (fail && yarnLock !== dedupedYarnLock) {
             process.exit(1);
         }
     }
