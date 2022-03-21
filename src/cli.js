@@ -36,8 +36,18 @@ commander
 
 commander.parse(process.argv);
 
-const { strategy, scopes, packages, exclude, excludeScopes, list, fail, includePrerelease, print } =
-    commander.opts();
+const {
+    strategy,
+    scopes,
+    packages,
+    exclude,
+    excludeScopes,
+    list,
+    fail,
+    includePrerelease,
+    print,
+    noStats,
+} = commander.opts();
 
 const file = commander.args.length ? commander.args[0] : 'yarn.lock';
 
@@ -62,6 +72,7 @@ try {
             includePackages: packages,
             excludePackages: exclude,
             excludeScopes: excludeScopes,
+            includePrerelease: includePrerelease,
         });
         duplicates.forEach((logLine) => console.log(logLine));
         if (fail && duplicates.length > 0) {

@@ -151,7 +151,7 @@ const getDuplicatedPackages = (
         .filter(({ bestVersion, installedVersion }) => bestVersion !== installedVersion);
 };
 
-module.exports.listDuplicates = (
+const getDuplicates = (
     yarnLock,
     {
         includeScopes = [],
@@ -162,26 +162,25 @@ module.exports.listDuplicates = (
         includePrerelease = false,
     } = {}
 ) => {
-    const json = parseYarnLock(yarnLock);
-    const result = [];
-
-    getDuplicatedPackages(json, {
+    return getDuplicatedPackages(yarnLock, {
         includeScopes,
         includePackages,
         excludePackages,
         excludeScopes,
         useMostCommon,
         includePrerelease,
-    }).forEach(({ bestVersion, name, installedVersion, requestedVersion }) => {
-        result.push(
-            `Package "${name}" wants ${requestedVersion} and could get ${bestVersion}, but got ${installedVersion}`
-        );
     });
+};
 
+const listDuplicates = (yarnLock, options) => {
+    const packages = getDuplicates(parseYarnLock(yarnLock), options);
+    const result = packages.map(({ bestVersion, name, installedVersion, requestedVersion }) => {
+        return `Package "${name}" wants ${requestedVersion} and could get ${bestVersion}, but got ${installedVersion}`;
+    });
     return result;
 };
 
-module.exports.fixDuplicates = (
+const fixDuplicates = (
     yarnLock,
     {
         includeScopes = [],
@@ -194,7 +193,7 @@ module.exports.fixDuplicates = (
 ) => {
     const json = parseYarnLock(yarnLock);
 
-    getDuplicatedPackages(json, {
+    getDuplicates(json, {
         includeScopes,
         includePackages,
         excludePackages,
@@ -206,4 +205,10 @@ module.exports.fixDuplicates = (
     });
 
     return lockfile.stringify(json);
+};
+
+module.exports = {
+    getDuplicates,
+    listDuplicates,
+    fixDuplicates,
 };
