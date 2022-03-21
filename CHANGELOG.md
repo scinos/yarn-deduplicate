@@ -7,6 +7,30 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## master
 
+## 4.0.0 - 2022-03-15
+
+### Breaking
+
+- Dropped support for Node 10
+
+### Added
+
+- Added `--exclude-scopes` flag to exclude scopes (thanks to @sventschui)
+- Documented `--exclude` flags in `README.md`
+- Added support for Node 16
+
+### Fixed
+
+- Fixed typo in documentation (thanks to @ChetanGoti)
+- Updated repository information in `package.json`
+- Do not publish test files
+
+### Chores
+
+- Updated dependencies
+- Rename some directories/files
+- Addded `typescript` 4.6.2 (via peer dependency)
+
 ## 3.1.0 - 2020-10-25
 
 ### Chores
