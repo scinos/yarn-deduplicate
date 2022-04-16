@@ -31,7 +31,7 @@
   },
   "engines": {
     "node": ">=12",
-    "yarn": ">=1"
+    "yarn": ">=2.4.3"
   },
   "dependencies": {
     "@yarnpkg/lockfile": "^1.1.0",
