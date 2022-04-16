@@ -22,7 +22,9 @@
   "author": "Sergio Cinos <sergio.cinos@gmail.com>",
   "main": "src/index.js",
   "types": "src/index.d.ts",
-  "files": ["src"],
+  "files": [
+    "src"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:scinos/yarn-deduplicate.git"
@@ -51,5 +53,6 @@
     "testMatch": [
       "<rootDir>/tests/*.js"
     ]
-  }
+  },
+  "packageManager": "yarn@3.2.0"
 }
