@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@yarnpkg/lockfile": "^1.1.0",
-    "commander": "^9.0.0",
+    "commander": "^9.2.0",
     "semver": "^7.3.2"
   },
   "devDependencies": {
