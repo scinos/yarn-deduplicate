@@ -1,7 +1,7 @@
 {
   "name": "yarn-deduplicate",
   "version": "4.0.0",
-  "bin": "./src/cli.js",
+  "bin": "./dist/cli.js",
   "description": "Deduplication tool for yarn.lock files",
   "keywords": [
     "yarn",
@@ -14,16 +14,18 @@
   ],
   "scripts": {
     "test": "jest",
+    "build": "rm -fr dist tsconfig.tsbuildinfo && tsc",
+    "prepack": "yarn build",
     "lint": "eslint ."
   },
   "homepage": "https://github.com/scinos/yarn-deduplicate#readme",
   "bugs": "https://github.com/scinos/yarn-deduplicate/issues",
   "license": "Apache-2.0",
   "author": "Sergio Cinos <sergio.cinos@gmail.com>",
-  "main": "src/index.js",
-  "types": "src/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "src"
+    "dist"
   ],
   "repository": {
     "type": "git",
@@ -36,7 +38,8 @@
   "dependencies": {
     "@yarnpkg/lockfile": "^1.1.0",
     "commander": "^9.2.0",
-    "semver": "^7.3.2"
+    "semver": "^7.3.2",
+    "tslib": "^2.3.1"
   },
   "devDependencies": {
     "eslint": "^8.13.0",

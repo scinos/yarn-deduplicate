@@ -5722,6 +5722,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tslib@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "tslib@npm:2.3.1"
+  checksum: de17a98d4614481f7fcb5cd53ffc1aaf8654313be0291e1bfaee4b4bb31a20494b7d218ff2e15017883e8ea9626599b3b0e0229c18383ba9dce89da2adf15cb9
+  languageName: node
+  linkType: hard
+
 "tsutils@npm:^3.21.0":
   version: 3.21.0
   resolution: "tsutils@npm:3.21.0"
@@ -6232,6 +6239,7 @@ __metadata:
     outdent: ^0.8.0
     prettier: ^2.6.2
     semver: ^7.3.2
+    tslib: ^2.3.1
     typescript: ^4.6.3
   bin:
     yarn-deduplicate: ./src/cli.js
