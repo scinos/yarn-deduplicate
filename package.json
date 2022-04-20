@@ -28,7 +28,13 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "AUTHORS.md",
+    "CHANGELOG.md",
+    "CODE_OF_CONDUCT.md",
+    "LICENSE.txt",
+    "README.md",
+    "dist/*",
+    "!dist/tsconfig.tsbuildinfo"
   ],
   "repository": {
     "type": "git",
