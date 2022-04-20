@@ -22,9 +22,9 @@
 - Piotr Łukomiak <mailto:cieplak32@gmail.com>
 - Richard Atkins <mailto:richatkins@atlassian.com>
 - Sergio Cinos <mailto:sergio.cinos@gmail.com>
+- Sérgio Gomes <mailto:mail@sgomes.com>
 - Simon Knox <mailto:psimyn@users.noreply.github.com>
 - Su-Shing Chen <mailto:Shingyx@users.noreply.github.com>
-- Sérgio Gomes <mailto:mail@sgomes.com>
 - Sven <mailto:sventschui@gmail.com>
 - Xianming Zhong <mailto:chinesedfan@qq.com>
 - Yann Pringault <mailto:yann.pringault@gmail.com>
