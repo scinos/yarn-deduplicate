@@ -7,10 +7,18 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## master
 
+## 5.0.0 - 2022-04-20
+
 ### Breaking
 
 - Migration to TypeScript. This is a breacking changes because previously we provided TypeScript
-  types, and those have changed
+  types, and those have changed. If you were not using the exported types, this change should be
+  transparent for you.
+
+### Chores
+
+- Configured which files goes into npm package
+- Updated dependencies
 
 ## 4.0.0 - 2022-03-21
 
