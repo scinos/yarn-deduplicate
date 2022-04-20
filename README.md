@@ -1,12 +1,12 @@
 # yarn-deduplicate
 
+Cleans up `yarn.lock` by removing duplicates.
+
 Builds:
-![Node.js CI](https://github.com/atlassian/yarn-deduplicate/workflows/Node.js%20CI/badge.svg)
+[![Node.js CI](https://github.com/scinos/yarn-deduplicate/actions/workflows/node.js.yml/badge.svg)](https://github.com/scinos/yarn-deduplicate/actions/workflows/node.js.yml)
 
 This package only works with Yarn v1. Yarn v2 supports package deduplication
 [natively](https://github.com/yarnpkg/berry/pull/1558)!
-
-Cleans up `yarn.lock` by removing duplicates.
 
 A duplicate package is when two dependencies are resolved to a different version, even when a single
 version matches the range specified in the dependencies. See the
@@ -266,31 +266,7 @@ yarn-tools fix-duplicates path/to/yarn.lock package1 package2
 yarn-deduplicate --packages package1,package2 path/to/yarn.lock
 ```
 
-## Contributors
-
-Pull requests, issues and comments welcome. For pull requests:
-
-- Add tests for new features and bug fixes
-- Follow the existing style
-- Separate unrelated changes into multiple pull requests
-
-See the existing issues for things to start contributing.
-
-For bigger changes, make sure you start a discussion first by creating an issue and explaining the
-intended change.
-
-Atlassian requires contributors to sign a Contributor License Agreement, known as a CLA. This serves
-as a record stating that the contributor is entitled to contribute the
-code/documentation/translation to the project and is willing to have it used in distributions and
-derivative works (or is willing to transfer ownership).
-
-Prior to accepting your contributions we ask that you please follow the appropriate link below to
-digitally sign the CLA. The Corporate CLA is for those who are contributing as a member of an
-organization and the individual CLA is for those contributing as an individual.
-
-- [CLA for corporate contributors](https://opensource.atlassian.com/corporate)
-- [CLA for individuals](https://opensource.atlassian.com/individual)
-
 ## License
 
-Copyright (c) 2017 Atlassian and others. Apache 2.0 licensed, see [LICENSE.txt](LICENSE.txt) file.
+Copyright (c) 2022 Sergio Cinos and others. Apache 2.0 licensed, see [LICENSE.txt](LICENSE.txt)
+file.

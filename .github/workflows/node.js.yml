@@ -23,7 +23,8 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: ${{ matrix.node-version }}
-            - run: yarn --frozen-lockfile
-            - run: node ./src/cli.js --list --fail
+            - run: yarn
+            - run: yarn dedupe --check
             - run: yarn lint
+            - run: yarn typecheck
             - run: yarn test

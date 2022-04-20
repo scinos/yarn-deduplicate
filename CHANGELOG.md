@@ -7,6 +7,11 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## master
 
+### Breaking
+
+- Migration to TypeScript. This is a breacking changes because previously we provided TypeScript
+  types, and those have changed
+
 ## 4.0.0 - 2022-03-21
 
 ### Breaking

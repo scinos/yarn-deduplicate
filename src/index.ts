@@ -1,23 +1,58 @@
-const lockfile = require('@yarnpkg/lockfile');
-const semver = require('semver');
+import * as lockfile from '@yarnpkg/lockfile';
+import semver from 'semver';
 
-const parseYarnLock = (file) => lockfile.parse(file).object;
+type YarnEntry = {
+    resolved: string
+    version: string
+}
+
+type YarnEntries = Record<string,YarnEntry>;
+
+type Packages = Record<string, Package[]>;
+
+type Package = {
+    installedVersion:string,
+    name: string,
+    pkg: YarnEntry,
+    satisfiedBy: Set<string>
+    candidateVersions?: string[],
+    requestedVersion: string,
+    bestVersion?: string,
+    versions: Versions
+}
+
+type Version = {
+    pkg: YarnEntry,
+    satisfies: Set<Package>
+}
+
+type Versions = Map<string, Version>;
+
+type Options = {
+    includeScopes?: string[];
+    includePackages?: string[];
+    excludePackages?: string[];
+    excludeScopes?: string[];
+    useMostCommon?: boolean;
+    includePrerelease?: boolean;
+}
+
+const parseYarnLock = (file:string) => lockfile.parse(file).object as YarnEntries;
 
 const extractPackages = (
-    json,
-    includeScopes = [],
-    includePackages = [],
-    excludePackages = [],
-    excludeScopes = []
-) => {
-    const packages = {};
+    yarnEntries: YarnEntries,
+    includeScopes:string[] = [],
+    includePackages:string[] = [],
+    excludePackages:string[] = [],
+    excludeScopes:string[] = []
+): Packages => {
+    const packages: Packages = {};
     const re = /^(.*)@([^@]*?)$/;
 
-    Object.keys(json).forEach((name) => {
-        const pkg = json[name];
-        const match = name.match(re);
+    for (const [entryName, entry] of Object.entries(yarnEntries)) {
+        const match = entryName.match(re);
 
-        let packageName, requestedVersion;
+        let packageName:string, requestedVersion:string;
         // TODO: make this ignore other urls like:
         //      git...
         //      user/repo
@@ -28,7 +63,7 @@ const extractPackages = (
         } else {
             // If there is no match, it means there is no version specified. According to the doc
             // this means "*" (https://docs.npmjs.com/files/package.json#dependencies)
-            packageName = name;
+            packageName = entryName;
             requestedVersion = '*';
         }
 
@@ -37,50 +72,50 @@ const extractPackages = (
             includeScopes.length > 0 &&
             !includeScopes.find((scope) => packageName.startsWith(`${scope}/`))
         ) {
-            return;
+            continue;
         }
 
         if (
             excludeScopes.length > 0 &&
             excludeScopes.find((scope) => packageName.startsWith(`${scope}/`))
         ) {
-            return;
+            continue;
         }
 
         // If there is a list of package names, only process those.
-        if (includePackages.length > 0 && !includePackages.includes(packageName)) return;
+        if (includePackages.length > 0 && !includePackages.includes(packageName)) continue;
 
-        if (excludePackages.length > 0 && excludePackages.includes(packageName)) return;
+        if (excludePackages.length > 0 && excludePackages.includes(packageName)) continue;
 
         packages[packageName] = packages[packageName] || [];
         packages[packageName].push({
-            pkg,
+            pkg: entry,
             name: packageName,
             requestedVersion,
-            installedVersion: pkg.version,
+            installedVersion: entry.version,
             satisfiedBy: new Set(),
+            versions: new Map()
         });
-    });
+    };
     return packages;
 };
 
-const computePackageInstances = (packages, name, useMostCommon, includePrerelease = false) => {
+const computePackageInstances = (packages: Packages, name: string, useMostCommon: boolean, includePrerelease = false): Package[] => {
     // Instances of this package in the tree
     const packageInstances = packages[name];
 
     // Extract the list of unique versions for this package
-    const versions = packageInstances.reduce((versions, packageInstance) => {
-        if (packageInstance.installedVersion in versions) return versions;
-        versions[packageInstance.installedVersion] = {
+    const versions:Versions = new Map();
+    for (const packageInstance of packageInstances) {
+        if (versions.has(packageInstance.installedVersion)) continue;
+        versions.set(packageInstance.installedVersion, {
             pkg: packageInstance.pkg,
             satisfies: new Set(),
-        };
-        return versions;
-    }, {});
+        })
+    }
 
     // Link each package instance with all the versions it could satisfy.
-    Object.keys(versions).forEach((version) => {
-        const satisfies = versions[version].satisfies;
+    for (const [version, {satisfies}] of versions) {
         packageInstances.forEach((packageInstance) => {
             // We can assume that the installed version always satisfied the requested version.
             packageInstance.satisfiedBy.add(packageInstance.installedVersion);
@@ -94,7 +129,7 @@ const computePackageInstances = (packages, name, useMostCommon, includePrereleas
                 packageInstance.satisfiedBy.add(version);
             }
         });
-    });
+    };
 
     // Sort the list of satisfied versions
     packageInstances.forEach((packageInstance) => {
@@ -102,47 +137,48 @@ const computePackageInstances = (packages, name, useMostCommon, includePrereleas
         packageInstance.versions = versions;
 
         // Compute the versions that actually satisfy this instance
-        const candidateVersions = Array.from(packageInstance.satisfiedBy);
-        candidateVersions.sort((versionA, versionB) => {
+        packageInstance.candidateVersions = Array.from(packageInstance.satisfiedBy);
+        packageInstance.candidateVersions.sort((versionA:string, versionB:string) => {
             if (useMostCommon) {
                 // Sort verions based on how many packages it satisfies. In case of a tie, put the
                 // highest version first.
-                if (versions[versionB].satisfies.size > versions[versionA].satisfies.size) return 1;
-                if (versions[versionB].satisfies.size < versions[versionA].satisfies.size)
-                    return -1;
+                const satisfiesA = (versions.get(versionA) as Version).satisfies;
+                const satisfiesB = (versions.get(versionB) as Version).satisfies;
+                if (satisfiesB.size > satisfiesA.size) return 1;
+                if (satisfiesB.size < satisfiesA.size) return -1;
             }
             return semver.rcompare(versionA, versionB, { includePrerelease });
         });
-        packageInstance.satisfiedBy = candidateVersions;
 
         // The best package is always the first one in the list thanks to the sorting above.
-        packageInstance.bestVersion = candidateVersions[0];
+        packageInstance.bestVersion = packageInstance.candidateVersions[0];
     });
 
     return packageInstances;
 };
 
-const getDuplicatedPackages = (
-    json,
+export const getDuplicates = (
+    yarnEntries: YarnEntries,
     {
-        includeScopes,
-        includePackages,
-        excludePackages,
-        excludeScopes,
-        useMostCommon,
+        includeScopes = [],
+        includePackages = [],
+        excludePackages = [],
+        excludeScopes = [],
+        useMostCommon = false,
         includePrerelease = false,
-    }
-) => {
+    }: Options = {}
+): Package[] => {
     const packages = extractPackages(
-        json,
+        yarnEntries,
         includeScopes,
         includePackages,
         excludePackages,
         excludeScopes
     );
+
     return Object.keys(packages)
         .reduce(
-            (acc, name) =>
+            (acc:Package[], name) =>
                 acc.concat(
                     computePackageInstances(packages, name, useMostCommon, includePrerelease)
                 ),
@@ -151,28 +187,7 @@ const getDuplicatedPackages = (
         .filter(({ bestVersion, installedVersion }) => bestVersion !== installedVersion);
 };
 
-const getDuplicates = (
-    yarnLock,
-    {
-        includeScopes = [],
-        includePackages = [],
-        excludePackages = [],
-        excludeScopes = [],
-        useMostCommon = false,
-        includePrerelease = false,
-    } = {}
-) => {
-    return getDuplicatedPackages(yarnLock, {
-        includeScopes,
-        includePackages,
-        excludePackages,
-        excludeScopes,
-        useMostCommon,
-        includePrerelease,
-    });
-};
-
-const listDuplicates = (yarnLock, options) => {
+export const listDuplicates = (yarnLock:string, options: Options = {}): string[] => {
     const packages = getDuplicates(parseYarnLock(yarnLock), options);
     const result = packages.map(({ bestVersion, name, installedVersion, requestedVersion }) => {
         return `Package "${name}" wants ${requestedVersion} and could get ${bestVersion}, but got ${installedVersion}`;
@@ -180,35 +195,15 @@ const listDuplicates = (yarnLock, options) => {
     return result;
 };
 
-const fixDuplicates = (
-    yarnLock,
-    {
-        includeScopes = [],
-        includePackages = [],
-        excludePackages = [],
-        excludeScopes = [],
-        useMostCommon = false,
-        includePrerelease = false,
-    } = {}
-) => {
+export const fixDuplicates = ( yarnLock: string, options: Options = {} ) => {
     const json = parseYarnLock(yarnLock);
+    const duplicatedPackages = getDuplicates(json, options);
 
-    getDuplicates(json, {
-        includeScopes,
-        includePackages,
-        excludePackages,
-        excludeScopes,
-        useMostCommon,
-        includePrerelease,
-    }).forEach(({ bestVersion, name, versions, requestedVersion }) => {
-        json[`${name}@${requestedVersion}`] = versions[bestVersion].pkg;
-    });
+    for (const duplicatedPackage of duplicatedPackages) {
+        const { bestVersion, name, versions, requestedVersion } = duplicatedPackage;
+        json[`${name}@${requestedVersion}`] = (versions.get((bestVersion as string)) as Version).pkg;
+    }
 
     return lockfile.stringify(json);
 };
 
-module.exports = {
-    getDuplicates,
-    listDuplicates,
-    fixDuplicates,
-};

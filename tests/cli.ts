@@ -1,17 +1,19 @@
-const childProcess = require('child_process');
-const fs = require('fs');
-const path = require('path');
-const { promisify } = require('util');
+import childProcess from 'child_process';
+import fs from 'fs';
+import path from 'path';
+import { promisify } from 'util';
+
+import {type Readable} from "stream";
 
 const execFile = promisify(childProcess.execFile);
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 
-const cliFilePath = path.join(__dirname, '../src/cli.js');
+const cliFilePath = path.join(__dirname, '../dist/cli.js');
 const fixturesPath = path.join(__dirname, './fixtures');
 const yarnLockFilePath = path.join(fixturesPath, 'yarn.lock');
 
-const testWithFlags = async (flags) => {
+const testWithFlags = async (flags:string[]) => {
     const { stdout, stderr } = await execFile(process.execPath, [
         cliFilePath,
         '--print',
@@ -23,10 +25,10 @@ const testWithFlags = async (flags) => {
     return stdout;
 };
 
-const streamToString = (stream) => {
-    const chunks = [];
+const streamToString = (stream:Readable) => {
+    const chunks:Uint8Array[] = [];
     return new Promise((resolve, reject) => {
-        stream.on('data', (chunk) => chunks.push(Buffer.from(chunk)));
+        stream.on('data', (chunk:Uint8Array[]) => chunks.push(Buffer.from(chunk)));
         stream.on('error', (err) => reject(err));
         stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
     });
@@ -295,8 +297,8 @@ test('line endings are retained', async () => {
             yarnLockFilePath,
         ]);
         const newFileContent = await readFile(yarnLockFilePath, 'utf8');
-        const oldEol = oldFileContent.match(/(\r?\n)/)[0];
-        const newEol = newFileContent.match(/(\r?\n)/)[0];
+        const oldEol = (oldFileContent.match(/(\r?\n)/) as RegExpMatchArray) [0];
+        const newEol = (newFileContent.match(/(\r?\n)/) as RegExpMatchArray) [0];
         expect(newEol).toBe(oldEol);
     } finally {
         await writeFile(yarnLockFilePath, oldFileContent, 'utf8');

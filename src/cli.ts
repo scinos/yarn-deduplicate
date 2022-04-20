@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
-const commander = require('commander');
-const fs = require('fs');
+import {program} from 'commander';
+import fs from 'fs';
 
-const { fixDuplicates, listDuplicates } = require('./index');
+import  { fixDuplicates, listDuplicates } from './index.js';
 const version = require('../package.json').version;
 
 const FAIL_MESSAGE = '\nFound duplicated entries. Run yarn-deduplicate to deduplicate them.';
 
-commander
+program
     .version(version)
     .usage('[options] [yarn.lock path (default: yarn.lock)]')
     .option(
@@ -34,7 +34,7 @@ commander
         'Include prereleases in version comparisons, e.g. ^1.0.0 will be satisfied by 1.0.1-alpha'
     );
 
-commander.parse(process.argv);
+    program.parse(process.argv);
 
 const {
     strategy,
@@ -47,18 +47,18 @@ const {
     includePrerelease,
     print,
     noStats,
-} = commander.opts();
+} = program.opts();
 
-const file = commander.args.length ? commander.args[0] : 'yarn.lock';
+const file = program.args.length ? program.args[0] : 'yarn.lock';
 
 if (scopes && packages) {
     console.error('Please specify either scopes or packages, not both.');
-    commander.help();
+    program.help();
 }
 
 if (strategy !== 'highest' && strategy !== 'fewer') {
     console.error(`Invalid strategy ${strategy}`);
-    commander.help();
+    program.help();
 }
 
 try {

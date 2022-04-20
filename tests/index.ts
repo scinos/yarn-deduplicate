@@ -1,6 +1,6 @@
-const { fixDuplicates, listDuplicates } = require('../src/index.js');
-const lockfile = require('@yarnpkg/lockfile');
-const outdent = require('outdent');
+import { fixDuplicates, listDuplicates } from '../src/index';
+import * as lockfile from '@yarnpkg/lockfile';
+import outdent from 'outdent';
 
 test('dedupes lockfile to max compatible version', () => {
     const yarn_lock = outdent`
@@ -23,7 +23,7 @@ test('dedupes lockfile to max compatible version', () => {
     expect(json['library@^1.2.0']['version']).toEqual('1.3.0');
     expect(json['library@^1.3.0']['version']).toEqual('1.3.0');
 
-    const list = listDuplicates(yarn_lock);
+    const list = listDuplicates(yarn_lock, {});
 
     expect(list).toContain('Package "library" wants ^1.2.0 and could get 1.3.0, but got 1.2.0');
     expect(list).toContain('Package "library" wants ^1.1.0 and could get 1.3.0, but got 1.2.0');

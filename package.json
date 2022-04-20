@@ -13,10 +13,13 @@
     "deduplicate"
   ],
   "scripts": {
-    "test": "jest",
-    "build": "rm -fr dist tsconfig.tsbuildinfo && tsc",
+    "clean": "yarn tsc --build --clean",
+    "test": "yarn build && jest",
+    "lint": "eslint .",
+    "typecheck": "yarn tsc --build tsconfig.json --force && yarn tsc --build tests/tsconfig.json --force",
+    "validate": "yarn test && yarn lint && yarn typecheck",
     "prepack": "yarn build",
-    "lint": "eslint ."
+    "build": "yarn clean && yarn tsc --build"
   },
   "homepage": "https://github.com/scinos/yarn-deduplicate#readme",
   "bugs": "https://github.com/scinos/yarn-deduplicate/issues",
@@ -42,6 +45,13 @@
     "tslib": "^2.3.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@tsconfig/node12": "^1.0.9",
+    "@types/jest": "^27.4.1",
+    "@types/semver": "^7.3.9",
+    "@types/yarnpkg__lockfile": "^1.1.5",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-jest": "^26.1.4",
@@ -54,7 +64,7 @@
   },
   "jest": {
     "testMatch": [
-      "<rootDir>/tests/*.js"
+      "<rootDir>/tests/*.ts"
     ]
   },
   "packageManager": "yarn@3.2.0"

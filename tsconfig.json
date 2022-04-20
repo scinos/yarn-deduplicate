@@ -1,5 +1,6 @@
 {
 	"$schema": "https://json.schemastore.org/tsconfig",
+	"extends": "@tsconfig/node12/tsconfig.json",
 
 	"compilerOptions": {
         "outDir": "./dist",
@@ -15,19 +16,13 @@
 
 		"importHelpers": true,
 		"noEmitHelpers": true,
-		"skipLibCheck": true,
 
-		"lib": [ "ES2021" ],
-		"module": "ES2020",
-		"target": "ES2020",
-		"esModuleInterop": true,
 		"resolveJsonModule": false,
 
 		"strict": true,
 		"isolatedModules": true,
 
-		"moduleResolution": "node",
-		"forceConsistentCasingInFileNames": true
+		"moduleResolution": "node"
 	},
     "include": ["./src/*"]
 }
