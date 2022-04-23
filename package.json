@@ -55,6 +55,7 @@
     "@babel/core": "^7.17.9",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
+    "@release-it/keep-a-changelog": "^2.5.0",
     "@tsconfig/node12": "^1.0.9",
     "@types/jest": "^27.4.1",
     "@types/semver": "^7.3.9",

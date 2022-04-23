@@ -1767,6 +1767,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@release-it/keep-a-changelog@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "@release-it/keep-a-changelog@npm:2.5.0"
+  dependencies:
+    detect-newline: ^3.1.0
+    string-template: ^1.0.0
+  peerDependencies:
+    release-it: ^14.13.1
+  checksum: 6c9b023de9fb3279a01d546c8939d2b7bc7657de4949a5b13473b21b778f6298aaa666ade2b6fd1b2767b5989e365025a979cde97e2c2a77542fef518f9e36dc
+  languageName: node
+  linkType: hard
+
 "@sindresorhus/is@npm:^0.14.0":
   version: 0.14.0
   resolution: "@sindresorhus/is@npm:0.14.0"
@@ -3138,7 +3150,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"detect-newline@npm:^3.0.0":
+"detect-newline@npm:^3.0.0, detect-newline@npm:^3.1.0":
   version: 3.1.0
   resolution: "detect-newline@npm:3.1.0"
   checksum: ae6cd429c41ad01b164c59ea36f264a2c479598e61cba7c99da24175a7ab80ddf066420f2bec9a1c57a6bead411b4655ff15ad7d281c000a89791f48cbe939e7
@@ -8000,6 +8012,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"string-template@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "string-template@npm:1.0.0"
+  checksum: 15b0e8616ff25f3ddcd42e4a58a6833cc7be81029f97afc7b8f8d2e7c4d482a136e67399d207b7d2c31080e7a88266c670131a59e50ebc482bfeddb06b3a4215
+  languageName: node
+  linkType: hard
+
 "string-width@npm:^1.0.2 || 2 || 3 || 4, string-width@npm:^4.0.0, string-width@npm:^4.1.0, string-width@npm:^4.2.0, string-width@npm:^4.2.2, string-width@npm:^4.2.3":
   version: 4.2.3
   resolution: "string-width@npm:4.2.3"
@@ -9023,6 +9042,7 @@ __metadata:
     "@babel/core": ^7.17.9
     "@babel/preset-env": ^7.16.11
     "@babel/preset-typescript": ^7.16.7
+    "@release-it/keep-a-changelog": ^2.5.0
     "@tsconfig/node12": ^1.0.9
     "@types/jest": ^27.4.1
     "@types/semver": ^7.3.9
