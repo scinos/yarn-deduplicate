@@ -7,6 +7,26 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Chores
+
+- Update all transitive dependencies
+- Adds Node 18 to the test matix (#154)
+- Update Yarn to v3.2.1 (#148)
+- Update dependency release-it to v15 (#162)
+- Update dependency @release-it/keep-a-changelog to v3 (#161)
+- Update dependency prettier to ^2.7.1 (#160)
+- Update dependency release-it to ^14.14.3 (#157)
+- Update dependency commander to ^9.3.0 (#158)
+- Update dependency eslint-plugin-prettier to ^4.2.1 (#159)
+- Update dependency semver to ^7.3.7 (#114)
+- Update dependency tslib to ^2.4.0 (#149)
+- Update dependency eslint to ^8.19.0 (#150)
+- Update babel monorepo to ^7.18.6 (#156)
+- Update dependency eslint-plugin-jest to ^26.5.3 (#151)
+- Update dependency @tsconfig/node12 to ^1.0.11 (#155)
+- Update jest monorepo to v28 (major) (#152)
+- Update dependency typescript to ^4.7.4 (#153)
+
 ## [5.0.0] - 2022-04-23
 
 ### Breaking
