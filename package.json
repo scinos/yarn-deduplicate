@@ -48,7 +48,7 @@
   "dependencies": {
     "@yarnpkg/lockfile": "^1.1.0",
     "commander": "^9.2.0",
-    "semver": "^7.3.2",
+    "semver": "^7.3.7",
     "tslib": "^2.4.0"
   },
   "devDependencies": {
@@ -58,7 +58,7 @@
     "@release-it/keep-a-changelog": "^2.5.0",
     "@tsconfig/node12": "^1.0.11",
     "@types/jest": "^28.1.4",
-    "@types/semver": "^7.3.9",
+    "@types/semver": "^7.3.10",
     "@types/yarnpkg__lockfile": "^1.1.5",
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",

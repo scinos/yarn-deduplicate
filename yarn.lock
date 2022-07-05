@@ -2036,10 +2036,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/semver@npm:^7.3.9":
-  version: 7.3.9
-  resolution: "@types/semver@npm:7.3.9"
-  checksum: 60bfcfdfa7f937be2c6f4b37ddb6714fb0f27b05fe4cbdfdd596a97d35ed95d13ee410efdd88e72a66449d0384220bf20055ab7d6b5df10de4990fbd20e5cbe0
+"@types/semver@npm:^7.3.10":
+  version: 7.3.10
+  resolution: "@types/semver@npm:7.3.10"
+  checksum: 7047c2822b1759b2b950f39cfcf261f2b9dca47b4b55bdebba0905a8553631f1531eb0f59264ffe4834d1198c8331c8e0010a4cd742f4e0b60abbf399d134364
   languageName: node
   linkType: hard
 
@@ -7564,7 +7564,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.3.2, semver@npm:^7.3.4, semver@npm:^7.3.5":
+"semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7":
   version: 7.3.7
   resolution: "semver@npm:7.3.7"
   dependencies:
@@ -8720,7 +8720,7 @@ __metadata:
     "@release-it/keep-a-changelog": ^2.5.0
     "@tsconfig/node12": ^1.0.11
     "@types/jest": ^28.1.4
-    "@types/semver": ^7.3.9
+    "@types/semver": ^7.3.10
     "@types/yarnpkg__lockfile": ^1.1.5
     "@yarnpkg/lockfile": ^1.1.0
     commander: ^9.2.0
@@ -8733,7 +8733,7 @@ __metadata:
     outdent: ^0.8.0
     prettier: ^2.6.2
     release-it: ^14.14.2
-    semver: ^7.3.2
+    semver: ^7.3.7
     tslib: ^2.4.0
     typescript: ^4.7.4
   bin:
