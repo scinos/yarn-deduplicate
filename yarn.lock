@@ -1831,15 +1831,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@release-it/keep-a-changelog@npm:^2.5.0":
-  version: 2.5.0
-  resolution: "@release-it/keep-a-changelog@npm:2.5.0"
+"@release-it/keep-a-changelog@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@release-it/keep-a-changelog@npm:3.0.0"
   dependencies:
-    detect-newline: ^3.1.0
+    detect-newline: ^4.0.0
     string-template: ^1.0.0
   peerDependencies:
-    release-it: ^14.13.1
-  checksum: 6c9b023de9fb3279a01d546c8939d2b7bc7657de4949a5b13473b21b778f6298aaa666ade2b6fd1b2767b5989e365025a979cde97e2c2a77542fef518f9e36dc
+    release-it: ^15.0.0-esm.4
+  checksum: 5821002175fed556dd173a36123b5a03656bd0942dc68f2c006aabd35ed1e2acd6706d65daa402856eb364a897b0513226ac65e3e5938728684fd73b816e9896
   languageName: node
   linkType: hard
 
@@ -3193,10 +3193,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"detect-newline@npm:^3.0.0, detect-newline@npm:^3.1.0":
+"detect-newline@npm:^3.0.0":
   version: 3.1.0
   resolution: "detect-newline@npm:3.1.0"
   checksum: ae6cd429c41ad01b164c59ea36f264a2c479598e61cba7c99da24175a7ab80ddf066420f2bec9a1c57a6bead411b4655ff15ad7d281c000a89791f48cbe939e7
+  languageName: node
+  linkType: hard
+
+"detect-newline@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "detect-newline@npm:4.0.0"
+  checksum: 52767347c70f485b2d1db6493dde57b8c3c1f249e24bad7eb7424cc1129200aa7e671902ede18bc94a8b69e10dec91456aab4c7e2478559d9eedb31ef3847f36
   languageName: node
   linkType: hard
 
@@ -9055,7 +9062,7 @@ __metadata:
     "@babel/core": ^7.18.6
     "@babel/preset-env": ^7.18.6
     "@babel/preset-typescript": ^7.18.6
-    "@release-it/keep-a-changelog": ^2.5.0
+    "@release-it/keep-a-changelog": ^3.0.0
     "@tsconfig/node12": ^1.0.11
     "@types/jest": ^28.1.4
     "@types/semver": ^7.3.10
