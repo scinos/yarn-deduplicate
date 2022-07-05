@@ -2922,10 +2922,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^9.2.0":
-  version: 9.2.0
-  resolution: "commander@npm:9.2.0"
-  checksum: 7c82e4cd969712aa6d7c055b8351807a7230f9f31ef7ec7881e11a1147511de85adf5d6ccfd200240a118eecf693b220caf6865b8efbcea558a70d35aa9ed711
+"commander@npm:^9.3.0":
+  version: 9.3.0
+  resolution: "commander@npm:9.3.0"
+  checksum: d421ce66fee25792a1470c69aa8d1b86434bf873a96483aa92c8267f81a6f20c6f7c426f5e82f88ac50a8ec4855d3f2787aebcdef8aa559e1080a2337a95a217
   languageName: node
   linkType: hard
 
@@ -8723,7 +8723,7 @@ __metadata:
     "@types/semver": ^7.3.10
     "@types/yarnpkg__lockfile": ^1.1.5
     "@yarnpkg/lockfile": ^1.1.0
-    commander: ^9.2.0
+    commander: ^9.3.0
     eslint: ^8.19.0
     eslint-config-prettier: ^8.5.0
     eslint-plugin-jest: ^26.5.3
