@@ -62,7 +62,7 @@
     "@types/yarnpkg__lockfile": "^1.1.5",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-jest": "^26.1.4",
+    "eslint-plugin-jest": "^26.5.3",
     "eslint-plugin-md": "^1.0.19",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^28.1.2",
