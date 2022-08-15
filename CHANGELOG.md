@@ -7,6 +7,8 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [5.0.2] - 2022-08-15
+
 ### Chores
 
 - Re-release 5.0.1, it's missing from NPM 🤷
@@ -245,6 +247,7 @@ Edit: _Do not use. It breaks Node 8 compatiblity. Use 2.0.0 instead_
 - Added AUTHORS.
 - Cleaned Markdown files.
 
-[unreleased]: https://github.com/scinos/yarn-deduplicate/compare/v5.0.1...HEAD
+[unreleased]: https://github.com/scinos/yarn-deduplicate/compare/v5.0.2...HEAD
+[5.0.2]: https://github.com/scinos/yarn-deduplicate/compare/v5.0.1...v5.0.2
 [5.0.1]: https://github.com/scinos/yarn-deduplicate/compare/v5.0.0...v5.0.1
 [5.0.0]: https://github.com/scinos/yarn-deduplicate/compare/v4.0.0...v5.0.0
