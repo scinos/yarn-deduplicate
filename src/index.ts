@@ -147,7 +147,7 @@ const computePackageInstances = (packages: Packages, name: string, useMostCommon
                 if (satisfiesB.size > satisfiesA.size) return 1;
                 if (satisfiesB.size < satisfiesA.size) return -1;
             }
-            return semver.rcompare(versionA, versionB, { includePrerelease });
+            return semver.rcompare(versionA, versionB);
         });
 
         // The best package is always the first one in the list thanks to the sorting above.
