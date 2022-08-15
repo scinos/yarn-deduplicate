@@ -1862,15 +1862,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@release-it/keep-a-changelog@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@release-it/keep-a-changelog@npm:3.0.0"
+"@release-it/keep-a-changelog@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@release-it/keep-a-changelog@npm:3.1.0"
   dependencies:
     detect-newline: ^4.0.0
     string-template: ^1.0.0
   peerDependencies:
     release-it: ^15.0.0-esm.4
-  checksum: 5821002175fed556dd173a36123b5a03656bd0942dc68f2c006aabd35ed1e2acd6706d65daa402856eb364a897b0513226ac65e3e5938728684fd73b816e9896
+  checksum: 28cf7c8642bc67872c0e69f89ecef05cbdc0eda4c6297410a111f34602ae09691f672dc5e43b4089508663ea890efd94783cc0e81163fb4a2ecef3df89890744
   languageName: node
   linkType: hard
 
@@ -9347,7 +9347,7 @@ __metadata:
     "@babel/core": ^7.18.6
     "@babel/preset-env": ^7.18.6
     "@babel/preset-typescript": ^7.18.6
-    "@release-it/keep-a-changelog": ^3.0.0
+    "@release-it/keep-a-changelog": ^3.1.0
     "@tsconfig/node12": ^1.0.11
     "@types/jest": ^28.1.4
     "@types/semver": ^7.3.10
