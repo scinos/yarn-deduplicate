@@ -7,6 +7,19 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Chores
+
+- Re-release 5.0.1, it's missing from NPM 🤷
+- Update Yarn to v3.2.2 (#170)
+- Update dependency @release-it/keep-a-changelog to ^3.1.0 (#172)
+- Update dependency commander to ^9.4.0 (#166)
+- Update dependency release-it to ^15.3.0 (#167)
+- Update dependency @types/semver to ^7.3.12 (#171)
+- Update babel monorepo to ^7.18.10 (#169)
+- Update jest monorepo (#164)
+- Update dependency eslint-plugin-jest to ^26.8.2 (#165)
+- Update dependency eslint to ^8.22.0 (#168)
+
 ## [5.0.1] - 2022-07-05
 
 ### Chores
