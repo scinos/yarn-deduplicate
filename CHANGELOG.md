@@ -10,6 +10,8 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Breaking changes
 
 - Drop support for Node 12.x. Minimum supported version is 14.x
+- Drop support for Yarn >= 2. It was never supported because it just doesn't work, but now Yarn
+  version is enforced in `engines` entry in `package.json`
 
 ### Chores
 
