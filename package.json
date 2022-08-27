@@ -60,7 +60,7 @@
         "@types/jest": "^28.1.6",
         "@types/semver": "^7.3.12",
         "@types/yarnpkg__lockfile": "^1.1.5",
-        "eslint": "^8.22.0",
+        "eslint": "^8.23.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-jest": "^26.8.2",
         "eslint-plugin-md": "^1.0.19",
