@@ -1,80 +1,80 @@
 {
-  "name": "yarn-deduplicate",
-  "version": "5.0.2",
-  "bin": "./dist/cli.js",
-  "description": "Deduplication tool for yarn.lock files",
-  "keywords": [
-    "yarn",
-    "yarn.lock",
-    "lockfile",
-    "duplicated",
-    "package manager",
-    "dedupe",
-    "deduplicate"
-  ],
-  "scripts": {
-    "clean": "yarn tsc --build --clean",
-    "test": "yarn build && jest",
-    "lint": "eslint .",
-    "typecheck": "yarn tsc --build tsconfig.json --force && yarn tsc --build tests/tsconfig.json --force",
-    "validate": "yarn test && yarn lint && yarn typecheck",
-    "prepack": "yarn build",
-    "build": "yarn clean && yarn tsc --build",
-    "release": "release-it"
-  },
-  "homepage": "https://github.com/scinos/yarn-deduplicate#readme",
-  "bugs": "https://github.com/scinos/yarn-deduplicate/issues",
-  "license": "Apache-2.0",
-  "author": "Sergio Cinos <sergio.cinos@gmail.com>",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "AUTHORS.md",
-    "CHANGELOG.md",
-    "CODE_OF_CONDUCT.md",
-    "LICENSE.txt",
-    "README.md",
-    "dist/*",
-    "!dist/tsconfig.tsbuildinfo"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:scinos/yarn-deduplicate.git"
-  },
-  "engines": {
-    "node": ">=12",
-    "yarn": ">=1"
-  },
-  "dependencies": {
-    "@yarnpkg/lockfile": "^1.1.0",
-    "commander": "^9.4.0",
-    "semver": "^7.3.7",
-    "tslib": "^2.4.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.18.10",
-    "@babel/preset-env": "^7.18.10",
-    "@babel/preset-typescript": "^7.18.6",
-    "@release-it/keep-a-changelog": "^3.1.0",
-    "@tsconfig/node12": "^1.0.11",
-    "@types/jest": "^28.1.6",
-    "@types/semver": "^7.3.12",
-    "@types/yarnpkg__lockfile": "^1.1.5",
-    "eslint": "^8.22.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-jest": "^26.8.2",
-    "eslint-plugin-md": "^1.0.19",
-    "eslint-plugin-prettier": "^4.2.1",
-    "jest": "^28.1.3",
-    "outdent": "^0.8.0",
-    "prettier": "^2.7.1",
-    "release-it": "^15.3.0",
-    "typescript": "^4.7.4"
-  },
-  "jest": {
-    "testMatch": [
-      "<rootDir>/tests/*.ts"
-    ]
-  },
-  "packageManager": "yarn@3.2.2"
+    "name": "yarn-deduplicate",
+    "version": "5.0.2",
+    "bin": "./dist/cli.js",
+    "description": "Deduplication tool for yarn.lock files",
+    "keywords": [
+        "yarn",
+        "yarn.lock",
+        "lockfile",
+        "duplicated",
+        "package manager",
+        "dedupe",
+        "deduplicate"
+    ],
+    "scripts": {
+        "clean": "yarn tsc --build --clean",
+        "test": "yarn build && jest",
+        "lint": "eslint .",
+        "typecheck": "yarn tsc --build tsconfig.json --force && yarn tsc --build tests/tsconfig.json --force",
+        "validate": "yarn test && yarn lint && yarn typecheck",
+        "prepack": "yarn build",
+        "build": "yarn clean && yarn tsc --build",
+        "release": "release-it"
+    },
+    "homepage": "https://github.com/scinos/yarn-deduplicate#readme",
+    "bugs": "https://github.com/scinos/yarn-deduplicate/issues",
+    "license": "Apache-2.0",
+    "author": "Sergio Cinos <sergio.cinos@gmail.com>",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "AUTHORS.md",
+        "CHANGELOG.md",
+        "CODE_OF_CONDUCT.md",
+        "LICENSE.txt",
+        "README.md",
+        "dist/*",
+        "!dist/tsconfig.tsbuildinfo"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:scinos/yarn-deduplicate.git"
+    },
+    "engines": {
+        "node": ">=14",
+        "yarn": ">=1"
+    },
+    "dependencies": {
+        "@yarnpkg/lockfile": "^1.1.0",
+        "commander": "^9.4.0",
+        "semver": "^7.3.7",
+        "tslib": "^2.4.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.18.10",
+        "@babel/preset-env": "^7.18.10",
+        "@babel/preset-typescript": "^7.18.6",
+        "@release-it/keep-a-changelog": "^3.1.0",
+        "@tsconfig/node12": "^1.0.11",
+        "@types/jest": "^28.1.6",
+        "@types/semver": "^7.3.12",
+        "@types/yarnpkg__lockfile": "^1.1.5",
+        "eslint": "^8.22.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-jest": "^26.8.2",
+        "eslint-plugin-md": "^1.0.19",
+        "eslint-plugin-prettier": "^4.2.1",
+        "jest": "^28.1.3",
+        "outdent": "^0.8.0",
+        "prettier": "^2.7.1",
+        "release-it": "^15.3.0",
+        "typescript": "^4.7.4"
+    },
+    "jest": {
+        "testMatch": [
+            "<rootDir>/tests/*.ts"
+        ]
+    },
+    "packageManager": "yarn@3.2.2"
 }

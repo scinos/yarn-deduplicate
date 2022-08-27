@@ -7,6 +7,14 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Breaking changes
+
+- Drop support for Node 12.x. Minimum supported version is 14.x
+
+### Chores
+
+- Do not pack Yarn version, rely on `corepack` instead
+
 ## [5.0.2] - 2022-08-15
 
 ### Chores
