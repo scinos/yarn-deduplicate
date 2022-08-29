@@ -7,6 +7,8 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [6.0.0] - 2022-08-29
+
 ### Breaking changes
 
 - Drop support for Node 12.x. Minimum supported version is 14.x
@@ -266,7 +268,8 @@ Edit: _Do not use. It breaks Node 8 compatiblity. Use 2.0.0 instead_
 - Added AUTHORS.
 - Cleaned Markdown files.
 
-[unreleased]: https://github.com/scinos/yarn-deduplicate/compare/v5.0.2...HEAD
+[unreleased]: https://github.com/scinos/yarn-deduplicate/compare/v6.0.0...HEAD
+[6.0.0]: https://github.com/scinos/yarn-deduplicate/compare/v5.0.2...v6.0.0
 [5.0.2]: https://github.com/scinos/yarn-deduplicate/compare/v5.0.1...v5.0.2
 [5.0.1]: https://github.com/scinos/yarn-deduplicate/compare/v5.0.0...v5.0.1
 [5.0.0]: https://github.com/scinos/yarn-deduplicate/compare/v4.0.0...v5.0.0
