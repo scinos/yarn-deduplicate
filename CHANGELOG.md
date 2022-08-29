@@ -16,6 +16,15 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Chores
 
 - Do not pack Yarn version, rely on `corepack` instead
+- Enable corepack on CI
+- Update dependency @babel/core to ^7.18.13 (#175)
+- Update dependency @types/jest to ^28.1.8 (#174)
+- Update dependency eslint to ^8.23.0 (#180)
+- Update dependency eslint-plugin-jest to v27 (#183)
+- Update dependency jest to v29 (#178)
+- Update dependency release-it to ^15.4.0 (#176)
+- Update dependency typescript to ^4.8.2 (#179)
+- Update Yarn to v3.2.3 (#177)
 
 ## [5.0.2] - 2022-08-15
 
