@@ -13,7 +13,7 @@ program
     .usage('[options] [yarn.lock path (default: yarn.lock)]')
     .option(
         '-s, --strategy <strategy>',
-        'deduplication strategy. Valid values: fewer, highest. Default is "highest"',
+        'deduplication strategy. Valid values: fewer, highest, direct.',
         'highest'
     )
     .option('-l, --list', 'do not change yarn.lock, just output the diagnosis')
@@ -32,7 +32,8 @@ program
     .option(
         '--includePrerelease',
         'Include prereleases in version comparisons, e.g. ^1.0.0 will be satisfied by 1.0.1-alpha'
-    );
+    )
+    .option('--package-json <path>', 'path to package.json, used with direct strategy', 'package.json');
 
     program.parse(process.argv);
 
@@ -47,6 +48,7 @@ const {
     includePrerelease,
     print,
     noStats,
+    packageJson: packageJsonPath,
 } = program.opts();
 
 const file = program.args.length ? program.args[0] : 'yarn.lock';
@@ -56,18 +58,19 @@ if (scopes && packages) {
     program.help();
 }
 
-if (strategy !== 'highest' && strategy !== 'fewer') {
+if (strategy !== 'highest' && strategy !== 'fewer' && strategy !== 'direct') {
     console.error(`Invalid strategy ${strategy}`);
     program.help();
 }
 
 try {
     const yarnLock = fs.readFileSync(file, 'utf8');
-    const useMostCommon = strategy === 'fewer';
+    const packageJson = strategy === 'direct' ? fs.readFileSync(packageJsonPath, 'utf8') : null;
 
     if (list) {
         const duplicates = listDuplicates(yarnLock, {
-            useMostCommon,
+            packageJson,
+            strategy,
             includeScopes: scopes,
             includePackages: packages,
             excludePackages: exclude,
@@ -81,7 +84,8 @@ try {
         }
     } else {
         let dedupedYarnLock = fixDuplicates(yarnLock, {
-            useMostCommon,
+            packageJson,
+            strategy,
             includeScopes: scopes,
             includePackages: packages,
             excludePackages: exclude,

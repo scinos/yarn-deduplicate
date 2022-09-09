@@ -1,6 +1,12 @@
 import * as lockfile from '@yarnpkg/lockfile';
 import semver from 'semver';
 
+type PackageJson = {
+    dependencies?: Record<string, string>,
+    devDependencies?: Record<string, string>,
+    optionalDependencies?: Record<string, string>
+}
+
 type YarnEntry = {
     resolved: string
     version: string
@@ -23,18 +29,41 @@ type Package = {
 
 type Version = {
     pkg: YarnEntry,
+    isDirectDependency: boolean,
     satisfies: Set<Package>
 }
 
 type Versions = Map<string, Version>;
 
+export type Strategy = 'highest' | 'fewer' | 'direct';
+
 type Options = {
+    packageJson?: string | null;
     includeScopes?: string[];
     includePackages?: string[];
     excludePackages?: string[];
     excludeScopes?: string[];
-    useMostCommon?: boolean;
+    strategy?: Strategy;
     includePrerelease?: boolean;
+}
+
+const getDirectDependencies = (file: string | null): Set<string> => {
+    const result = new Set<string>();
+    if (file === null) {
+        return result;
+    }
+
+    const packageJson = JSON.parse(file) as PackageJson;
+    for (const [packageName, requestedVersion] of Object.entries(packageJson.dependencies ?? {})) {
+        result.add(`${packageName}@${requestedVersion}`);
+    }
+    for (const [packageName, requestedVersion] of Object.entries(packageJson.devDependencies ?? {})) {
+        result.add(`${packageName}@${requestedVersion}`);
+    }
+    for (const [packageName, requestedVersion] of Object.entries(packageJson.optionalDependencies ?? {})) {
+        result.add(`${packageName}@${requestedVersion}`);
+    }
+    return result;
 }
 
 const parseYarnLock = (file:string) => lockfile.parse(file).object as YarnEntries;
@@ -100,18 +129,32 @@ const extractPackages = (
     return packages;
 };
 
-const computePackageInstances = (packages: Packages, name: string, useMostCommon: boolean, includePrerelease = false): Package[] => {
+const computePackageInstances = (
+    packages: Packages,
+    name: string,
+    strategy: Strategy,
+    directDependencies: Set<string>,
+    includePrerelease = false,
+): Package[] => {
     // Instances of this package in the tree
     const packageInstances = packages[name];
 
     // Extract the list of unique versions for this package
     const versions:Versions = new Map();
     for (const packageInstance of packageInstances) {
-        if (versions.has(packageInstance.installedVersion)) continue;
-        versions.set(packageInstance.installedVersion, {
-            pkg: packageInstance.pkg,
-            satisfies: new Set(),
-        })
+        // Mark candidates which have at least one requested version matching a
+        // direct dependency as direct
+        const isDirectDependency = directDependencies.has(`${name}@${packageInstance.requestedVersion}`);
+        if (versions.has(packageInstance.installedVersion)) {
+            const existingPackage = versions.get(packageInstance.installedVersion)!;
+            existingPackage.isDirectDependency ||= isDirectDependency;
+        } else {
+            versions.set(packageInstance.installedVersion, {
+                pkg: packageInstance.pkg,
+                satisfies: new Set(),
+                isDirectDependency,
+            });
+        }
     }
 
     // Link each package instance with all the versions it could satisfy.
@@ -139,7 +182,15 @@ const computePackageInstances = (packages: Packages, name: string, useMostCommon
         // Compute the versions that actually satisfy this instance
         packageInstance.candidateVersions = Array.from(packageInstance.satisfiedBy);
         packageInstance.candidateVersions.sort((versionA:string, versionB:string) => {
-            if (useMostCommon) {
+            if (strategy === 'direct') {
+                // Sort versions that are specified in package.json first. In
+                // case of a tie, use the highest version.
+                const isDirectA = versions.get(versionA)!.isDirectDependency;
+                const isDirectB = versions.get(versionB)!.isDirectDependency;
+                if (isDirectA && !isDirectB) return -1;
+                if (!isDirectB && isDirectA) return 1;
+            }
+            if (strategy === 'fewer') {
                 // Sort verions based on how many packages it satisfies. In case of a tie, put the
                 // highest version first.
                 const satisfiesA = (versions.get(versionA) as Version).satisfies;
@@ -160,11 +211,12 @@ const computePackageInstances = (packages: Packages, name: string, useMostCommon
 export const getDuplicates = (
     yarnEntries: YarnEntries,
     {
+        packageJson = null,
         includeScopes = [],
         includePackages = [],
         excludePackages = [],
         excludeScopes = [],
-        useMostCommon = false,
+        strategy = 'highest',
         includePrerelease = false,
     }: Options = {}
 ): Package[] => {
@@ -176,11 +228,13 @@ export const getDuplicates = (
         excludeScopes
     );
 
+    const directDependencies = getDirectDependencies(packageJson);
+
     return Object.keys(packages)
         .reduce(
             (acc:Package[], name) =>
                 acc.concat(
-                    computePackageInstances(packages, name, useMostCommon, includePrerelease)
+                    computePackageInstances(packages, name, strategy, directDependencies, includePrerelease)
                 ),
             []
         )
@@ -206,4 +260,3 @@ export const fixDuplicates = ( yarnLock: string, options: Options = {} ) => {
 
     return lockfile.stringify(json);
 };
-

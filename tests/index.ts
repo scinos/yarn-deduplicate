@@ -44,7 +44,7 @@ test('dedupes lockfile to most common compatible version', () => {
       resolved "https://example.net/library@^2.1.0"
   `;
     const deduped = fixDuplicates(yarn_lock, {
-        useMostCommon: true,
+        strategy: 'fewer',
     });
     const json = lockfile.parse(deduped).object;
 
@@ -53,7 +53,7 @@ test('dedupes lockfile to most common compatible version', () => {
     expect(json['library@^2.0.0']['version']).toEqual('2.1.0');
 
     const list = listDuplicates(yarn_lock, {
-        useMostCommon: true,
+        strategy: 'fewer',
     });
 
     expect(list).toContain('Package "library" wants >=1.0.0 and could get 2.1.0, but got 3.0.0');
@@ -271,4 +271,46 @@ test('should support the integrity field if present', () => {
 
     // We should not have made any change to the order of outputted lines (@yarnpkg/lockfile 1.0.0 had this bug)
     expect(yarn_lock).toBe(deduped);
+});
+
+test('prioritizes direct requirements if present', () => {
+    const yarn_lock = outdent`
+    a-package@*:
+      version "2.0.0"
+      resolved "http://example.com/a-package/2.0.0"
+
+    a-package@^1.0.0, a-package@^1.0.1, a-package@^1.0.2:
+      version "1.0.2"
+      resolved "http://example.com/a-package/1.0.2"
+
+    a-package@^0.1.0:
+      version "0.1.0"
+      resolved "http://example.com/a-package/0.1.0"
+
+    other-package@>=1.0.0:
+      version "2.0.0"
+      resolved "http://example.com/other-package/2.0.0"
+
+    other-package@^1.0.0:
+      version "1.0.12"
+      resolved "http://example.com/other-package/1.0.12"
+    `;
+    const package_json = outdent`
+    {
+      "dependencies": {
+        "a-package": "^1.0.1"
+      }
+    }
+    `;
+
+    const deduped = fixDuplicates(yarn_lock, {
+        strategy: 'direct',
+        packageJson: package_json,
+    });
+    const json = lockfile.parse(deduped).object;
+    expect(json['a-package@*']['version']).toEqual('1.0.2');
+    expect(json['a-package@^1.0.0']['version']).toEqual('1.0.2');
+    expect(json['a-package@^0.1.0']['version']).toEqual('0.1.0');
+    expect(json['other-package@>=1.0.0']['version']).toEqual('2.0.0');
+    expect(json['other-package@^1.0.0']['version']).toEqual('1.0.12');
 });
