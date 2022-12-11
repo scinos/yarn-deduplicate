@@ -28,7 +28,11 @@ yarn global add yarn-deduplicate
 
 This package also works wth
 [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b), so you
-don't need to install it.
+don't need to install it. For example, to recreate the most common scenario below with `npx`, run:
+
+```sh
+npx yarn-deduplicate yarn.lock
+```
 
 ---
 
