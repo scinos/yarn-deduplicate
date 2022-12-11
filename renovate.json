@@ -1,7 +1,6 @@
 {
-  "extends": [
-    "config:base"
-  ],
-  "rangeStrategy": "bump",
-  "masterIssue": true
+    "extends": ["config:base"],
+    "rangeStrategy": "bump",
+    "masterIssue": true,
+    "postUpdateOptions": ["yarnDedupeHighest"]
 }
