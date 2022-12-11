@@ -7,6 +7,35 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- Update REAMDE with explicit example of `npx` (#206) (thanks to @karlhorky)
+
+### Chores
+
+- Configure renovate to run deduplicate
+- Bump vm2 from 3.9.9 to 3.9.13 (#207)
+- Update babel monorepo (#211)
+- Update babel monorepo to ^7.19.1 (#189) (4 hours ago)
+- Update dependency @types/jest to v29 (#184)
+- Update dependency commander to ^9.4.1 (#198)
+- Update dependency eslint to ^8.24.0 (#193)
+- Update dependency eslint to ^8.28.0 (#202)
+- Update dependency eslint to ^8.29.0 (#213)
+- Update dependency eslint-plugin-jest to ^27.0.4 (#190)
+- Update dependency eslint-plugin-jest to ^27.1.5 (#199)
+- Update dependency eslint-plugin-jest to ^27.1.6 (#209)
+- Update dependency jest to ^29.0.3 (#188)
+- Update dependency prettier to ^2.8.1 (#214)
+- Update dependency release-it to ^15.5.1 (#185)
+- Update dependency semver to ^7.3.8 (#200)
+- Update dependency tslib to ^2.4.1 (#208)
+- Update dependency typescript to ^4.8.3 (#191)
+- Update dependency typescript to ^4.9.3 (#196)
+- Update dependency typescript to ^4.9.4 (#212)
+- Update jest monorepo (#197)
+- Update Yarn to v3.3.0 (#203)
+
 ## [6.0.0] - 2022-08-29
 
 ### Breaking changes
