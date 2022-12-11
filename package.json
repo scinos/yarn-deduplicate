@@ -1,6 +1,6 @@
 {
     "name": "yarn-deduplicate",
-    "version": "6.0.0",
+    "version": "6.0.1",
     "bin": "./dist/cli.js",
     "description": "Deduplication tool for yarn.lock files",
     "keywords": [
