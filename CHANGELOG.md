@@ -7,6 +7,26 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Chores
+
+- Update dependency tslib to ^2.5.0 (#236)
+- Update dependency vm2 from 3.9.13 to 3.9.17 (#238)
+- Update dependency commander to v10 (#237)
+- Update dependency typescript to v5 (#239)
+- Update dependency typescript to ^4.9.5 (#235)
+- Update dependency semver to ^7.5.0 (#234)
+- Update dependency prettier to ^2.8.8 (#233)
+- Update dependency eslint-config-prettier to ^8.8.0 (#222)
+- Update dependency @types/jest to ^29.5.1 (#231)
+- Update babel monorepo (#232)
+- Update dependency release-it to ^15.10.3 (#220)
+- Update dependency eslint to ^8.38.0 (#217)
+- Update Yarn to v3.5.1 (#218)
+- Update dependency eslint-plugin-jest to ^27.2.1 (#216)
+- Update dependency commander to ^9.5.0 (#223)
+- Update babel monorepo to ^7.21.4 (#219)
+- Update jest monorepo to ^29.5.0 (#221)
+
 ## [6.0.1] - 2022-12-11
 
 ### Added
@@ -18,7 +38,7 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 - Configure renovate to run deduplicate
 - Bump vm2 from 3.9.9 to 3.9.13 (#207)
 - Update babel monorepo (#211)
-- Update babel monorepo to ^7.19.1 (#189) (4 hours ago)
+- Update babel monorepo to ^7.19.1 (#189)
 - Update dependency @types/jest to v29 (#184)
 - Update dependency commander to ^9.4.1 (#198)
 - Update dependency eslint to ^8.24.0 (#193)
