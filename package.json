@@ -42,7 +42,7 @@
         "url": "git@github.com:scinos/yarn-deduplicate.git"
     },
     "engines": {
-        "node": ">=v14",
+        "node": ">=v18.16.0",
         "yarn": ">=1 <2"
     },
     "dependencies": {
