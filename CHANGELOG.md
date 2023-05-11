@@ -7,6 +7,8 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [6.0.2] - 2023-05-11
+
 ### Chores
 
 - Update dependency tslib to ^2.5.0 (#236)
@@ -319,7 +321,8 @@ Edit: _Do not use. It breaks Node 8 compatiblity. Use 2.0.0 instead_
 - Added AUTHORS.
 - Cleaned Markdown files.
 
-[unreleased]: https://github.com/scinos/yarn-deduplicate/compare/v6.0.1...HEAD
+[unreleased]: https://github.com/scinos/yarn-deduplicate/compare/v6.0.2...HEAD
+[6.0.2]: https://github.com/scinos/yarn-deduplicate/compare/v6.0.1...v6.0.2
 [6.0.1]: https://github.com/scinos/yarn-deduplicate/compare/v6.0.0...v6.0.1
 [6.0.0]: https://github.com/scinos/yarn-deduplicate/compare/v5.0.2...v6.0.0
 [5.0.2]: https://github.com/scinos/yarn-deduplicate/compare/v5.0.1...v5.0.2
