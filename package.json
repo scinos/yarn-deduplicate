@@ -49,7 +49,7 @@
         "@yarnpkg/lockfile": "^1.1.0",
         "commander": "^9.5.0",
         "semver": "^7.5.0",
-        "tslib": "^2.4.1"
+        "tslib": "^2.5.0"
     },
     "devDependencies": {
         "@babel/core": "^7.21.8",
