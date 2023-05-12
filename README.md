@@ -142,6 +142,35 @@ It will deduplicate `library@*` and `library@>=1.1.0` to `1.2.0`.
 Note that this may cause some packages to be **downgraded**. Be sure to check the changelogs between
 all versions and understand the consequences of that downgrade. If unsure, don't use this strategy.
 
+`direct` will prioritize dependencies specified in `package.json` but will use the highest version
+otherwise. For example, with the following `yarn.lock`:
+
+```text
+library@*:
+  version "2.0.0"
+
+library@^1.2.0:
+  version "1.2.0"
+
+other@*:
+  version "2.0.0"
+
+other@^1.3.0:
+  version "1.3.0"
+```
+
+and `package.json`:
+```
+{
+  "dependencies": {
+    "library": "^1.2.0",
+    ...
+  },
+}
+```
+
+It will deduplicate `library@*` to `1.2.0` but keep `other@^1.3.0` as is.
+
 It is not recommended to use different strategies for different packages. There is no guarantee that
 the strategy will be honored in subsequent runs of `yarn-deduplicate` unless the same set of flags
 is specified again.
