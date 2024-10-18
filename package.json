@@ -76,5 +76,5 @@
             "<rootDir>/tests/*.ts"
         ]
     },
-    "packageManager": "yarn@3.5.1"
+    "packageManager": "yarn@3.8.6"
 }
