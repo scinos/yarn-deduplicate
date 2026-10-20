@@ -2180,10 +2180,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/yarnpkg__lockfile@npm:^1.1.5":
-  version: 1.1.5
-  resolution: "@types/yarnpkg__lockfile@npm:1.1.5"
-  checksum: 2aa761eebea2e8780ddc9d2819a356451d04166e3ea4fad3fd43d81e25a68806edf884f71aef12f77f0a256eb98aa152d32a8af16e32d04a918424d10cb6d858
+"@types/yarnpkg__lockfile@npm:^1.1.9":
+  version: 1.1.9
+  resolution: "@types/yarnpkg__lockfile@npm:1.1.9"
+  checksum: 8cad287732567efeab3da420115e4250d1b80ee6a6c1afa04db0bb18aa2bd71167f72b1ba9d782b7cbcdb1abaa02710a0dd48f0129eefdf939b58b08a61c7219
   languageName: node
   linkType: hard
 
@@ -9488,7 +9488,7 @@ __metadata:
     "@tsconfig/node12": ^1.0.11
     "@types/jest": ^29.5.1
     "@types/semver": ^7.5.0
-    "@types/yarnpkg__lockfile": ^1.1.5
+    "@types/yarnpkg__lockfile": ^1.1.9
     "@yarnpkg/lockfile": ^1.1.0
     commander: ^10.0.1
     eslint: ^8.38.0
